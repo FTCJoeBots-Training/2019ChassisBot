@@ -35,16 +35,30 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 /**
- * Sample code to test mapping of one motor to the gamepad.
+ * This OpMode ramps a single motor speed up and down repeatedly until Stop is pressed.
+ * The code is structured as a LinearOpMode
+ *
+ * This code assumes a DC motor configured with the name "left_drive" as is found on a pushbot.
+ *
+ * INCREMENT sets how much to increase/decrease the power each cycle
+ * CYCLE_MS sets the update period.
+ *
+ * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
+ * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 @TeleOp(name = "Concept: Ramp Motor Speed", group = "Concept")
 //@Disabled
-public class gregMotorTest extends LinearOpMode {
+public class SilasRampMotorSpeed extends LinearOpMode {
 
+    static final double INCREMENT   = 0.01;     // amount to ramp motor each CYCLE_MS cycle
+    static final int    CYCLE_MS    =   50;     // period of each cycle
+    static final double MAX_FWD     =  1.0;     // Maximum FWD power applied to motor
+    static final double MAX_REV     = -1.0;     // Maximum REV power applied to motor
 
     // Define class members
-    DcMotor motor1;
+    DcMotor motor;
     double  power   = 0;
+    boolean rampUp  = true;
 
 
     @Override
@@ -59,41 +73,33 @@ public class gregMotorTest extends LinearOpMode {
         telemetry.update();
         waitForStart();
 
+
         while(opModeIsActive()) {
 
-            // Map "power" variable to gamepad input
-            power = gamepad1.left_stick_y;
-            motor1.setPower(power);
-
+            //set power equal to joystick input
+                power = gamepad1.left_stick_y;
+                motor1.setPower(power)
+                if (power <= MAX_REV ) {
+                    power = MAX_REV;
+                    rampUp = !rampUp;  // Switch ramp direction
+                }
+            }
 
             // Display the current value
             telemetry.addData("Motor Power", "%5.2f", power);
             telemetry.addData(">", "Press Stop to end test." );
             telemetry.update();
 
+            // Set the motor to the new power and pause;
+            motor.setPower(power);
+            sleep(CYCLE_MS);
             idle();
         }
 
         // Turn off motor and signal done;
-        motor1.setPower(0);
+        motor.setPower(0);
         telemetry.addData(">", "Done");
         telemetry.update();
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
