@@ -59,7 +59,7 @@ public class HardwareJoeBot2018
     private double globalAngle;
 
     // Declare Static members for calculations
-    static final double COUNTS_PER_MOTOR_REV    = 540;
+    static final double COUNTS_PER_MOTOR_REV    = 1120;
     static final double DRIVE_GEAR_REDUCTION    = 1;
     static final double WHEEL_DIAMETER_INCHES   = 4.0;
     static final double COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
@@ -244,6 +244,9 @@ public class HardwareJoeBot2018
         // method will accept a value in inches and a power setting and calculate the number of
         // rotations required to drive the given distance.
 
+        // Tell Telemetry what we're starting
+        myOpMode.telemetry.log().add("Starting moveInches method");
+
         // Declare needed variables
         int newMotor1Target;
         int newMotor2Target;
@@ -277,11 +280,31 @@ public class HardwareJoeBot2018
             // Keep looping (wait) until the motors are finished or timeout is reached.
             while (myOpMode.opModeIsActive() && (runtime.seconds() < timeoutSec) &&
                     (motor1.isBusy() && motor2.isBusy() && motor3.isBusy() && motor4.isBusy())) {
+
+
+                //Compose Telemetry message
+                myOpMode.telemetry.addLine("> Waiting for robot to reach target");
+                myOpMode.telemetry.addLine("Curr. Pos. |")
+                        .addData("1:",motor1.getCurrentPosition())
+                        .addData("2:",motor2.getCurrentPosition())
+                        .addData("3:",motor3.getCurrentPosition())
+                        .addData("4:",motor4.getCurrentPosition());
+                myOpMode.telemetry.addLine("Target | ")
+                        .addData("1:",newMotor1Target)
+                        .addData("2:",newMotor2Target)
+                        .addData("3:",newMotor3Target)
+                        .addData("4:",newMotor4Target);
+                myOpMode.telemetry.addData("Power: ", power);
+                myOpMode.telemetry.update();
+
                 myOpMode.idle();
             }
 
             // Stop the motors
             stop();
+
+            // Update telemetry log
+            myOpMode.telemetry.log().add("Ending moveInches method");
 
             // Set the motors back to standard mode
             setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -353,12 +376,14 @@ public class HardwareJoeBot2018
 
     public void rotate(int degrees, double power){
 
+        myOpMode.telemetry.log().add("Starting rotate method");
+
         // Restart IMU movement tracking
         resetAngle();
 
         // getAngle returns + when rotating counter clockwise and - when rotating clockwise
         // set power (speed) negative when turning right
-        if (degrees < 0 ) power = -power;
+        if (degrees > 0 ) power = -power;
 
         // start robot turning
         moveRobot(0,0,power);
@@ -369,17 +394,33 @@ public class HardwareJoeBot2018
             // On a right turn, since we start on zero, we have to get off zero first
 
             while (myOpMode.opModeIsActive() && getAngle() == 0) {
+                myOpMode.telemetry.addLine(">getAngle() returned 0");
+                myOpMode.telemetry.addLine(">>")
+                        .addData("Cur: ", getAngle())
+                        .addData("Tar: ", degrees);
+                myOpMode.telemetry.update();
             }
 
             while (myOpMode.opModeIsActive() && getAngle() > degrees) {
+                myOpMode.telemetry.addLine(">getAngle() returned >0");
+                myOpMode.telemetry.addLine(">>")
+                        .addData("Cur: ", getAngle())
+                        .addData("Tar: ", degrees);
+                myOpMode.telemetry.update();
             }
         } else {
             // left turn
 
-            while (myOpMode.opModeIsActive() && getAngle() > degrees) {
+            while (myOpMode.opModeIsActive() && getAngle() < degrees) {
+                myOpMode.telemetry.addLine(">getAngle() returned <0");
+                myOpMode.telemetry.addLine(">>")
+                        .addData("Cur: ", getAngle())
+                        .addData("Tar: ", degrees);
+                myOpMode.telemetry.update();
             }
 
         }
+
 
         //Stop the motors
         stop();

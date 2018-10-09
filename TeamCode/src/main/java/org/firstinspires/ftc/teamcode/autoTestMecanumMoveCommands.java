@@ -44,7 +44,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  *
  */
 
-@Autonomous(name="Pushbot: Auto Drive By Encoder", group="Testing")
+@Autonomous(name="Mecanum Code Testing", group="Testing")
 //@Disabled
 public class autoTestMecanumMoveCommands extends LinearOpMode {
 
@@ -71,14 +71,14 @@ public class autoTestMecanumMoveCommands extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        robot.moveInches(12, 0.5, 15);
-        robot.rotate(90,0.5);
-        robot.moveInches(12, 0.5, 15);
-        robot.rotate(90,0.5);
-        robot.moveInches(12, 0.5, 15);
-        robot.rotate(90,0.5);
-        robot.moveInches(12, 0.5, 15);
-        robot.rotate(90,0.5);
+        robot.moveInches(12, 0.3, 15);
+        robot.rotate(90,0.15);
+        robot.moveInches(12, 0.3, 15);
+        robot.rotate(90,0.15);
+        robot.moveInches(12, 0.3, 15);
+        robot.rotate(90,0.15);
+        robot.moveInches(12, 0.3, 15);
+        robot.rotate(90,0.15);
 
 
     }
