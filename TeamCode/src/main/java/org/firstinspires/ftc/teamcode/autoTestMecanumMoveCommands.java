@@ -73,10 +73,13 @@ public class autoTestMecanumMoveCommands extends LinearOpMode {
 
         robot.moveInches(12, 0.3, 15);
         robot.rotate(90,0.15);
+
         robot.moveInches(12, 0.3, 15);
         robot.rotate(90,0.15);
+
         robot.moveInches(12, 0.3, 15);
         robot.rotate(90,0.15);
+
         robot.moveInches(12, 0.3, 15);
         robot.rotate(90,0.15);
 
