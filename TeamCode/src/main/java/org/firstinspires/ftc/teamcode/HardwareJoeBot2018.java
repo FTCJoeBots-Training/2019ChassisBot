@@ -349,7 +349,7 @@ public class HardwareJoeBot2018
 
         // Determine the difference between the current Angle reading and the last reset
         double deltaAngle = currAngles.firstAngle - lastImuAngles.firstAngle;
-
+        deltaAngle = -deltaAngle; // Fixing sign on deltaAngle
         // Since the Rev IMU measures in Euler angles (-180 <-> +180), we need to detect this
         if (deltaAngle < -180) deltaAngle += 360;
         else if (deltaAngle > 180) deltaAngle -= 360;
@@ -381,15 +381,15 @@ public class HardwareJoeBot2018
         // Restart IMU movement tracking
         resetAngle();
 
-        // getAngle returns + when rotating counter clockwise and - when rotating clockwise
-        // set power (speed) negative when turning right
-        if (degrees > 0 ) power = -power;
+        // getAngle returns + when rotating clockwise and - when rotating counter clockwise
+        // set power (speed) negative when turning left
+        if (degrees < 0 ) power = -power;
 
         // start robot turning
         moveRobot(0,0,power);
 
         // stop turning when getAngle() returns a value greater or less than intended degrees
-        if (degrees < 0) {
+        if (degrees > 0) {
             // Expect this to be a right turn
             // On a right turn, since we start on zero, we have to get off zero first
 
@@ -401,7 +401,7 @@ public class HardwareJoeBot2018
                 myOpMode.telemetry.update();
             }
 
-            while (myOpMode.opModeIsActive() && getAngle() > degrees) {
+            while (myOpMode.opModeIsActive() && getAngle() < degrees) {
                 myOpMode.telemetry.addLine(">getAngle() returned >0");
                 myOpMode.telemetry.addLine(">>")
                         .addData("Cur: ", getAngle())
@@ -411,7 +411,7 @@ public class HardwareJoeBot2018
         } else {
             // left turn
 
-            while (myOpMode.opModeIsActive() && getAngle() < degrees) {
+            while (myOpMode.opModeIsActive() && getAngle() > degrees) {
                 myOpMode.telemetry.addLine(">getAngle() returned <0");
                 myOpMode.telemetry.addLine(">>")
                         .addData("Cur: ", getAngle())
