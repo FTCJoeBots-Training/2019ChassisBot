@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -40,18 +41,19 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  *
  */
 
-@Autonomous(name="Yimo Auto Red Crater" , group="Testing")
+@Autonomous(name="Yimo Auto Red Depot", group="8513")
 //@Disabled
-public class yimoRedCrater extends LinearOpMode {
+public class yimoDepot extends LinearOpMode {
 
     /* Declare OpMode members. */
-    HardwareJoeBot2018      robot   = new HardwareJoeBot2018();
+    HardwareJoeBot2018 robot = new HardwareJoeBot2018();
 
     @Override
     public void runOpMode() {
 
         /*
          * Initialize the drive system variables.
+         *
          * The init() method of the hardware class does all the work here
          */
         robot.init(hardwareMap, this);
@@ -67,17 +69,11 @@ public class yimoRedCrater extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        robot.moveInches(41, 0.4, 15);
-        robot.rotate(-89,0.2);
+        robot.moveInches(38, 0.5, 15);
+        robot.rotate(90,0.2);
 
-        robot.moveInches(55, 0.4, 15);
-        /*robot.rotate(90,0.15);
+        robot.moveInches(37, 0.5, 15);
 
-        robot.moveInches(12, 0.3, 15);
-        robot.rotate(90,0.15);
-
-        robot.moveInches(12, 0.3, 15);
-        robot.rotate(90,0.15);*/
 
 
     }

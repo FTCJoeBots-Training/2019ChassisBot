@@ -161,8 +161,8 @@ public class HardwareJoeBot2018
 
     /**
      *
-     * void moveRobot(double forward, double right, double clockwise)
-     *
+     * void moveRobot(double forward, double rigclockwise)
+     *ht, double
      * Calculates power settings for Mecanum drive for JoeBots
      *
      * @param forward
