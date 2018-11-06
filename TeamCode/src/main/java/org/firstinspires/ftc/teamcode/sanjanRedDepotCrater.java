@@ -29,7 +29,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -40,9 +40,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  *
  */
 
-@Autonomous(name="Sanjan Auto Blue Depot" , group="Testing")
+@Autonomous(name="Sanjan Auto Red Depot Crater" , group="Teasting")
 //@Disabled
-public class sanjanBlueDepot extends LinearOpMode {
+public class sanjanRedDepotCrater extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareJoeBot2018      robot   = new HardwareJoeBot2018();
@@ -67,10 +67,13 @@ public class sanjanBlueDepot extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        robot.rotate( -45, 0.5);
-        robot.moveInches(38, 0.5, 10);
-        robot.rotate( 90, 0.5);
-        robot.moveInches(38, 0.5, 10);
+        robot.rotate( 45, 0.5);
+        robot.moveInches(46, 0.5, 10);
+        robot.rotate( -84, 0.5);
+        robot.moveInches(40, 0.5, 10);
+        //robot.rotate( -178, 0.5);
+        robot.moveInches(-60, .3, 6);
+
     }
 
 }

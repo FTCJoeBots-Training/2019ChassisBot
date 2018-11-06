@@ -31,7 +31,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
  *
  */
 
-public class HardwareJoeBot2018
+public class HardwareJoeBot2018Turn
 {
     /* Public OpMode members. */
 
@@ -67,7 +67,7 @@ public class HardwareJoeBot2018
 
 
     /* Constructor */
-    public HardwareJoeBot2018(){
+    public HardwareJoeBot2018Turn(){
 
     }
 
@@ -361,6 +361,9 @@ public class HardwareJoeBot2018
         return globalAngle;
 
     }
+    /*Determine current angles
+
+     */
 
     /**
      *
@@ -375,6 +378,7 @@ public class HardwareJoeBot2018
      */
 
     public void rotate(int degrees, double power){
+        double difference = 999;
 
         myOpMode.telemetry.log().add("Starting rotate method");
 
@@ -394,17 +398,32 @@ public class HardwareJoeBot2018
             // On a right turn, since we start on zero, we have to get off zero first
 
             while (myOpMode.opModeIsActive() && getAngle() == 0) {
+                difference = Math.abs (degrees)- Math.abs(getAngle());
+                if (difference < 15)
+                {
+                    moveRobot(0,0,.1);
+                }
                 myOpMode.telemetry.addLine(">getAngle() returned 0");
                 myOpMode.telemetry.addLine(">>")
                         .addData("Cur: ", getAngle())
+                        .addData("Power:",power)
+                        .addData("Difference:",difference)
                         .addData("Tar: ", degrees);
                 myOpMode.telemetry.update();
             }
 
             while (myOpMode.opModeIsActive() && getAngle() < degrees) {
+                difference = Math.abs (degrees)- Math.abs(getAngle());
+                if (difference < 15)
+                {
+                    moveRobot(0,0,.1);
+                }
+
                 myOpMode.telemetry.addLine(">getAngle() returned >0");
                 myOpMode.telemetry.addLine(">>")
-                        .addData("Cur: ", getAngle())
+                .addData("Cur: ", getAngle())
+                        .addData("Power:",power)
+                        .addData("Difference:",difference)
                         .addData("Tar: ", degrees);
                 myOpMode.telemetry.update();
             }
@@ -412,9 +431,18 @@ public class HardwareJoeBot2018
             // left turn
 
             while (myOpMode.opModeIsActive() && getAngle() > degrees) {
+                difference = Math.abs (degrees)- Math.abs(getAngle());
+                if (difference < 15)
+                {
+
+                    moveRobot(0,0,-.1);
+                }
+
                 myOpMode.telemetry.addLine(">getAngle() returned <0");
                 myOpMode.telemetry.addLine(">>")
-                        .addData("Cur: ", getAngle())
+                .addData("Cur: ", getAngle())
+                        .addData("Power:",power)
+                        .addData("Difference:",difference)
                         .addData("Tar: ", degrees);
                 myOpMode.telemetry.update();
             }
