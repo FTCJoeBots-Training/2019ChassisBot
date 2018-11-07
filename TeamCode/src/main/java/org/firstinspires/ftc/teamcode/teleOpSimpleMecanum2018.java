@@ -41,7 +41,14 @@ public class teleOpSimpleMecanum2018 extends LinearOpMode {
         double forward;
         double clockwise;
         double right;
+        double shoulderPower;
+        double elbowPower;
 
+        //boolean variables for ButtonStates
+        boolean bCurrStateLB = false;
+        boolean bPrevStateLB = false;
+        boolean bCurrStateRB = false;
+        boolean bPrevStateRB = false;
 
         waitForStart();
 
@@ -59,6 +66,33 @@ public class teleOpSimpleMecanum2018 extends LinearOpMode {
             clockwise = gamepad1.right_stick_x;
 
             robot.moveRobot(forward, right, clockwise);
+
+            shoulderPower   = -gamepad2.left_stick_y;
+            elbowPower      = -gamepad2.right_stick_y;
+
+            robot.shoulderMotor.setPower(shoulderPower);
+            robot.elbowMotor.setPower(elbowPower);
+
+            bCurrStateLB = gamepad2.left_bumper;
+            if ((bCurrStateLB == true) && (bCurrStateLB != bPrevStateLB)) {
+                // Left bumper has been pressed. We should set intake to reverse
+                // also, if Intake is currently running, and running in reverse, we should stop it
+
+                robot.toggleIntake("reverse");
+
+            }
+            bPrevStateLB = bCurrStateLB;
+
+            bCurrStateRB = gamepad2.right_bumper;
+            if ((bCurrStateRB == true) && (bCurrStateRB != bPrevStateRB)) {
+                // Left bumper has been pressed. We should set intake to reverse
+                // also, if Intake is currently running, and running in reverse, we should stop it
+
+                robot.toggleIntake("forward");
+
+            }
+            bPrevStateRB = bCurrStateRB;
+
 
 
             // Update Telemetry

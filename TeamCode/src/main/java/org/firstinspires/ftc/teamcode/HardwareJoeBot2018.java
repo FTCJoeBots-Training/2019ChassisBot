@@ -4,6 +4,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -40,6 +41,11 @@ public class HardwareJoeBot2018
     public DcMotor  motor1 = null; // Right Front
     public DcMotor  motor2 = null; // Left Rear
     public DcMotor  motor3 = null; // Right Rear
+    public DcMotor  liftMotor = null; // Lander Lift Motor
+    public DcMotor  shoulderMotor = null;
+    public DcMotor  elbowMotor =  null;
+    public DcMotor  intakeMotor = null;
+
 
     // Declare Sensors
     public BNO055IMU imu;                  // The IMU sensor object
@@ -64,6 +70,7 @@ public class HardwareJoeBot2018
     static final double WHEEL_DIAMETER_INCHES   = 4.0;
     static final double COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.14159);
+    static final double INTAKE_MOTOR_POWER = 0.4;
 
 
     /* Constructor */
@@ -84,17 +91,35 @@ public class HardwareJoeBot2018
         motor2 = hwMap.dcMotor.get("motor2");
         motor3 = hwMap.dcMotor.get("motor3");
 
-        // Set Default Motor Directions
+        liftMotor       = hwMap.dcMotor.get("liftMotor");
+        shoulderMotor   = hwMap.dcMotor.get("shoulderMotor");
+        elbowMotor      = hwMap.dcMotor.get("elbowMotor");
+        intakeMotor     = hwMap.dcMotor.get("intakeMotor");
+
+        // Set Default Motor Directions for Drive Motors
         motor0.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         motor1.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
         motor2.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         motor3.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
+
+        // Set Default Motor Direction for other Motors
+        // For now, assume all directions run forward
+        liftMotor.setDirection(DcMotor.Direction.FORWARD);
+        shoulderMotor.setDirection(DcMotor.Direction.FORWARD);
+        elbowMotor.setDirection(DcMotor.Direction.FORWARD);
+        intakeMotor.setDirection(DcMotor.Direction.FORWARD);
 
         // Set all motors to zero power
         motor0.setPower(0);
         motor1.setPower(0);
         motor2.setPower(0);
         motor3.setPower(0);
+
+        liftMotor.setPower(0);
+        shoulderMotor.setPower(0);
+        elbowMotor.setPower(0);
+        intakeMotor.setPower(0);
+
 
         // Set all drive motors to run without encoders.
         // May want to switch to  RUN_USING_ENCODERS during autonomous
@@ -103,6 +128,17 @@ public class HardwareJoeBot2018
         motor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motor3.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+        shoulderMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        elbowMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        // TESTING
+        // Set liftMotor to RUN_TO_POSITION and tell it to run to zero
+
+        liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        liftMotor.setTargetPosition(0);
+        liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        liftMotor.setPower(0.3);
 
         // IMU Initializaiton
         // Set up the parameters with which we will use our IMU. Note that integration
@@ -429,6 +465,47 @@ public class HardwareJoeBot2018
         resetAngle();
 
 
+
+    }
+
+    public void toggleIntake(String strIntakeDirection) {
+
+        //This method should determine the current status of the intake motor. If the motor is
+        // stopped, it should be started in the appropriate direction at the appropriate power.
+        // if the motor is currently running in the same direction as supplied to the method,
+        // then the motor should stop. Otherwise, we should switch the motor to the direction
+        // supplied.
+
+        if (intakeMotor.getPower() != 0) {
+            // Motor must be running... Is it running in the correct direction?
+            if (intakeMotor.getPower() < 0) {
+                // Motor is running in reverse
+                if (strIntakeDirection.equals("reverse")) {
+                    // Motor is running and running the correct direction. Stop the motor.
+                    intakeMotor.setPower(0);
+                } else if (strIntakeDirection.equals("forward")) {
+                    // Motor is running and running in the opposite direction. Invert the power.
+                    intakeMotor.setPower(-intakeMotor.getPower());
+                }
+            } else {
+                // intake motor is running forward
+                if (strIntakeDirection.equals("forward")) {
+                    //Motor is running in the correct direction. Stop the motor.
+                    intakeMotor.setPower(0);
+                } else if (strIntakeDirection.equals("reverse")) {
+                    //Motor is running in the wrong direction
+                    intakeMotor.setPower(-intakeMotor.getPower());
+                }
+            }
+        } else {
+            // Intake motor is currently stopped. Start it int he appropriate direction.
+            if (strIntakeDirection.equals("forward")) {
+                intakeMotor.setPower(INTAKE_MOTOR_POWER);
+            } else if (strIntakeDirection.equals("reverse")) {
+                intakeMotor.setPower(-INTAKE_MOTOR_POWER);
+            }
+
+        }
 
     }
 
