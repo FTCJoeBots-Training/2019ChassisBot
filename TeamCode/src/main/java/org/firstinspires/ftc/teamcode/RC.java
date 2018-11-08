@@ -31,22 +31,11 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-//import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DcMotor;
-//import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import android.app.Activity;
-import android.graphics.Color;
-import android.view.View;
 
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-
-
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
-
-import java.util.Locale;
+//import com.qualcomm.robotcore.hardware.ColorSensor;
+//import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
@@ -75,8 +64,8 @@ import java.util.Locale;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="RD", group="Pushbot")
-public class AutoCODEoof extends LinearOpMode {
+@Autonomous(name="RC", group="Pushbot")
+public class RC extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareJoeBot2018      robot   = new HardwareJoeBot2018();   // Use a Pushbot's hardware
@@ -124,14 +113,15 @@ public class AutoCODEoof extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        // Red Depot Code
-       robot.moveInches(15,.25,10);
-        robot.rotate(86,.25); // left not Right
-        robot.moveInches(40,.25,10);
-        robot.rotate(-119,.25); // Right not left
-        robot.moveInches(59,.25,10);
-        robot.rotate(70,.25);
-        robot.moveInches(-85,.35,10);
+        // Red Crater Code
+       robot.moveInches(19,.25,15);
+       robot.rotate(90,.25);
+        robot.moveInches(24,.25,15);
+        robot.rotate(45,.25);
+        robot.moveInches(48,.25,15);
+        robot.moveInches(-85,.35,15);
+
+
 
 
 
