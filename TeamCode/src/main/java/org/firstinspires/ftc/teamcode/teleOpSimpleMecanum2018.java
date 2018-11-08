@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 /**
  *import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -43,15 +44,22 @@ public class teleOpSimpleMecanum2018 extends LinearOpMode {
         double right;
         double shoulderPower;
         double elbowPower;
+        double maxShoulderPower = 0.5;
+        double maxElbowPower = 0.5;
 
         //boolean variables for ButtonStates
         boolean bCurrStateLB = false;
         boolean bPrevStateLB = false;
         boolean bCurrStateRB = false;
         boolean bPrevStateRB = false;
+        boolean bCurrStateA = false;
+        boolean bPrevStateA = false;
+        boolean bCurrStateB = false;
+        boolean bPrevStateB = false;
 
         waitForStart();
 
+        //robot.liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
         //start of loop
@@ -70,8 +78,8 @@ public class teleOpSimpleMecanum2018 extends LinearOpMode {
             shoulderPower   = -gamepad2.left_stick_y;
             elbowPower      = -gamepad2.right_stick_y;
 
-            robot.shoulderMotor.setPower(shoulderPower);
-            robot.elbowMotor.setPower(elbowPower);
+            robot.shoulderMotor.setPower(shoulderPower * maxShoulderPower);
+            robot.elbowMotor.setPower(elbowPower * maxElbowPower);
 
             bCurrStateLB = gamepad2.left_bumper;
             if ((bCurrStateLB == true) && (bCurrStateLB != bPrevStateLB)) {
@@ -93,10 +101,42 @@ public class teleOpSimpleMecanum2018 extends LinearOpMode {
             }
             bPrevStateRB = bCurrStateRB;
 
+            bCurrStateA = gamepad2.a;
+            if ((bCurrStateA == true) && (bCurrStateA != bPrevStateA)) {
+                // Left bumper has been pressed. We should set intake to reverse
+                // also, if Intake is currently running, and running in reverse, we should stop it
+
+                robot.lowerLift();
+
+            }
+            bPrevStateA = bCurrStateA;
+
+            bCurrStateB = gamepad2.b;
+            if ((bCurrStateB == true) && (bCurrStateB != bPrevStateB)) {
+                // Left bumper has been pressed. We should set intake to reverse
+                // also, if Intake is currently running, and running in reverse, we should stop it
+
+                robot.raiseLift();
+
+            }
+            bPrevStateB = bCurrStateB;
+
+            while (opModeIsActive() && gamepad2.dpad_up) {
+                robot.liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.liftMotor.setPower(0.3);
+            }
+            robot.liftMotor.setPower(0);
+            while (opModeIsActive() && gamepad2.dpad_down) {
+                robot.liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.liftMotor.setPower(-0.3);
+            }
+            robot.liftMotor.setPower(0);
+            robot.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
             // Update Telemetry
             telemetry.addData(">", "Press Stop to end test.");
+            telemetry.addData("Lift Motor Position: ", robot.liftMotor.getCurrentPosition());
             telemetry.update();
             idle();
 

@@ -71,6 +71,9 @@ public class HardwareJoeBot2018
     static final double COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.14159);
     static final double INTAKE_MOTOR_POWER = 0.4;
+    static final int LIFT_DOWN_POSITION = 0;
+    static final int LIFT_UP_POSITION = 2500;
+    static final double LIFT_POWER = 0.3;
 
 
     /* Constructor */
@@ -507,6 +510,32 @@ public class HardwareJoeBot2018
 
         }
 
+    }
+
+    public void lowerLift() {
+        liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        liftMotor.setTargetPosition(LIFT_DOWN_POSITION);
+        liftMotor.setPower(LIFT_POWER);
+        while (myOpMode.opModeIsActive() && liftMotor.isBusy()){
+            myOpMode.telemetry.addLine("Lowering Lift");
+            myOpMode.telemetry.addData("Target Position: ", LIFT_DOWN_POSITION);
+            myOpMode.telemetry.addData("Current Position: ", liftMotor.getCurrentPosition());
+            myOpMode.telemetry.update();
+            myOpMode.idle();
+        }
+    }
+
+    public void raiseLift(){
+        liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        liftMotor.setTargetPosition(LIFT_UP_POSITION);
+        liftMotor.setPower(LIFT_POWER);
+        while (myOpMode.opModeIsActive() && liftMotor.isBusy()){
+            myOpMode.telemetry.addLine("Raising Lift");
+            myOpMode.telemetry.addData("Target Position: ", LIFT_UP_POSITION);
+            myOpMode.telemetry.addData("Current Position: ", liftMotor.getCurrentPosition());
+            myOpMode.telemetry.update();
+            myOpMode.idle();
+        }
     }
 
 }
