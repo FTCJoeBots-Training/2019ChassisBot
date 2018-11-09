@@ -74,6 +74,15 @@ public class HardwareJoeBot2018
     static final int LIFT_DOWN_POSITION = 0;
     static final int LIFT_UP_POSITION = 2500;
     static final double LIFT_POWER = 0.3;
+    static final int ELBOW_STOW_POS = 0;
+    static final int ELBOW_SEARCH_POS = 200;
+    static final int ELBOW_SCORE_POS = 200;
+    static final int SHOULDER_STOW_POS = 0;
+    static final int SHOULDER_SEARCH_POS = 200;
+    static final int SHOULDER_SCORE_POS = 200;
+    static final double ELBOW_STD_POWER = 0.5;
+    static final double SHOULDER_STD_POWER = 0.5;
+
 
 
     /* Constructor */
@@ -131,9 +140,13 @@ public class HardwareJoeBot2018
         motor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motor3.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        shoulderMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        elbowMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        shoulderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        elbowMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        shoulderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        elbowMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
 
         // TESTING
         // Set liftMotor to RUN_TO_POSITION and tell it to run to zero
@@ -142,6 +155,9 @@ public class HardwareJoeBot2018
         liftMotor.setTargetPosition(0);
         liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         liftMotor.setPower(0.3);
+
+        //
+
 
         // IMU Initializaiton
         // Set up the parameters with which we will use our IMU. Note that integration
@@ -537,5 +553,30 @@ public class HardwareJoeBot2018
             myOpMode.idle();
         }
     }
+
+    public void stowArm() {
+        // Move the arm to stowing position
+        shoulderMotor.setTargetPosition(SHOULDER_STOW_POS);
+        elbowMotor.setTargetPosition(ELBOW_STOW_POS);
+        shoulderMotor.setPower(SHOULDER_STD_POWER);
+        elbowMotor.setPower(ELBOW_STD_POWER);
+    }
+
+    public void scoreArm() {
+        // Move the arm to Scoring position
+        shoulderMotor.setTargetPosition(SHOULDER_SCORE_POS);
+        elbowMotor.setTargetPosition(ELBOW_SCORE_POS);
+        shoulderMotor.setPower(SHOULDER_STD_POWER);
+        elbowMotor.setPower(ELBOW_STD_POWER);
+    }
+
+    public void searchArm() {
+        // Move the arm to Searching position
+        shoulderMotor.setTargetPosition(SHOULDER_SEARCH_POS);
+        elbowMotor.setTargetPosition(ELBOW_SEARCH_POS);
+        shoulderMotor.setPower(SHOULDER_STD_POWER);
+        elbowMotor.setPower(ELBOW_STD_POWER);
+    }
+
 
 }

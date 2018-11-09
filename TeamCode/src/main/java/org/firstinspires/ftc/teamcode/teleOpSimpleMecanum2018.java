@@ -56,6 +56,15 @@ public class teleOpSimpleMecanum2018 extends LinearOpMode {
         boolean bPrevStateA = false;
         boolean bCurrStateB = false;
         boolean bPrevStateB = false;
+        boolean bCurrStateX = false;
+        boolean bPrevStateX = false;
+        boolean bCurrStateY = false;
+        boolean bPrevStateY = false;
+        boolean bCurrStateDPD = false;
+        boolean bPrevStateDPD = false;
+        boolean bCurrStateDPU = false;
+        boolean bPrevStateDPU = false;
+
 
         waitForStart();
 
@@ -75,11 +84,6 @@ public class teleOpSimpleMecanum2018 extends LinearOpMode {
 
             robot.moveRobot(forward, right, clockwise);
 
-            shoulderPower   = -gamepad2.left_stick_y;
-            elbowPower      = -gamepad2.right_stick_y;
-
-            robot.shoulderMotor.setPower(shoulderPower * maxShoulderPower);
-            robot.elbowMotor.setPower(elbowPower * maxElbowPower);
 
             bCurrStateLB = gamepad2.left_bumper;
             if ((bCurrStateLB == true) && (bCurrStateLB != bPrevStateLB)) {
@@ -101,37 +105,68 @@ public class teleOpSimpleMecanum2018 extends LinearOpMode {
             }
             bPrevStateRB = bCurrStateRB;
 
-            bCurrStateA = gamepad2.a;
-            if ((bCurrStateA == true) && (bCurrStateA != bPrevStateA)) {
+            bCurrStateDPD = gamepad2.dpad_down;
+            if ((bCurrStateDPD == true) && (bCurrStateDPD != bPrevStateDPD)) {
                 // Left bumper has been pressed. We should set intake to reverse
                 // also, if Intake is currently running, and running in reverse, we should stop it
 
                 robot.lowerLift();
 
             }
-            bPrevStateA = bCurrStateA;
+            bPrevStateDPD = bCurrStateDPD;
 
-            bCurrStateB = gamepad2.b;
-            if ((bCurrStateB == true) && (bCurrStateB != bPrevStateB)) {
+            bCurrStateDPU = gamepad2.dpad_up;
+            if ((bCurrStateDPU == true) && (bCurrStateDPU != bPrevStateDPU)) {
                 // Left bumper has been pressed. We should set intake to reverse
                 // also, if Intake is currently running, and running in reverse, we should stop it
 
                 robot.raiseLift();
 
             }
-            bPrevStateB = bCurrStateB;
+            bPrevStateDPU = bCurrStateDPU;
 
-            while (opModeIsActive() && gamepad2.dpad_up) {
+            while (opModeIsActive() && gamepad2.dpad_left) {
                 robot.liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 robot.liftMotor.setPower(0.3);
             }
             robot.liftMotor.setPower(0);
-            while (opModeIsActive() && gamepad2.dpad_down) {
+            while (opModeIsActive() && gamepad2.dpad_right) {
                 robot.liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 robot.liftMotor.setPower(-0.3);
             }
             robot.liftMotor.setPower(0);
             robot.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+            bCurrStateA = gamepad2.a;
+            if ((bCurrStateA == true) && (bCurrStateA != bPrevStateA)) {
+
+                // When the "A" button is pressed, we want to enable search mode
+
+                robot.searchArm();
+
+            }
+            bPrevStateA = bCurrStateA;
+
+            bCurrStateB = gamepad2.b;
+            if ((bCurrStateB == true) && (bCurrStateB != bPrevStateB)) {
+
+                // When the "B" button is pressed, we want to enable Scoring mode
+
+                robot.scoreArm();
+
+            }
+            bPrevStateB = bCurrStateB;
+
+            bCurrStateY = gamepad2.y;
+            if ((bCurrStateY == true) && (bCurrStateY != bPrevStateY)) {
+
+                // When the "B" button is pressed, we want to enable Scoring mode
+
+                robot.stowArm();
+
+            }
+            bPrevStateY = bCurrStateY;
 
 
             // Update Telemetry
