@@ -5,6 +5,8 @@ import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.configuration.typecontainers.ServoConfigurationType;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
@@ -40,6 +42,14 @@ public class HardwareJoeBot2018
     public DcMotor  motor2 = null; // Right Front
     public DcMotor  motor3 = null; // Left Rear
     public DcMotor  motor4 = null; // Right Rear
+    public DcMotor  intakeMotor = null;
+    public DcMotor  rotateMotor = null;
+    public DcMotor  liftMotor = null;
+    public Servo    scoringServo = null;
+    public Servo    leftPosServo = null;
+    public Servo    rightPosServo = null;
+    public Servo    leftCollectionServo = null;
+    public Servo    rightCollectionServo = null;
 
     // Declare Sensors
     public BNO055IMU imu;                  // The IMU sensor object
