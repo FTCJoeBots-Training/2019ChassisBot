@@ -48,8 +48,7 @@ public class HardwareJoeBot2018
     public Servo    scoringServo = null;
     public Servo    leftPosServo = null;
     public Servo    rightPosServo = null;
-    public Servo    leftCollectionServo = null;
-    public Servo    rightCollectionServo = null;
+
 
     // Declare Sensors
     public BNO055IMU imu;                  // The IMU sensor object
@@ -322,6 +321,55 @@ public class HardwareJoeBot2018
         }
 
     }
+
+    //both are intake
+    public void forwardToggle () {
+    if(intakeMotor.getPower() != 0) {
+        //motor must be running
+        intakeMotor.setPower(0);
+    }
+    else {
+       intakeMotor.setPower(1);
+    }
+
+    }
+
+    public void backwardToggle () {
+        if(intakeMotor.getPower() != 0) {
+            //motor must be running
+            intakeMotor.setPower(0);
+        }
+        else {
+            intakeMotor.setPower(-1);
+        }
+
+    }
+
+    public void minLanderPos () {
+        if (liftMotor.getCurrentPosition() <= 52) {
+            liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            liftMotor.setTargetPosition(52);
+        }
+        if (liftMotor.getCurrentPosition() >= 52) {
+            liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            liftMotor.setTargetPosition(52);
+            }
+    }
+
+    public void hangLanderPos () {
+        if (liftMotor.getCurrentPosition() <= 1429) {
+            liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            liftMotor.setTargetPosition(1429);
+        }
+        if (liftMotor.getCurrentPosition() >= 1429) {
+            liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            liftMotor.setTargetPosition(1429);
+        }
+    }
+
+
+    //methods a lpenty.
+    //no longer intake
 
     /**
      *
