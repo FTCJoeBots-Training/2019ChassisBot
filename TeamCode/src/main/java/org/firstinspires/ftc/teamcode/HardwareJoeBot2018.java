@@ -75,13 +75,13 @@ public class HardwareJoeBot2018
     static final int LIFT_UP_POSITION = 2500;
     static final double LIFT_POWER = 0.3;
     static final int ELBOW_STOW_POS = 0;
-    static final int ELBOW_SEARCH_POS = 200;
-    static final int ELBOW_SCORE_POS = 200;
+    static final int ELBOW_SEARCH_POS = 365;
+    static final int ELBOW_SCORE_POS = 351;
     static final int SHOULDER_STOW_POS = 0;
-    static final int SHOULDER_SEARCH_POS = 200;
-    static final int SHOULDER_SCORE_POS = 200;
-    static final double ELBOW_STD_POWER = 0.5;
-    static final double SHOULDER_STD_POWER = 0.5;
+    static final int SHOULDER_SEARCH_POS = -1220;
+    static final int SHOULDER_SCORE_POS = -267;
+    static final double ELBOW_STD_POWER = 0.4;
+    static final double SHOULDER_STD_POWER = 0.4;
 
 
 

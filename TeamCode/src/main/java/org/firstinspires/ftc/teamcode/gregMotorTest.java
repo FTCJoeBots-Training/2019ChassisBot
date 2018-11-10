@@ -33,6 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Sample code to test mapping of one motor to the gamepad.
@@ -48,6 +49,9 @@ public class gregMotorTest extends LinearOpMode {
     DcMotor  elbowMotor =  null;
     DcMotor  intakeMotor = null;
 
+    Servo    markerServo = null;
+    Servo    mineralServo = null;
+
 
     @Override
     public void runOpMode() {
@@ -56,6 +60,9 @@ public class gregMotorTest extends LinearOpMode {
         shoulderMotor   = hardwareMap.dcMotor.get("shoulderMotor");
         elbowMotor      = hardwareMap.dcMotor.get("elbowMotor");
         intakeMotor     = hardwareMap.dcMotor.get("intakeMotor");
+
+        markerServo     = hardwareMap.servo.get("markerServo");
+        mineralServo    = hardwareMap.servo.get("mineralServo");
 
         liftMotor.setDirection(DcMotor.Direction.FORWARD);
         shoulderMotor.setDirection(DcMotor.Direction.FORWARD);
@@ -66,6 +73,9 @@ public class gregMotorTest extends LinearOpMode {
         shoulderMotor.setPower(0);
         elbowMotor.setPower(0);
         intakeMotor.setPower(0);
+
+
+
 
         // Wait for the start button
         telemetry.addData(">", "Press Start to run Motors." );
@@ -78,6 +88,8 @@ public class gregMotorTest extends LinearOpMode {
             telemetry.addData("liftMotor Pos: ", liftMotor.getCurrentPosition());
             telemetry.addData("shoulderMotor Pos: ", shoulderMotor.getCurrentPosition());
             telemetry.addData("elbowMotor Pos: ", elbowMotor.getCurrentPosition());
+            telemetry.addData("Marker Servo: ", markerServo.getPosition());
+            telemetry.addData("Mineral Servo: ", mineralServo.getPosition());
             telemetry.addData(">", "Press Stop to end test." );
             telemetry.update();
 
