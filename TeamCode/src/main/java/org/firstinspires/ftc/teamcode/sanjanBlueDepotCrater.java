@@ -66,13 +66,13 @@ public class sanjanBlueDepotCrater extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
- 
+
         robot.rotate( -45, 0.5);
         robot.moveInches(47, 0.5, 10);
         robot.rotate( 83, 0.3);
         robot.moveInches(40, 0.5, 5);
-        //robot.rotate( 178, 0.5);
-        robot.moveInches(-80, .8, 9);
+        //robot.rotate( 178, 0.5);8
+        robot.moveInches(-72, .8, 9);
 
     }
 
