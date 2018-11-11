@@ -1,11 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.hardware.Sensor;
+
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
@@ -46,6 +49,8 @@ public class HardwareJoeBot2018
     public DcMotor  elbowMotor =  null;
     public DcMotor  intakeMotor = null;
 
+    public Servo    mineralServo = null;
+    public Servo    markerServo = null;
 
     // Declare Sensors
     public BNO055IMU imu;                  // The IMU sensor object
@@ -71,9 +76,12 @@ public class HardwareJoeBot2018
     static final double COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.14159);
     static final double INTAKE_MOTOR_POWER = 0.4;
+
     static final int LIFT_DOWN_POSITION = 0;
     static final int LIFT_UP_POSITION = 2500;
     static final double LIFT_POWER = 0.3;
+
+
     static final int ELBOW_STOW_POS = 0;
     static final int ELBOW_SEARCH_POS = 365;
     static final int ELBOW_SCORE_POS = 351;
@@ -83,6 +91,13 @@ public class HardwareJoeBot2018
     static final double ELBOW_STD_POWER = 0.4;
     static final double SHOULDER_STD_POWER = 0.4;
 
+    static final double MARKER_OPEN_POS = 0.8;
+    static final double MARKER_CLOSE_POS = 0.3;
+
+    static final double MINERAL_OPEN_POS = 0.3;
+    static final double MINERAL_CLOSE_POS = 0.8;
+
+    private boolean bMineralDoorOpen = false;
 
 
     /* Constructor */
@@ -131,6 +146,15 @@ public class HardwareJoeBot2018
         shoulderMotor.setPower(0);
         elbowMotor.setPower(0);
         intakeMotor.setPower(0);
+
+        // Map Servos
+        mineralServo = hwMap.get(Servo.class, "mineralServo");
+        markerServo = hwMap.get(Servo.class, "markerServo");
+
+        // Set intial Servo Positions
+        mineralServo.setPosition(MINERAL_OPEN_POS);
+        bMineralDoorOpen = true;
+        markerServo.setPosition(MARKER_CLOSE_POS);
 
 
         // Set all drive motors to run without encoders.
@@ -576,6 +600,28 @@ public class HardwareJoeBot2018
         elbowMotor.setTargetPosition(ELBOW_SEARCH_POS);
         shoulderMotor.setPower(SHOULDER_STD_POWER);
         elbowMotor.setPower(ELBOW_STD_POWER);
+    }
+
+    public void toggleMineralDoor() {
+
+        if(bMineralDoorOpen) {
+            //Mineral door is open; close it.
+            mineralServo.setPosition(MINERAL_CLOSE_POS);
+            bMineralDoorOpen = false;
+        } else {
+            // Mineral Door is closed. Open it.
+            mineralServo.setPosition(MINERAL_OPEN_POS);
+            bMineralDoorOpen = true;
+        }
+
+    }
+
+    public void dropMarker() {
+        // Open and Close Servo
+        markerServo.setPosition(MARKER_OPEN_POS);
+        myOpMode.sleep(1000);
+        markerServo.setPosition(MARKER_CLOSE_POS);
+
     }
 
 

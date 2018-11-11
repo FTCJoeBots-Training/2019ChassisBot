@@ -71,6 +71,10 @@ public class sanjanRedDepot extends LinearOpMode {
         robot.moveInches(38, 0.5, 10);
         robot.rotate( 90, 0.5);
         robot.moveInches(38, 0.5, 10);
+
+        robot.dropMarker();
+
+
     }
 
 }
