@@ -33,6 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Sample code to test mapping of one motor to the gamepad.
@@ -45,7 +46,17 @@ public class gregMotorTest extends LinearOpMode {
     // Define class members
     DcMotor motor1;
     double  power   = 0;
+    DcMotor  liftMotor;
+    DcMotor  mainBucketMotor;
+    DcMotor  intakeMotor;
+    Servo liftbucket;
 
+    double  liftpower = 0;
+    double mainpower = 0;
+    double intakepower = 0;
+
+    boolean bcurrstate;
+    boolean bprevstate;
 
     @Override
     public void runOpMode() {
@@ -53,6 +64,12 @@ public class gregMotorTest extends LinearOpMode {
         // Connect to motor (Assume standard left wheel)
         // Change the text in quotes to match any motor name on your robot.
         motor1 = hardwareMap.get(DcMotor.class, "motor1");
+        liftMotor = hardwareMap.get(DcMotor.class, "liftmotor");
+        mainBucketMotor = hardwareMap.get(DcMotor.class, "mainbucketmotor");
+        intakeMotor = hardwareMap.get(DcMotor.class, "intakemotor");
+
+
+
 
         // Wait for the start button
         telemetry.addData(">", "Press Start to run Motors." );
@@ -62,12 +79,33 @@ public class gregMotorTest extends LinearOpMode {
         while(opModeIsActive()) {
 
             // Map "power" variable to gamepad input
-            power = gamepad1.left_stick_y;
-            motor1.setPower(power);
+            mainpower = gamepad1.left_stick_y;
+            mainBucketMotor.setPower(mainpower);
+
+            liftpower = gamepad1.right_stick_y;
+            liftMotor.setPower(liftpower);
+
+            if (gamepad1.a) {
+                if(bcurrstate == bprevstate) {
+                    intakepower = 0;
+                    intakeMotor.setPower(intakepower);
+                }
+                if(bcurrstate != bprevstate) {
+                    intakepower = 1;
+                    intakeMotor.setPower(intakepower);
+
+                }
+
+
+            }
 
 
             // Display the current value
             telemetry.addData("Motor Power", "%5.2f", power);
+            telemetry.addData("Lift Bucket Motor Power", "%5.2f", liftpower);
+            telemetry.addData("Main Bucket Motor Power", "%5.2f", mainpower);
+
+
             telemetry.addData(">", "Press Stop to end test." );
             telemetry.update();
 

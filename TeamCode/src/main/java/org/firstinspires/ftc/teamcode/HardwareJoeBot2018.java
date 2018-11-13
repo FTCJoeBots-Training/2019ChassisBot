@@ -4,6 +4,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.ServoConfigurationType;
@@ -43,11 +44,17 @@ public class HardwareJoeBot2018
     public DcMotor  motor3 = null; // Left Rear
     public DcMotor  motor4 = null; // Right Rear
     public DcMotor  intakeMotor = null;
+    public DcMotor  mainBucketMotor = null;
+    public DcMotor  liftBucketMotor = null;
     public DcMotor  rotateMotor = null;
     public DcMotor  liftMotor = null;
     public Servo    scoringServo = null;
     public Servo    leftPosServo = null;
     public Servo    rightPosServo = null;
+    public Servo    bearServo = null;
+  //  DcMotor shoulderMotor;
+ //   DcMotor elbowMotor;
+
 
 
     // Declare Sensors
@@ -92,18 +99,28 @@ public class HardwareJoeBot2018
         motor2 = hwMap.dcMotor.get("motor2");
         motor3 = hwMap.dcMotor.get("motor3");
         motor4 = hwMap.dcMotor.get("motor4");
+        liftBucketMotor = hwMap.dcMotor.get("liftBucketMotor");
+        mainBucketMotor = hwMap.dcMotor.get("mainBucketMotor");
+        intakeMotor = hwMap.dcMotor.get("intakeMotor");
 
         // Set Default Motor Directions
         motor1.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         motor2.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
         motor3.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         motor4.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
+        liftBucketMotor.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
+        mainBucketMotor.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
+        intakeMotor.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
+
 
         // Set all motors to zero power
         motor1.setPower(0);
         motor2.setPower(0);
         motor3.setPower(0);
         motor4.setPower(0);
+        liftBucketMotor.setPower(0);
+        mainBucketMotor.setPower(0);
+        intakeMotor.setPower(0);
 
         // Set all drive motors to run without encoders.
         // May want to switch to  RUN_USING_ENCODERS during autonomous
@@ -111,6 +128,9 @@ public class HardwareJoeBot2018
         motor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motor3.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motor4.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        liftBucketMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        mainBucketMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
         // IMU Initializaiton
@@ -186,12 +206,20 @@ public class HardwareJoeBot2018
         double power2;
         double power3;
         double power4;
+        double liftPower;
+        double mainPower;
+
         double max;
 
         power1 = forward + clockwise + right;
         power2 = forward - clockwise - right;
         power3 = forward + clockwise - right;
         power4 = forward - clockwise + right;
+        liftPower = liftBucketMotor.getCurrentPosition();
+        mainPower = mainBucketMotor.getCurrentPosition();
+
+
+
 
         // Normalize Wheel speeds so that no speed exceeds 1.0
         max = Math.abs(power1);
@@ -216,6 +244,8 @@ public class HardwareJoeBot2018
         motor2.setPower(power2);
         motor3.setPower(power3);
         motor4.setPower(power4);
+        liftBucketMotor.setPower(liftPower);
+        mainBucketMotor.setPower(mainPower);
 
     }
 
@@ -366,6 +396,25 @@ public class HardwareJoeBot2018
             liftMotor.setTargetPosition(1429);
         }
     }
+
+    public void releaseBear () {
+        //replace with open #
+        bearServo.setPosition(0);
+        //then add another position which is back up
+        bearServo.setPosition(100);
+
+    }
+
+    public void liftAndScore () {
+        /*
+        shoulder up
+        elbow up
+        intake mostly up
+        */
+        backwardToggle();
+
+    }
+
 
 
     //methods a lpenty.

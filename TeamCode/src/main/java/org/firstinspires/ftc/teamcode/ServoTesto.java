@@ -27,9 +27,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * List of issues at Comp(1)-> https://docs.google.com/a/stjoebears.com/spreadsheets/d/1r_liipKBU7GHfONdxq9E6d4f7zikcCuXwDL2bsQfwm0/edit?usp=sharing
  *G-Sheet of time VS Heading for autonomous -> https://docs.google.com/a/stjoebears.com/spreadsheets/d/1pqv0iN94fFd5KvX1YIWP7z39HgpURXsscn0zPujs1q4/edit?usp=sharing
 */
-@TeleOp(name="Simple Mecanum Drive 2", group="TeleOp")
+@TeleOp(name="ServoTesto", group="TeleOp")
 
-public class teleOpSimpleMecanum2018 extends LinearOpMode {
+public class ServoTesto extends LinearOpMode {
 
     HardwareJoeBot2018 robot = new HardwareJoeBot2018();
 
@@ -38,14 +38,13 @@ public class teleOpSimpleMecanum2018 extends LinearOpMode {
 
         robot.init(hardwareMap, this);
 
+
         double forward;
         double clockwise;
         double right;
-        boolean bcurrstate;
-        boolean bprevstate;
-        double power;
-
-
+        double  power   = 0;
+        double servopos = 0;
+        int servoposi = 0;
         waitForStart();
 
 
@@ -56,30 +55,19 @@ public class teleOpSimpleMecanum2018 extends LinearOpMode {
 
             //Drive Via "Analog Sticks" (Not Toggle)
             //Set initial motion parameters to Gamepad1 Inputs
-            forward = -gamepad1.left_stick_y;
+          //  forward = -gamepad1.left_stick_y;
             //right = gamepad1.left_stick_x;
-            right = -gamepad1.left_trigger + gamepad1.right_trigger;
-            clockwise = gamepad1.right_stick_x;
+           // right = -gamepad1.left_trigger + gamepad1.right_trigger;
+           // clockwise = gamepad1.right_stick_x;
 
+         //   robot.moveRobot(forward, right, clockwise);
 
-           // if (gamepad1.right_bumper) {
-            //    if (bcurrstate == bprevstate) {
-              //      robot.forwardToggle();
-              //  }
-                //if (bcurrstate != bprevstate) {
-               //     robot.intakeMotor.setPower(0);
-               // }
-           // }
-
-           //power = gamepad2.left_stick_y;
-          // robot.shoulderMotor.setPower(power);
-
-
-            robot.moveRobot(forward, right, clockwise);
-
+        robot.bearServo.setPosition(servopos);
 
             // Update Telemetry
             telemetry.addData(">", "Press Stop to end test.");
+            telemetry.addData("ServoPos", "%5.2f", servopos);
+
             telemetry.update();
             idle();
 
