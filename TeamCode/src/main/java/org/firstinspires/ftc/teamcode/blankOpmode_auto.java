@@ -45,7 +45,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class blankOpmode_auto extends LinearOpMode {
 
     /* Declare OpMode members. */
-    HardwareJoeBot2018Turn      robot   = new HardwareJoeBot2018Turn();
+    HardwareJoeBot2018      robot   = new HardwareJoeBot2018();
 
     @Override
     public void runOpMode() {
@@ -69,7 +69,16 @@ public class blankOpmode_auto extends LinearOpMode {
 
 
         //PASTE YOUR OPMODE CODE HERE
+         //lander attach/ detach
+        robot.raiseLift();
+        robot.moveRobot(0,-5,0);
+        robot.lowerLift();
+        // ready to start
 
+        //come down
+        robot.raiseLift();
+        //get off hook
+        robot.moveRobot(0,5,0);
 
         robot.moveInches(13, 0.5, 15);
         robot.rotate(70,0.30);
