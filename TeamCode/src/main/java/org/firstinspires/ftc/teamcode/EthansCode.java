@@ -49,6 +49,8 @@ public class EthansCode extends LinearOpMode {
     DcMotor  mainBucketMotor;
     DcMotor  intakeMotor;
     Servo liftbucket;
+    Servo rightpos;
+    Servo leftpos;
 
     double  liftpower = 0;
     double mainpower = 0;
@@ -61,6 +63,9 @@ public class EthansCode extends LinearOpMode {
     boolean bCurrStateB;
     boolean bPrevStateB;
     boolean bIntakeOn;
+    boolean bCurrStateC;
+    boolean bPrevStateC;
+    boolean CIntakeOn;
 
     @Override
     public void runOpMode() {
@@ -71,6 +76,8 @@ public class EthansCode extends LinearOpMode {
         mainBucketMotor = hardwareMap.get(DcMotor.class, "mainbucketmotor");
         intakeMotor = hardwareMap.get(DcMotor.class, "intakemotor");
         liftbucket = hardwareMap.get(Servo.class, "liftbucket");
+        rightpos = hardwareMap.get(Servo.class, "rightpos");
+        leftpos = hardwareMap.get(Servo.class, "leftpos");
 
 
 
@@ -132,13 +139,39 @@ public class EthansCode extends LinearOpMode {
             }
 
 //--------------------------------------------------------------------------------------//
+            //--------------------------------------------------------------------------------------//
+
+            // Toggle Intake  On/Off
+
+            bCurrStateC = gamepad2.y;
+
+            // check for button state transitions.
+            if ((bCurrStateC == true) && (bCurrStateC != bPrevStateC)) {
+
+                CIntakeOn = !CIntakeOn;
+
+            }
+            bPrevStateC = bCurrStateC;
+
+            if (CIntakeOn == true) {
+              rightpos.setPosition(.7);
+              leftpos.setPosition(0);
+            } else {
+                rightpos.setPosition(0);
+                leftpos.setPosition(.7);
+                }
+
+//--------------------------------------------------------------------------------------//
 
             // Display the current value
 
             telemetry.addData("Lift Bucket Motor Power", "%5.2f", liftpower);
             telemetry.addData("Main Bucket Motor Power", "%5.2f", mainpower);
             telemetry.addData("position", "%5.2f", liftbucket.getPosition());
-           // telemetry.addData("Lift Bucket Servo", "%5.2f", liftbucketpos);
+            telemetry.addData("right_position", "%5.2f", rightpos.getPosition());
+            telemetry.addData("left_position", "%5.2f", leftpos.getPosition());
+
+            // telemetry.addData("Lift Bucket Servo", "%5.2f", liftbucketpos);
 
 
             telemetry.addData(">", "Press Stop to end test." );
