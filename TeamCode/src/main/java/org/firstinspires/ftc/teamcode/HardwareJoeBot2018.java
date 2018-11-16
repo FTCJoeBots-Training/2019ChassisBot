@@ -239,6 +239,8 @@ public class HardwareJoeBot2018 {
         motor1.setMode(mode);
         motor2.setMode(mode);
         motor3.setMode(mode);
+
+        
     }
 
     /**
