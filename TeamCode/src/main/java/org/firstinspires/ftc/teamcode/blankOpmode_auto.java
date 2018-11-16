@@ -70,16 +70,21 @@ public class blankOpmode_auto extends LinearOpMode {
 
 
 
+       //prep motors
+        robot.startPosMainBucketMotor();
+
         //come down
         robot.raiseLift();
         //get off hook
-        robot.moveRobot(0,-1,0);
+        robot.moveRobot(0,-3,0);
         robot.moveInches(3,0.1,5);
         //arm comes down
         robot.lowerLift();
+        robot.defaultPosMainBucketMotor();
 
         //move to depot and crater
-        robot.moveInches(19,.25,15);
+        robot.moveInches(13,.25,15);
+        robot.moveRobot(0,3,0);
         robot.rotate(90,.25);
         robot.moveInches(24,.25,15);
         robot.rotate(45,.25);

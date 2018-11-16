@@ -126,16 +126,16 @@ public class teleOpSimpleMecanum2018 extends LinearOpMode {
             bPrevStateDPU = bCurrStateDPU;
 
             while (opModeIsActive() && gamepad2.dpad_left) {
-                robot.liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                robot.liftMotor.setPower(0.3);
+                robot.liftmotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.liftmotor.setPower(0.3);
             }
-            robot.liftMotor.setPower(0);
+            robot.liftmotor.setPower(0);
             while (opModeIsActive() && gamepad2.dpad_right) {
-                robot.liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                robot.liftMotor.setPower(-0.3);
+                robot.liftmotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.liftmotor.setPower(-0.3);
             }
-            robot.liftMotor.setPower(0);
-            robot.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.liftmotor.setPower(0);
+            robot.liftmotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
             bCurrStateA = gamepad2.a;
@@ -180,7 +180,7 @@ public class teleOpSimpleMecanum2018 extends LinearOpMode {
 
             // Update Telemetry
             telemetry.addData(">", "Press Stop to end test.");
-            telemetry.addData("Lift Motor Position: ", robot.liftMotor.getCurrentPosition());
+            telemetry.addData("Lift Motor Position: ", robot.liftmotor.getCurrentPosition());
             telemetry.update();
             idle();
 
