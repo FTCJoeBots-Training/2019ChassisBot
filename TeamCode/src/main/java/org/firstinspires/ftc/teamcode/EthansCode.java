@@ -47,9 +47,7 @@ public class EthansCode extends LinearOpMode {
 
     // Define class members
 
-    DcMotor  liftMotor;
-    DcMotor  mainBucketMotor;
-    DcMotor  intakeMotor;
+
 
 
 
@@ -102,9 +100,9 @@ public class EthansCode extends LinearOpMode {
 
         // Connect to motor (Assume standard left wheel)
         // Change the text in quotes to match any motor name on your robot.
-        liftMotor = hardwareMap.get(DcMotor.class, "liftmotor");
-        mainBucketMotor = hardwareMap.get(DcMotor.class, "mainbucketmotor");
-        intakeMotor = hardwareMap.get(DcMotor.class, "intakemotor");
+        robot.liftMotor = hardwareMap.get(DcMotor.class, "liftmotor");
+        robot.mainBucketMotor = hardwareMap.get(DcMotor.class, "mainbucketmotor");
+        robot.intakeMotor = hardwareMap.get(DcMotor.class, "intakemotor");
         liftbucket = hardwareMap.get(Servo.class, "liftbucket");
         rightpos = hardwareMap.get(Servo.class, "rightpos");
         leftpos = hardwareMap.get(Servo.class, "leftpos");
@@ -193,10 +191,10 @@ public class EthansCode extends LinearOpMode {
 
             // Map "power" variable to gamepad input
             mainbucketpower = gamepad2.left_stick_y;
-            mainBucketMotor.setPower(mainbucketpower);
+            robot.mainBucketMotor.setPower(mainbucketpower);
 
             liftpower = gamepad2.right_stick_y;
-            liftMotor.setPower(liftpower);
+            robot.liftMotor.setPower(liftpower);
             telemetry.addLine("operator i suppose");
             telemetry.update();
 
@@ -215,7 +213,7 @@ public class EthansCode extends LinearOpMode {
             bPrevStateLbump = bCurrStateLbump;
 
             if (LBPon == true) {
-                liftbucket.setPosition(.18);
+                liftbucket.setPosition(0);
             } else {
                 liftbucket.setPosition(.48);
             }
@@ -240,9 +238,9 @@ public class EthansCode extends LinearOpMode {
             bPrevStateB = bCurrStateB;
 
             if (bIntakeOn == true) {
-                intakeMotor.setPower(.45);
+                robot.intakeMotor.setPower(.45);
             } else {
-                intakeMotor.setPower(0);
+                robot.intakeMotor.setPower(0);
 
             }
             telemetry.addLine("intake motor");
@@ -265,9 +263,9 @@ public class EthansCode extends LinearOpMode {
             bPrevStateD = bCurrStateD;
 
             if (DIntakeOn == true) {
-                intakeMotor.setPower(-.45);
+                robot.intakeMotor.setPower(-.45);
             } else {
-                intakeMotor.setPower(0);
+                robot.intakeMotor.setPower(0);
 
             }
             telemetry.addLine("intake motor");
@@ -290,11 +288,11 @@ public class EthansCode extends LinearOpMode {
             bPrevStateC = bCurrStateC;
 
             if (CIntakeOn == true) {
-                robot.rightpos.setPosition(0.7);
-                robot.leftpos.setPosition(0.2);
+                rightpos.setPosition(0.7);
+                leftpos.setPosition(0.2);
             } else {
-                robot.rightpos.setPosition(1);
-                robot.leftpos.setPosition(0);
+                rightpos.setPosition(1);
+                leftpos.setPosition(0);
             }
                 telemetry.addLine("right and left pos");
             telemetry.update();

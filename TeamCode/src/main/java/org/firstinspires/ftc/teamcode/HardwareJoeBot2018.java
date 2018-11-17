@@ -52,9 +52,6 @@ public class HardwareJoeBot2018
    // public Servo    leftPosServo
    // public Servo    rightPosServo
     public Servo    bearServo;
-    public Servo liftbucket;
-    public Servo rightpos;
-    public Servo leftpos;
   //  DcMotor shoulderMotor;
  //   DcMotor elbowMotor;
 
@@ -135,7 +132,7 @@ public class HardwareJoeBot2018
         myOpMode.telemetry.update();
 
 
-        liftBucketMotor.setPower(0);
+        liftMotor.setPower(0);
         mainBucketMotor.setPower(0);
         intakeMotor.setPower(0);
 
