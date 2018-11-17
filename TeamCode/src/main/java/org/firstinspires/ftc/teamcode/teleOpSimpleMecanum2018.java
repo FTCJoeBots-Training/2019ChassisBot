@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  *import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -33,17 +34,37 @@ public class teleOpSimpleMecanum2018 extends LinearOpMode {
 
     HardwareJoeBot2018 robot = new HardwareJoeBot2018();
 
+    DcMotor  liftMotor;
+    DcMotor  mainBucketMotor;
+    DcMotor  intakeMotor;
+    Servo liftbucket;
+    Servo rightpos;
+    Servo leftpos;
+
+    double  liftpower;
+    double mainpower;
+    double intakepower;
+    boolean bCurrStateLbump;
+    boolean bPrevStateLbump;
+    boolean LBPon;
+    boolean bCurrStateB;
+    boolean bPrevStateB;
+    boolean bIntakeOn;
+    boolean bCurrStateC;
+    boolean bPrevStateC;
+    boolean CIntakeOn;
+
+    double forward;
+    double clockwise;
+    double right;
+    double power;
+
     @Override
     public void runOpMode() throws InterruptedException {
 
         robot.init(hardwareMap, this);
 
-        double forward;
-        double clockwise;
-        double right;
-        boolean bcurrstate;
-        boolean bprevstate;
-        double power;
+
 
 
         waitForStart();
@@ -62,25 +83,94 @@ public class teleOpSimpleMecanum2018 extends LinearOpMode {
             clockwise = gamepad1.right_stick_x;
 
 
-           // if (gamepad1.right_bumper) {
-            //    if (bcurrstate == bprevstate) {
-              //      robot.forwardToggle();
-              //  }
-                //if (bcurrstate != bprevstate) {
-               //     robot.intakeMotor.setPower(0);
-               // }
-           // }
+            // Map "power" variable to gamepad input
+            mainpower = gamepad2.left_stick_y;
+            mainBucketMotor.setPower(mainpower);
 
-           //power = gamepad2.left_stick_y;
-          // robot.shoulderMotor.setPower(power);
+            liftpower = gamepad2.right_stick_y;
+            liftMotor.setPower(liftpower);
 
 
-            robot.moveRobot(forward, right, clockwise);
+//-----------------------------------------------//
 
 
-            // Update Telemetry
-            telemetry.addData(">", "Press Stop to end test.");
+            // check the status of the left bumper button on  gamepad2.
+            bCurrStateLbump = gamepad2.left_bumper;
+
+            // check for button state transitions.
+            if ((bCurrStateLbump == true) && (bCurrStateLbump != bPrevStateLbump)) {
+                LBPon = !LBPon;
+            }
+            bPrevStateLbump = bCurrStateLbump;
+
+            if (LBPon == true) {
+                liftbucket.setPosition(.18);
+            } else {
+                liftbucket.setPosition(.48);
+            }
+
+
+
+//--------------------------------------------------------------------------------------//
+
+            // Toggle Intake  On/Off
+
+            bCurrStateB = gamepad2.a;
+
+            // check for button state transitions.
+            if ((bCurrStateB == true) && (bCurrStateB != bPrevStateB)) {
+
+                bIntakeOn = !bIntakeOn;
+
+            }
+            bPrevStateB = bCurrStateB;
+
+            if (bIntakeOn == true) {
+                intakeMotor.setPower(.45);
+            } else {
+                intakeMotor.setPower(0);
+
+            }
+
+//--------------------------------------------------------------------------------------//
+            //--------------------------------------------------------------------------------------//
+
+            // Toggle Intake  On/Off
+
+            bCurrStateC = gamepad2.y;
+
+            // check for button state transitions.
+            if ((bCurrStateC == true) && (bCurrStateC != bPrevStateC)) {
+
+                CIntakeOn = !CIntakeOn;
+
+            }
+            bPrevStateC = bCurrStateC;
+
+            if (CIntakeOn == true) {
+                rightpos.setPosition(0.7);
+                leftpos.setPosition(0.2);
+            } else {
+                rightpos.setPosition(1);
+                leftpos.setPosition(0);
+            }
+
+//--------------------------------------------------------------------------------------//
+
+            // Display the current value
+
+            telemetry.addData("Lift Bucket Motor Power", "%5.2f", liftpower);
+            telemetry.addData("Main Bucket Motor Power", "%5.2f", mainpower);
+            telemetry.addData("position", "%5.2f", liftbucket.getPosition());
+            telemetry.addData("right_position", "%5.2f", rightpos.getPosition());
+            telemetry.addData("left_position", "%5.2f", leftpos.getPosition());
+
+            // telemetry.addData("Lift Bucket Servo", "%5.2f", liftbucketpos);
+
+
+            telemetry.addData(">", "Press Stop to end test." );
             telemetry.update();
+
             idle();
 
 

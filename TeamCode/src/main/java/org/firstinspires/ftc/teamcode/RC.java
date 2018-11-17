@@ -98,7 +98,7 @@ public class RC extends LinearOpMode {
 
         robot.init(hardwareMap, this);
 
-
+        robot.minLanderPos();
 
        // telemetry.addData("Distance (INCH)",
          //       String.format(Locale.US, "%.02f", sensorDistance.getDistance(DistanceUnit.INCH)));
@@ -107,6 +107,7 @@ public class RC extends LinearOpMode {
         //telemetry.addData("Green", sensorColor.green());
         //telemetry.addData("Blue ", sensorColor.blue());
 
+        robot.minLanderPos();
 
         telemetry.update();
 
@@ -114,6 +115,11 @@ public class RC extends LinearOpMode {
         waitForStart();
 
         // Red Crater Code
+
+        robot.hangLanderPos();
+        //strafe here.
+        robot.minLanderPos();
+        //strafe here again to be in the middle.
        robot.moveInches(19,.25,15);
        robot.rotate(90,.25);
         robot.moveInches(24,.25,15);

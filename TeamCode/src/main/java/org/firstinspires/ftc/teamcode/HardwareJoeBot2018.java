@@ -24,10 +24,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
  *
  * This hardware class assumes the following device names have been configured on the robot:
  *
- * motor1 (left front)
- * motor2 (right front)
- * motor3 (left rear)
- * motor4 (right rear)
+ * motor0 (left front)
+ * motor1 (right front)
+ * motor2 (left rear)
+ * motor3 (right rear)
  * imu - navigation features
  *
  * Note:  All names are lower case and some have single spaces between words.
@@ -39,19 +39,22 @@ public class HardwareJoeBot2018
     /* Public OpMode members. */
 
     // Declare Motors
-    public DcMotor  motor1 = null; // Left Front
-    public DcMotor  motor2 = null; // Right Front
-    public DcMotor  motor3 = null; // Left Rear
-    public DcMotor  motor4 = null; // Right Rear
-    public DcMotor  intakeMotor = null;
-    public DcMotor  mainBucketMotor = null;
-    public DcMotor  liftBucketMotor = null;
-    public DcMotor  rotateMotor = null;
-    public DcMotor  liftMotor = null;
-    public Servo    scoringServo = null;
-    public Servo    leftPosServo = null;
-    public Servo    rightPosServo = null;
-    public Servo    bearServo = null;
+    public DcMotor  motor0; // Left Front
+    public DcMotor  motor1; // Right Front
+    public DcMotor  motor2; // Left Rear
+    public DcMotor  motor3; // Right Rear
+    public DcMotor  intakeMotor;
+    public DcMotor  mainBucketMotor;
+    public DcMotor  liftBucketMotor;
+   // public DcMotor  rotateMotor
+    public DcMotor  liftMotor;
+   // public Servo    scoringServo
+   // public Servo    leftPosServo
+   // public Servo    rightPosServo
+    public Servo    bearServo;
+    public Servo liftbucket;
+    public Servo rightpos;
+    public Servo leftpos;
   //  DcMotor shoulderMotor;
  //   DcMotor elbowMotor;
 
@@ -95,40 +98,54 @@ public class HardwareJoeBot2018
         myOpMode = opMode;
 
         // Define and Initialize Motors
+        motor0 = hwMap.dcMotor.get("motor0");
         motor1 = hwMap.dcMotor.get("motor1");
         motor2 = hwMap.dcMotor.get("motor2");
         motor3 = hwMap.dcMotor.get("motor3");
-        motor4 = hwMap.dcMotor.get("motor4");
-        liftBucketMotor = hwMap.dcMotor.get("liftBucketMotor");
-        mainBucketMotor = hwMap.dcMotor.get("mainBucketMotor");
-        intakeMotor = hwMap.dcMotor.get("intakeMotor");
+        mainBucketMotor = hwMap.dcMotor.get("mainbucketmotor");
+        intakeMotor = hwMap.dcMotor.get("intakemotor");
+        liftMotor = hwMap.dcMotor.get("liftmotor");
+
+
+        //liftBucketMotor = hwMap.dcMotor.get("liftBucketMotor");
+        //mainBucketMotor = hwMap.dcMotor.get("mainBucketMotor");
+        //intakeMotor = hwMap.dcMotor.get("intakeMotor");
 
         // Set Default Motor Directions
-        motor1.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
-        motor2.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
-        motor3.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
-        motor4.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
-        liftBucketMotor.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
+        motor0.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
+        motor1.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
+        motor2.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
+        motor3.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
+        liftMotor.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
         mainBucketMotor.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         intakeMotor.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
 
 
         // Set all motors to zero power
+        motor0.setPower(0);
         motor1.setPower(0);
         motor2.setPower(0);
         motor3.setPower(0);
-        motor4.setPower(0);
+        myOpMode.telemetry.addLine("initialized motor power to zero");
+        myOpMode.telemetry.update();
+        liftMotor.setPower(0);
+        mainBucketMotor.setPower(0);
+        intakeMotor.setPower(0);
+        myOpMode.telemetry.addLine("initialized other motor power to zero");
+        myOpMode.telemetry.update();
+
+
         liftBucketMotor.setPower(0);
         mainBucketMotor.setPower(0);
         intakeMotor.setPower(0);
 
         // Set all drive motors to run without encoders.
         // May want to switch to  RUN_USING_ENCODERS during autonomous
+        motor0.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motor3.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motor4.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        liftBucketMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mainBucketMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
@@ -182,10 +199,10 @@ public class HardwareJoeBot2018
      * @param mode    Desired Motor mode.
      */
     public void setMode(DcMotor.RunMode mode ) {
+        motor0.setMode(mode);
         motor1.setMode(mode);
         motor2.setMode(mode);
         motor3.setMode(mode);
-        motor4.setMode(mode);
     }
 
     /**
@@ -202,19 +219,21 @@ public class HardwareJoeBot2018
     public void moveRobot(double forward, double right, double clockwise) {
 
         // Declare Variables to hold calculated power values for each motor
+        double power0;
         double power1;
         double power2;
         double power3;
-        double power4;
         double liftPower;
         double mainPower;
 
         double max;
 
-        power1 = forward + clockwise + right;
-        power2 = forward - clockwise - right;
-        power3 = forward + clockwise - right;
-        power4 = forward - clockwise + right;
+        power0 = forward + clockwise + right;
+        power1 = forward - clockwise - right;
+        power2 = forward + clockwise - right;
+        power3 = forward - clockwise + right;
+
+
         liftPower = liftBucketMotor.getCurrentPosition();
         mainPower = mainBucketMotor.getCurrentPosition();
 
@@ -222,28 +241,31 @@ public class HardwareJoeBot2018
 
 
         // Normalize Wheel speeds so that no speed exceeds 1.0
-        max = Math.abs(power1);
+        max = Math.abs(power0);
+        if (Math.abs(power1) > max) {
+            max = Math.abs(power1);
+        }
         if (Math.abs(power2) > max) {
             max = Math.abs(power2);
         }
         if (Math.abs(power3) > max) {
             max = Math.abs(power3);
         }
-        if (Math.abs(power4) > max) {
-            max = Math.abs(power4);
-        }
 
         if (max > 1) {
+            power0 /= max;
             power1 /= max;
             power2 /= max;
             power3 /= max;
-            power4 /= max;
         }
 
+        motor0.setPower(power0);
         motor1.setPower(power1);
         motor2.setPower(power2);
         motor3.setPower(power3);
-        motor4.setPower(power4);
+        myOpMode.telemetry.addLine("initialized motor power to its respective power");
+        myOpMode.telemetry.update();
+
         liftBucketMotor.setPower(liftPower);
         mainBucketMotor.setPower(mainPower);
 
@@ -259,10 +281,12 @@ public class HardwareJoeBot2018
 
     public void stop() {
 
+        motor0.setPower(0);
         motor1.setPower(0);
         motor2.setPower(0);
         motor3.setPower(0);
-        motor4.setPower(0);
+        myOpMode.telemetry.addLine("initialized motor power to zero");
+        myOpMode.telemetry.update();
 
     }
 
@@ -287,25 +311,25 @@ public class HardwareJoeBot2018
         myOpMode.telemetry.log().add("Starting moveInches method");
 
         // Declare needed variables
-        int newMotor1Target;
-        int newMotor2Target;
-        int newMotor3Target;
-        int newMotor4Target;
+        int newmotor0Target;
+        int newmotor1Target;
+        int newmotor2Target;
+        int newmotor3Target;
 
         // Check to make sure the OpMode is still active; If it isn't don't run the method
         if(myOpMode.opModeIsActive()) {
 
             // Determine new target positions for each wheel
-            newMotor1Target = motor1.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
-            newMotor2Target = motor2.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
-            newMotor3Target = motor3.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
-            newMotor4Target = motor4.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
+            newmotor0Target = motor0.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
+            newmotor1Target = motor1.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
+            newmotor2Target = motor2.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
+            newmotor3Target = motor3.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
 
             // Send target Positions to motors
-            motor1.setTargetPosition(newMotor1Target);
-            motor2.setTargetPosition(newMotor2Target);
-            motor3.setTargetPosition(newMotor3Target);
-            motor4.setTargetPosition(newMotor4Target);
+            motor0.setTargetPosition(newmotor0Target);
+            motor1.setTargetPosition(newmotor1Target);
+            motor2.setTargetPosition(newmotor2Target);
+            motor3.setTargetPosition(newmotor3Target);
 
             // Set Robot to RUN_TO_POSITION mode
             setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -318,21 +342,21 @@ public class HardwareJoeBot2018
 
             // Keep looping (wait) until the motors are finished or timeout is reached.
             while (myOpMode.opModeIsActive() && (runtime.seconds() < timeoutSec) &&
-                    (motor1.isBusy() && motor2.isBusy() && motor3.isBusy() && motor4.isBusy())) {
+                    (motor0.isBusy() && motor1.isBusy() && motor2.isBusy() && motor3.isBusy())) {
 
 
                 //Compose Telemetry message
                 myOpMode.telemetry.addLine("> Waiting for robot to reach target");
                 myOpMode.telemetry.addLine("Curr. Pos. |")
-                        .addData("1:",motor1.getCurrentPosition())
-                        .addData("2:",motor2.getCurrentPosition())
-                        .addData("3:",motor3.getCurrentPosition())
-                        .addData("4:",motor4.getCurrentPosition());
+                        .addData("1:",motor0.getCurrentPosition())
+                        .addData("2:",motor1.getCurrentPosition())
+                        .addData("3:",motor2.getCurrentPosition())
+                        .addData("4:",motor3.getCurrentPosition());
                 myOpMode.telemetry.addLine("Target | ")
-                        .addData("1:",newMotor1Target)
-                        .addData("2:",newMotor2Target)
-                        .addData("3:",newMotor3Target)
-                        .addData("4:",newMotor4Target);
+                        .addData("1:",newmotor0Target)
+                        .addData("2:",newmotor1Target)
+                        .addData("3:",newmotor2Target)
+                        .addData("4:",newmotor3Target);
                 myOpMode.telemetry.addData("Power: ", power);
                 myOpMode.telemetry.update();
 
@@ -351,7 +375,7 @@ public class HardwareJoeBot2018
         }
 
     }
-
+    /*
     //both are intake
     public void forwardToggle () {
     if(intakeMotor.getPower() != 0) {
@@ -374,6 +398,7 @@ public class HardwareJoeBot2018
         }
 
     }
+     */
 
     public void minLanderPos () {
         if (liftMotor.getCurrentPosition() <= 52) {
@@ -399,9 +424,11 @@ public class HardwareJoeBot2018
 
     public void releaseBear () {
         //replace with open #
+        // knock of position
         bearServo.setPosition(0);
         //then add another position which is back up
-        bearServo.setPosition(100);
+        // stow positiion
+        bearServo.setPosition(0.7);
 
     }
 
@@ -411,7 +438,7 @@ public class HardwareJoeBot2018
         elbow up
         intake mostly up
         */
-        backwardToggle();
+       // backwardToggle();
 
     }
 

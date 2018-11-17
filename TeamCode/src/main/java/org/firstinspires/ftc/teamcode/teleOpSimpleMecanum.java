@@ -30,23 +30,27 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class teleOpSimpleMecanum extends LinearOpMode {
 
+    DcMotor liftMotor;
+    double forward;
+    double clockwise;
+    double right;
+    double k;
+    double power1;
+    double power2;
+    double power3;
+    double power4;
+    double liftpower;
+    double max;
+
     HardwareJoeBot robot = new HardwareJoeBot();
 
     @Override
     public void runOpMode() throws InterruptedException {
 
+
+
+
         robot.init(hardwareMap, this);
-
-
-        double forward;
-        double clockwise;
-        double right;
-        double k;
-        double power1;
-        double power2;
-        double power3;
-        double power4;
-        double max;
 
 
         waitForStart();
@@ -94,10 +98,14 @@ public class teleOpSimpleMecanum extends LinearOpMode {
                 power4 /= max;
             }
 
-            robot.motor1.setPower(power1);
-            robot.motor2.setPower(power2);
-            robot.motor3.setPower(power3);
-            robot.motor4.setPower(power4);
+            robot.motor0.setPower(power1);
+            robot.motor1.setPower(power2);
+            robot.motor2.setPower(power3);
+            robot.motor3.setPower(power4);
+
+            liftpower = gamepad1.left_stick_y;
+            liftMotor.setPower(liftpower);
+
             //------------------------------------------
             //-------------------------------------------
 

@@ -114,6 +114,10 @@ public class RD extends LinearOpMode {
         waitForStart();
 
         // Red Depot Code
+        robot.hangLanderPos();
+        //strafe here.
+        robot.minLanderPos();
+        //strafe again to be in the middle.
        robot.moveInches(15,.25,10);
         robot.rotate(86,.25); // left not Right
         robot.moveInches(40,.25,10);
