@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
  *
@@ -40,14 +41,14 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  *
  */
 
-@Autonomous(name="13702 depot", group="Testing")
+@Autonomous(name="test moter", group="Testing")
 
-public class blankOpmode_auto extends LinearOpMode {
+public class testmoter extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareJoeBot2018      robot   = new HardwareJoeBot2018();
 
-    // @Override
+    @Override
     public void runOpMode() {
 
         /*
@@ -65,50 +66,41 @@ public class blankOpmode_auto extends LinearOpMode {
         robot.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Wait for the game to start (driver presses PLAY)
-    telemetry.addLine("setting bucket power");
-    telemetry.update();
-        robot.mainBucketMotor.setPower(-0.75);
-        telemetry.addLine("set bucket power");
-        telemetry.update();
         waitForStart();
 
 
-
-
-
-
-
-
-
-        //prep motors
-
+        //PASTE YOUR OPMODE CODE HERE
+        //lander attach/ detach
+        //robot.raiseLift();
+        //robot.moveRobot(0,-5,0);
+        //robot.lowerLift();
+        // ready to start
 
         //come down
-        robot.hangLanderPos();
+       /* robot.raiseLift();
         //get off hook
         robot.moveRobot(0,-3,0);
-        robot.moveInches(3,0.1,5);
-        //arm comes down
-        robot.minLanderPos();
-        telemetry.addLine("setting bucket power");
-        telemetry.update();
-        robot.mainBucketMotor.setPower(0.75);
-        telemetry.addLine("set bucket power");
-        telemetry.update();
+        robot.moveInches(3, 0.75, 15);
+        robot.lowerLift();
 
 
-        //move to depot and crater
-        robot.moveInches(13,.25,15);
+        robot.moveInches(13, 0.75, 15);
         robot.moveRobot(0,3,0);
-        robot.rotate(90,.25);
-        robot.moveInches(24,.25,15);
-        robot.rotate(45,.25);
-        robot.moveInches(48,.25,15);
-        robot.moveInches(-85,.35,15);
+        robot.rotate(90,0.25);
 
-        //////////////////////////////////////////
+        robot.moveInches(24, 0.75, 15);
+        robot.rotate(45,0.25);
+
+        robot.moveInches(48, 0.75, 15);
+        //robot.rotate(70,0.25);
 
 
+        robot.moveInches(-85, 0.25,15);
+        */
+
+
+        ////////////////////////////////////////////
+        robot.mainBucketMotor.setPower(-.75);
 
     }
 

@@ -76,11 +76,11 @@ public class blankOpmode_auto_crater extends LinearOpMode {
         // ready to start
 
         //come down
-        robot.raiseLift();
+        robot.minLanderPos();
         //get off hook
         robot.moveRobot(0,-3,0);
         robot.moveInches(3, 0.75, 15);
-        robot.lowerLift();
+        robot.hangLanderPos();
 
 
         robot.moveInches(13, 0.75, 15);
