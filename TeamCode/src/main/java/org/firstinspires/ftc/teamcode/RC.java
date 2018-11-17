@@ -64,27 +64,14 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="RC", group="Pushbot")
+@Autonomous(name="13702 Crater Code", group="Pushbot")
 public class RC extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareJoeBot2018      robot   = new HardwareJoeBot2018();   // Use a Pushbot's hardware
-    private ElapsedTime     runtime = new ElapsedTime();
-    double forward;
-    double clockwise;
-    double right;
 
-    double power1;
-    double power2;
-    double power3;
-    double power4;
-    static final double COUNTS_PER_MOTOR_REV = 1440;    // eg: TETRIX Motor Encoder
-    static final double DRIVE_GEAR_REDUCTION = 2.0;     // This is < 1.0 if geared UP
-    static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
-    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-            (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double DRIVE_SPEED = 0.6;
-    static final double TURN_SPEED = 0.5;
+
+
   //  ColorSensor sensorColor;
    // DistanceSensor sensorDistance;
 
@@ -98,7 +85,6 @@ public class RC extends LinearOpMode {
 
         robot.init(hardwareMap, this);
 
-        robot.minLanderPos();
 
        // telemetry.addData("Distance (INCH)",
          //       String.format(Locale.US, "%.02f", sensorDistance.getDistance(DistanceUnit.INCH)));
@@ -107,7 +93,6 @@ public class RC extends LinearOpMode {
         //telemetry.addData("Green", sensorColor.green());
         //telemetry.addData("Blue ", sensorColor.blue());
 
-        robot.minLanderPos();
 
         telemetry.update();
 
@@ -116,16 +101,29 @@ public class RC extends LinearOpMode {
 
         // Red Crater Code
 
+        //PASTE YOUR OPMODE CODE HERE
+//lander attach/ detach
+//robot.raiseLift();
+//robot.moveRobot(0,-5,0);
+//robot.lowerLift();
+// ready to start
+
+//come down
+
+        /*
         robot.hangLanderPos();
-        //strafe here.
+        robot.moveRobot(0,-3,0);
+        robot.moveInches(1,0.5,10);
+        robot.moveRobot(0, 3, 0);
         robot.minLanderPos();
-        //strafe here again to be in the middle.
-       robot.moveInches(19,.25,15);
-       robot.rotate(90,.25);
-        robot.moveInches(24,.25,15);
-        robot.rotate(45,.25);
-        robot.moveInches(48,.25,15);
-        robot.moveInches(-85,.35,15);
+        */
+
+        robot.moveInches(15,.25,10);
+        robot.rotate(-86,.25); // left not Right
+        robot.moveInches(40,.25,10);
+        robot.rotate(119,.25); // Right not left
+        robot.moveInches(59,1,10);
+
 
 
 

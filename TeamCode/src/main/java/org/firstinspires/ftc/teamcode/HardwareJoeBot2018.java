@@ -372,7 +372,7 @@ public class HardwareJoeBot2018
         }
 
     }
-    /*
+
     //both are intake
     public void forwardToggle () {
     if(intakeMotor.getPower() != 0) {
@@ -395,7 +395,7 @@ public class HardwareJoeBot2018
         }
 
     }
-     */
+
 
     public void minLanderPos () {
         if (liftMotor.getCurrentPosition() <= 52) {

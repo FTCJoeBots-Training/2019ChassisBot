@@ -57,7 +57,7 @@ public class EthansCode extends LinearOpMode {
 
     double  liftpower = 0;
     double mainbucketpower = 0;
-    double intakepower = 0;
+    double intakePower = 0.48;
     double power0 = 0;
     double power1 = 0;
     double power2 = 0;
@@ -85,6 +85,8 @@ public class EthansCode extends LinearOpMode {
     boolean bCurrStateD;
     boolean bPrevStateD;
     boolean DIntakeOn;
+    boolean bCurrStateX;
+    boolean bPrevStateX;
 
 
 
@@ -190,11 +192,12 @@ public class EthansCode extends LinearOpMode {
 
 
             // Map "power" variable to gamepad input
-            mainbucketpower = gamepad2.left_stick_y;
+            mainbucketpower = gamepad2.left_stick_y * 0.75;
             robot.mainBucketMotor.setPower(mainbucketpower);
 
-            liftpower = gamepad2.right_stick_y;
+            liftpower = gamepad2.right_stick_y * 0.50;
             robot.liftMotor.setPower(liftpower);
+
             telemetry.addLine("operator i suppose");
             telemetry.update();
 
@@ -238,7 +241,7 @@ public class EthansCode extends LinearOpMode {
             bPrevStateB = bCurrStateB;
 
             if (bIntakeOn == true) {
-                robot.intakeMotor.setPower(.45);
+                robot.intakeMotor.setPower(intakePower);
             } else {
                 robot.intakeMotor.setPower(0);
 
@@ -248,31 +251,13 @@ public class EthansCode extends LinearOpMode {
 
 
 //--------------------------------------------------------------------------------------//
-            //--------------------------------------------------------------------------------------//
+            // Toggle Intake Direction
 
-            // Toggle Intake  On/Off
-
-            bCurrStateD = gamepad2.b;
-
-            // check for button state transitions.
-            if ((bCurrStateD == true) && (bCurrStateD != bPrevStateD)) {
-
-                DIntakeOn = !DIntakeOn;
-
+            bCurrStateX = gamepad2.x;
+            if ((bCurrStateX == true) && (bCurrStateX!=bPrevStateX)) {
+                intakePower = intakePower * -1;
             }
-            bPrevStateD = bCurrStateD;
-
-            if (DIntakeOn == true) {
-                robot.intakeMotor.setPower(-.45);
-            } else {
-                robot.intakeMotor.setPower(0);
-
-            }
-            telemetry.addLine("intake motor");
-            telemetry.update();
-
-
-//--------------------------------------------------------------------------------------//
+            bPrevStateX = bCurrStateX;
             //--------------------------------------------------------------------------------------//
 
             // Toggle Intake  On/Off

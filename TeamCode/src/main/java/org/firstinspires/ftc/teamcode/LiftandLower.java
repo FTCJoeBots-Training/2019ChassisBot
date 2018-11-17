@@ -31,7 +31,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 /**
  *
@@ -40,14 +39,14 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  *
  */
 
-@Autonomous(name="13702 depot", group="Testing")
+@Autonomous(name=" lift and lower only ", group="Testing")
 
-public class RD extends LinearOpMode {
+public class LiftandLower extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareJoeBot2018      robot   = new HardwareJoeBot2018();
 
-    // @Override
+    @Override
     public void runOpMode() {
 
         /*
@@ -60,46 +59,52 @@ public class RD extends LinearOpMode {
         telemetry.addData("Status", "Resetting Encoders");    //
         telemetry.update();
 
+      //  robot.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        //robot.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Wait for the game to start (driver presses PLAY)
 
 
+        robot.minLanderPos();
 
         waitForStart();
 
 
+        robot.hangLanderPos();
+        robot.moveRobot(0,3,0);
+        robot.moveInches(5,.5,10);
+        robot.moveRobot(0,-3,0);
 
 
-
-
-
-
-
-
-        //prep motors
-
+        //PASTE YOUR OPMODE CODE HERE
+        //lander attach/ detach
+        //robot.raiseLift();
+        //robot.moveRobot(0,-5,0);
+        //robot.lowerLift();
+        // ready to start
 
         //come down
-        //robot.hangLanderPos();
-        //get off hook
-        //robot.moveRobot(0,-3,0);
-       // robot.moveInches(16,1,5);
-        //arm comes down
-        //robot.minLanderPos();
 
 
 
-        //move to depot and crater
-         robot.moveInches(15,.25,15);
-        robot.rotate(90,.25);
-        robot.moveInches(45,1,15);
-        robot.rotate(-135,.25);
-        robot.moveInches(50,1,15);
-        robot.mainBucketMotor.setPower(-0.75);
-        robot.forwardToggle();
-        robot.rotate(-90, .50);
-        robot.moveInches(-85,1,15);
 
+
+
+        /*
+        robot.rotate(90,0.25);
+
+        robot.moveInches(24, 0.75, 15);
+        robot.rotate(45,0.25);
+
+        robot.moveInches(48, 0.75, 15);
+        //robot.rotate(70,0.25);
+
+
+        robot.moveInches(-85, 0.25,15);
+
+
+        */
         //////////////////////////////////////////
 
 
