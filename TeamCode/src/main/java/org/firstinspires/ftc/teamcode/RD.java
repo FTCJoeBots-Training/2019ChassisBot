@@ -30,12 +30,8 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 /**
  *
@@ -44,14 +40,14 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  *
  */
 
-@Autonomous(name="Mecanum Code Testing", group="Testing")
-//@Disabled
-public class autoTestMecanumMoveCommands extends LinearOpMode {
+@Autonomous(name="13702 depot", group="Testing")
+
+public class RD extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareJoeBot2018      robot   = new HardwareJoeBot2018();
 
-    @Override
+    // @Override
     public void runOpMode() {
 
         /*
@@ -64,26 +60,48 @@ public class autoTestMecanumMoveCommands extends LinearOpMode {
         telemetry.addData("Status", "Resetting Encoders");    //
         telemetry.update();
 
-        robot.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        robot.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Wait for the game to start (driver presses PLAY)
+
+
+
         waitForStart();
 
-        robot.moveInches(12, 0.3, 15);
-        robot.rotate(90,0.15);
 
-        robot.moveInches(12, 0.3, 15);
-        robot.rotate(90,0.15);
 
-        robot.moveInches(12, 0.3, 15);
-        robot.rotate(90,0.15);
 
-        robot.moveInches(12, 0.3, 15);
-        robot.rotate(90,0.15);
 
-       // robot.forwardToggle();
+
+
+
+
+
+        //prep motors
+
+
+        //come down
+        //robot.hangLanderPos();
+        //get off hook
+        //robot.moveRobot(0,-3,0);
+       // robot.moveInches(16,1,5);
+        //arm comes down
+        //robot.minLanderPos();
+
+
+
+        //move to depot and crater
+         robot.moveInches(15,.25,15);
+        robot.rotate(90,.25);
+        robot.moveInches(45,1,15);
+        robot.rotate(-135,.25);
+        robot.moveInches(50,1,15);
+        robot.mainBucketMotor.setPower(-0.75);
+        robot.forwardToggle();
+        robot.rotate(-90, .50);
+        robot.moveInches(-85,1,15);
+
+        //////////////////////////////////////////
+
 
 
     }

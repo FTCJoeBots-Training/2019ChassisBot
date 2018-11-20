@@ -30,12 +30,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 /**
  *
@@ -44,9 +39,9 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  *
  */
 
-@Autonomous(name="Mecanum Code Testing", group="Testing")
-//@Disabled
-public class autoTestMecanumMoveCommands extends LinearOpMode {
+@Autonomous(name=" lift and lower only ", group="Testing")
+
+public class LiftandLower extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareJoeBot2018      robot   = new HardwareJoeBot2018();
@@ -64,26 +59,54 @@ public class autoTestMecanumMoveCommands extends LinearOpMode {
         telemetry.addData("Status", "Resetting Encoders");    //
         telemetry.update();
 
-        robot.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+      //  robot.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        robot.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //robot.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Wait for the game to start (driver presses PLAY)
+
+
+        robot.minLanderPos();
+
         waitForStart();
 
-        robot.moveInches(12, 0.3, 15);
-        robot.rotate(90,0.15);
 
-        robot.moveInches(12, 0.3, 15);
-        robot.rotate(90,0.15);
+        robot.hangLanderPos();
+        robot.moveRobot(0,3,0);
+        robot.moveInches(5,.5,10);
+        robot.moveRobot(0,-3,0);
 
-        robot.moveInches(12, 0.3, 15);
-        robot.rotate(90,0.15);
 
-        robot.moveInches(12, 0.3, 15);
-        robot.rotate(90,0.15);
+        //PASTE YOUR OPMODE CODE HERE
+        //lander attach/ detach
+        //robot.raiseLift();
+        //robot.moveRobot(0,-5,0);
+        //robot.lowerLift();
+        // ready to start
 
-       // robot.forwardToggle();
+        //come down
+
+
+
+
+
+
+        /*
+        robot.rotate(90,0.25);
+
+        robot.moveInches(24, 0.75, 15);
+        robot.rotate(45,0.25);
+
+        robot.moveInches(48, 0.75, 15);
+        //robot.rotate(70,0.25);
+
+
+        robot.moveInches(-85, 0.25,15);
+
+
+        */
+        //////////////////////////////////////////
+
 
 
     }

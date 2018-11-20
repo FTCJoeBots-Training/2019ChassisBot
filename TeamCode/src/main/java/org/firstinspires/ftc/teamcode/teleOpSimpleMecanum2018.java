@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  *import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -33,42 +34,41 @@ public class teleOpSimpleMecanum2018 extends LinearOpMode {
 
     HardwareJoeBot2018 robot = new HardwareJoeBot2018();
 
+    DcMotor  liftMotor;
+    DcMotor  mainBucketMotor;
+    DcMotor  intakeMotor;
+    Servo liftbucket;
+    Servo rightpos;
+    Servo leftpos;
+
+    double  liftpower;
+    double mainpower;
+    double intakepower;
+    boolean bCurrStateLbump;
+    boolean bPrevStateLbump;
+    boolean LBPon;
+    boolean bCurrStateB;
+    boolean bPrevStateB;
+    boolean bIntakeOn;
+    boolean bCurrStateC;
+    boolean bPrevStateC;
+    boolean CIntakeOn;
+
+    double forward;
+    double clockwise;
+    double right;
+    double power;
+
     @Override
     public void runOpMode() throws InterruptedException {
 
         robot.init(hardwareMap, this);
 
 
-        double forward;
-        double clockwise;
-        double right;
-        double shoulderPower;
-        double elbowPower;
-        double maxShoulderPower = 0.5;
-        double maxElbowPower = 0.5;
-
-        //boolean variables for ButtonStates
-        boolean bCurrStateLB = false;
-        boolean bPrevStateLB = false;
-        boolean bCurrStateRB = false;
-        boolean bPrevStateRB = false;
-        boolean bCurrStateA = false;
-        boolean bPrevStateA = false;
-        boolean bCurrStateB = false;
-        boolean bPrevStateB = false;
-        boolean bCurrStateX = false;
-        boolean bPrevStateX = false;
-        boolean bCurrStateY = false;
-        boolean bPrevStateY = false;
-        boolean bCurrStateDPD = false;
-        boolean bPrevStateDPD = false;
-        boolean bCurrStateDPU = false;
-        boolean bPrevStateDPU = false;
 
 
         waitForStart();
 
-        //robot.liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
         //start of loop
@@ -82,106 +82,95 @@ public class teleOpSimpleMecanum2018 extends LinearOpMode {
             right = -gamepad1.left_trigger + gamepad1.right_trigger;
             clockwise = gamepad1.right_stick_x;
 
-            robot.moveRobot(forward, right, clockwise);
+
+            // Map "power" variable to gamepad input
+            mainpower = gamepad2.left_stick_y;
+            mainBucketMotor.setPower(mainpower);
+
+            liftpower = gamepad2.right_stick_y;
+            liftMotor.setPower(liftpower);
 
 
-            bCurrStateLB = gamepad2.left_bumper;
-            if ((bCurrStateLB == true) && (bCurrStateLB != bPrevStateLB)) {
-                // Left bumper has been pressed. We should set intake to reverse
-                // also, if Intake is currently running, and running in reverse, we should stop it
+//-----------------------------------------------//
 
-                robot.toggleIntake("reverse");
 
+            // check the status of the left bumper button on  gamepad2.
+            bCurrStateLbump = gamepad2.left_bumper;
+
+            // check for button state transitions.
+            if ((bCurrStateLbump == true) && (bCurrStateLbump != bPrevStateLbump)) {
+                LBPon = !LBPon;
             }
-            bPrevStateLB = bCurrStateLB;
+            bPrevStateLbump = bCurrStateLbump;
 
-            bCurrStateRB = gamepad2.right_bumper;
-            if ((bCurrStateRB == true) && (bCurrStateRB != bPrevStateRB)) {
-                // Left bumper has been pressed. We should set intake to reverse
-                // also, if Intake is currently running, and running in reverse, we should stop it
-
-                robot.toggleIntake("forward");
-
+            if (LBPon == true) {
+                liftbucket.setPosition(.18);
+            } else {
+                liftbucket.setPosition(.48);
             }
-            bPrevStateRB = bCurrStateRB;
-
-            bCurrStateDPD = gamepad2.dpad_down;
-            if ((bCurrStateDPD == true) && (bCurrStateDPD != bPrevStateDPD)) {
-                // Left bumper has been pressed. We should set intake to reverse
-                // also, if Intake is currently running, and running in reverse, we should stop it
-
-                robot.lowerLift();
-
-            }
-            bPrevStateDPD = bCurrStateDPD;
-
-            bCurrStateDPU = gamepad2.dpad_up;
-            if ((bCurrStateDPU == true) && (bCurrStateDPU != bPrevStateDPU)) {
-                // Left bumper has been pressed. We should set intake to reverse
-                // also, if Intake is currently running, and running in reverse, we should stop it
-
-                robot.raiseLift();
-
-            }
-            bPrevStateDPU = bCurrStateDPU;
-
-            while (opModeIsActive() && gamepad2.dpad_left) {
-                robot.liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                robot.liftMotor.setPower(0.3);
-            }
-            robot.liftMotor.setPower(0);
-            while (opModeIsActive() && gamepad2.dpad_right) {
-                robot.liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                robot.liftMotor.setPower(-0.3);
-            }
-            robot.liftMotor.setPower(0);
-            robot.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
-            bCurrStateA = gamepad2.a;
-            if ((bCurrStateA == true) && (bCurrStateA != bPrevStateA)) {
 
-                // When the "A" button is pressed, we want to enable search mode
+//--------------------------------------------------------------------------------------//
 
-                robot.searchArm();
+            // Toggle Intake  On/Off
 
-            }
-            bPrevStateA = bCurrStateA;
+            bCurrStateB = gamepad2.a;
 
-            bCurrStateB = gamepad2.b;
+            // check for button state transitions.
             if ((bCurrStateB == true) && (bCurrStateB != bPrevStateB)) {
 
-                // When the "B" button is pressed, we want to enable Scoring mode
-
-                robot.scoreArm();
+                bIntakeOn = !bIntakeOn;
 
             }
             bPrevStateB = bCurrStateB;
 
-            bCurrStateY = gamepad2.y;
-            if ((bCurrStateY == true) && (bCurrStateY != bPrevStateY)) {
-
-                // When the "B" button is pressed, we want to enable Scoring mode
-
-                robot.stowArm();
+            if (bIntakeOn == true) {
+                intakeMotor.setPower(.45);
+            } else {
+                intakeMotor.setPower(0);
 
             }
-            bPrevStateY = bCurrStateY;
 
-            // X Button should open/close Mineral Door
-            bCurrStateX = gamepad2.x;
-            if ((bCurrStateX) && (bCurrStateX != bPrevStateX)) {
-                robot.toggleMineralDoor();
+//--------------------------------------------------------------------------------------//
+            //--------------------------------------------------------------------------------------//
+
+            // Toggle Intake  On/Off
+
+            bCurrStateC = gamepad2.y;
+
+            // check for button state transitions.
+            if ((bCurrStateC == true) && (bCurrStateC != bPrevStateC)) {
+
+                CIntakeOn = !CIntakeOn;
+
             }
-            bPrevStateX = bCurrStateX;
+            bPrevStateC = bCurrStateC;
+
+            if (CIntakeOn == true) {
+                rightpos.setPosition(0.7);
+                leftpos.setPosition(0.2);
+            } else {
+                rightpos.setPosition(1);
+                leftpos.setPosition(0);
+            }
+
+//--------------------------------------------------------------------------------------//
+
+            // Display the current value
+
+            telemetry.addData("Lift Bucket Motor Power", "%5.2f", liftpower);
+            telemetry.addData("Main Bucket Motor Power", "%5.2f", mainpower);
+            telemetry.addData("position", "%5.2f", liftbucket.getPosition());
+            telemetry.addData("right_position", "%5.2f", rightpos.getPosition());
+            telemetry.addData("left_position", "%5.2f", leftpos.getPosition());
+
+            // telemetry.addData("Lift Bucket Servo", "%5.2f", liftbucketpos);
 
 
-
-
-            // Update Telemetry
-            telemetry.addData(">", "Press Stop to end test.");
-            telemetry.addData("Lift Motor Position: ", robot.liftMotor.getCurrentPosition());
+            telemetry.addData(">", "Press Stop to end test." );
             telemetry.update();
+
             idle();
 
 

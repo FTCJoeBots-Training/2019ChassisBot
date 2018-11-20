@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  */
 
 /**
+ *
  *Notes For this TeleOp Code. This code is for Comp and all proggramers should review over this
  *code and understand this code for the possibility that a question may be asked related to TeleOp and
  *you should be able to explain in good detail everything in this code.
@@ -26,33 +27,24 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * List of issues at Comp(1)-> https://docs.google.com/a/stjoebears.com/spreadsheets/d/1r_liipKBU7GHfONdxq9E6d4f7zikcCuXwDL2bsQfwm0/edit?usp=sharing
  *G-Sheet of time VS Heading for autonomous -> https://docs.google.com/a/stjoebears.com/spreadsheets/d/1pqv0iN94fFd5KvX1YIWP7z39HgpURXsscn0zPujs1q4/edit?usp=sharing
 */
-@TeleOp(name="Simple Mecanum Drive", group="TeleOp")
+@TeleOp(name="ServoTesto", group="TeleOp")
 
-public class teleOpSimpleMecanum extends LinearOpMode {
+public class ServoTesto extends LinearOpMode {
 
-    DcMotor liftMotor;
-    double forward;
-    double clockwise;
-    double right;
-    double k;
-    double power1;
-    double power2;
-    double power3;
-    double power4;
-    double liftpower;
-    double max;
-
-    HardwareJoeBot robot = new HardwareJoeBot();
+    HardwareJoeBot2018 robot = new HardwareJoeBot2018();
 
     @Override
     public void runOpMode() throws InterruptedException {
 
-
-
-
         robot.init(hardwareMap, this);
 
 
+        double forward;
+        double clockwise;
+        double right;
+        double  power   = 0;
+        double servopos = 0;
+        int servoposi = 0;
         waitForStart();
 
 
@@ -63,62 +55,21 @@ public class teleOpSimpleMecanum extends LinearOpMode {
 
             //Drive Via "Analog Sticks" (Not Toggle)
             //Set initial motion parameters to Gamepad1 Inputs
-            forward = -gamepad1.left_stick_y;
+          //  forward = -gamepad1.left_stick_y;
             //right = gamepad1.left_stick_x;
-            right = -gamepad1.left_trigger + gamepad1.right_trigger;
-            clockwise = gamepad1.right_stick_x;
+           // right = -gamepad1.left_trigger + gamepad1.right_trigger;
+           // clockwise = gamepad1.right_stick_x;
 
-            // Add a tuning constant "K" to tune rotate axis sensitivity
-            k = .6;
-            clockwise = clockwise * k; //Make sure the "= Clockwise" is "= -clockwise"
+         //   robot.moveRobot(forward, right, clockwise);
 
-
-            // Calculate motor power
-            power1 = forward + clockwise + right;
-            power2 = forward - clockwise - right;
-            power3 = forward + clockwise - right;
-            power4 = forward - clockwise + right;
-
-            // Normalize Wheel speeds so that no speed exceeds 1.0
-            max = Math.abs(power1);
-            if (Math.abs(power2) > max) {
-                max = Math.abs(power2);
-            }
-            if (Math.abs(power3) > max) {
-                max = Math.abs(power3);
-            }
-            if (Math.abs(power4) > max) {
-                max = Math.abs(power4);
-            }
-
-            if (max > 1) {
-                power1 /= max;
-                power2 /= max;
-                power3 /= max;
-                power4 /= max;
-            }
-
-            robot.motor0.setPower(power1);
-            robot.motor1.setPower(power2);
-            robot.motor2.setPower(power3);
-            robot.motor3.setPower(power4);
-
-            liftpower = gamepad1.left_stick_y;
-            liftMotor.setPower(liftpower);
-
-            //------------------------------------------
-            //-------------------------------------------
-
-
+        robot.bearServo.setPosition(servopos);
 
             // Update Telemetry
             telemetry.addData(">", "Press Stop to end test.");
+            telemetry.addData("ServoPos", "%5.2f", servopos);
+
             telemetry.update();
             idle();
-
-
-
-
 
 
         }//end while
