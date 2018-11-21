@@ -40,9 +40,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  *
  */
 
-@Autonomous(name="13702 depot", group="Testing")
+@Autonomous(name="13702 Deploy Only ", group="Testing")
 
-public class blankOpmode_auto extends LinearOpMode {
+public class blankOpmode_autoDeployOnly extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareJoeBot2018      robot   = new HardwareJoeBot2018();
@@ -87,8 +87,9 @@ public class blankOpmode_auto extends LinearOpMode {
         //come down
         robot.hangLanderPos();
         //get off hook
+        /*
         robot.moveRobot(0,-3,0);
-        robot.moveInches(16,1,5);
+        robot.moveInches(13,1,5);
         //arm comes down
         //robot.minLanderPos();
 
@@ -97,17 +98,31 @@ public class blankOpmode_auto extends LinearOpMode {
         //move to depot and crater
        // robot.moveInches(13,.25,15);
         robot.moveRobot(0,3,0);
-        robot.rotate(45,.25);
-        robot.moveInches(45,1,15);
-        robot.rotate(-135,.25);
-        robot.moveInches(50,1,15);
+
+        //robot.rotate(45,.25);
+        robot.moveInches(35,1,15);
         robot.mainBucketMotor.setPower(-0.75);
+        robot.forwardToggle();
+        robot.mainBucketMotor.setPower(0.75);
+        //robot.rotate(-135,.25);
+        robot.moveInches(-35,1,15);
+        robot.moveRobot(0,3,0);
+        robot.moveInches(35,1,15);
+        robot.moveInches(-35,1,15);
+        robot.moveRobot(0,-6,0);
+        robot.moveInches(35,1,15);
+        robot.moveInches(-35,1,15);
+        robot.rotate(70,.25);
+        robot.moveInches(-40,1,15);
+        /*
+        robot.mainBucketMotor.setPower(-0.75);
+
         robot.forwardToggle();
         robot.moveInches(-85,1,15);
 
         //////////////////////////////////////////
 
-
+        */
 
     }
 

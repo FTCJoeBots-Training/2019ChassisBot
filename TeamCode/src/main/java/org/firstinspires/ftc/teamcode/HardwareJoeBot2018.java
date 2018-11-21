@@ -373,7 +373,7 @@ public class HardwareJoeBot2018
         }
 
     }
-    /*
+
     //both are intake
     public void forwardToggle () {
     if(intakeMotor.getPower() != 0) {
@@ -381,7 +381,7 @@ public class HardwareJoeBot2018
         intakeMotor.setPower(0);
     }
     else {
-       intakeMotor.setPower(1);
+       intakeMotor.setPower(0.75);
     }
 
     }
@@ -392,11 +392,11 @@ public class HardwareJoeBot2018
             intakeMotor.setPower(0);
         }
         else {
-            intakeMotor.setPower(-1);
+            intakeMotor.setPower(-0.75);
         }
 
     }
-     */
+
 
     public void minLanderPos () {
         if (liftMotor.getCurrentPosition() <= 52) {
@@ -426,7 +426,7 @@ public class HardwareJoeBot2018
         bearServo.setPosition(0);
         //then add another position which is back up
         // stow positiion
-        bearServo.setPosition(0.7);
+        bearServo.setPosition(0.7) ;
 
     }
 
