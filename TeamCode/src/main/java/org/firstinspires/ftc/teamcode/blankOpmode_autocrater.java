@@ -40,14 +40,14 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  *
  */
 
-@Autonomous(name="13702 depot", group="Testing")
+@Autonomous(name="13702 crater", group="Testing")
 
-public class blankOpmode_auto extends LinearOpMode {
+public class blankOpmode_autocrater extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareJoeBot2018      robot   = new HardwareJoeBot2018();
 
-    // @Override
+    @Override
     public void runOpMode() {
 
         /*
@@ -65,44 +65,27 @@ public class blankOpmode_auto extends LinearOpMode {
         robot.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Wait for the game to start (driver presses PLAY)
-
-        robot.minLanderPos();
-
-        robot.minLanderPos();
-
         waitForStart();
 
 
 
-
-
-
-
-
-
-
-        //prep motors
-
-
-        //come down
         robot.hangLanderPos();
-        //get off hook
-        robot.moveRobot(0,-3,0);
-        robot.moveInches(3,0.1,5);
-        //arm comes down
+        robot.moveRobot(0,3,0);
+        robot.moveInches(2,.5,5);
         robot.minLanderPos();
 
 
+        robot.moveInches(15,.25,10);
 
-        //move to depot and crater
-        robot.moveInches(13,.25,15);
-        robot.moveRobot(0,3,0);
-        robot.rotate(90,.25);
-        robot.moveInches(24,.25,15);
-        robot.rotate(45,.25);
-        robot.moveInches(48,.25,15);
-        robot.forwardToggle();
-        robot.moveInches(-85,.35,15);
+        robot.rotate(-86,.25); // left not Right
+
+        robot.moveInches(40,.25,10);
+
+        robot.rotate(119,.25); // Right not left
+
+        robot.moveInches(59,1,10);
+
+
 
         //////////////////////////////////////////
 

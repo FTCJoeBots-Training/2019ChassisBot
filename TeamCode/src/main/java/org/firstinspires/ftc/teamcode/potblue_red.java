@@ -33,9 +33,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 /**
  *
@@ -44,12 +41,12 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  *
  */
 
-@Autonomous(name="Mecanum Square Testing", group="Testing")
-//@Disabled
-public class autoTestMecanumMoveCommands extends LinearOpMode {
+@Autonomous(name="Mecanum Square memeing", group="Testing")
+@Disabled
+public class potblue_red extends LinearOpMode {
 
     /* Declare OpMode members. */
-    HardwareJoeBot2018Turn      robot   = new HardwareJoeBot2018Turn();
+    HardwareJoeBot2018      robot   = new HardwareJoeBot2018();
 
     @Override
     public void runOpMode() {
@@ -71,15 +68,41 @@ public class autoTestMecanumMoveCommands extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        robot.rotate(90,.3);
-        robot.moveInches(6, 0.3, 15);
-        robot.rotate(90,.3);
-        robot.moveInches(6, 0.3, 15);
-        robot.rotate(90,.3);
-        robot.moveInches(6, 0.5, 15);
-        robot.rotate(90,.3);
-        robot.moveInches(6, 0.5, 15);
+
+        //PASTE YOUR OPMODE CODE HERE
+        //lander attach/ detach
+        //robot.raiseLift();
+        //robot.moveRobot(0,-5,0);
+        //robot.lowerLift();
+        // ready to start
+
+        //come down
+        //get off hoo
+
+
+        robot.moveInches(13, 0.75, 15);
+        robot.moveRobot(0,-5,0);
+        robot.rotate(70,0.25);
+
+        robot.moveInches(50, 0.75, 15);
+        robot.rotate(-120,0.25);
+
+        robot.moveInches(56, 0.75, 15);
+        //robot.rotate(160,0.25);
+
+        robot.moveInches(160, 0.75,15);
+
+
+
+        //////////////////////////////////////////
+
+
 
     }
 
 }
+
+
+
+
+

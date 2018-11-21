@@ -42,7 +42,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 @Autonomous(name="13702 depot", group="Testing")
 
-public class blankOpmode_autocrater extends LinearOpMode {
+public class blankOpmode_autodepo extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareJoeBot2018      robot   = new HardwareJoeBot2018();
@@ -85,24 +85,39 @@ public class blankOpmode_autocrater extends LinearOpMode {
 
 
         //come down
-        robot.hangLanderPos();
+        //robot.hangLanderPos();
         //get off hook
-        robot.moveRobot(0,-3,0);
-        robot.moveInches(3,0.1,5);
+        //robot.moveRobot(0,-3,0);
+        //robot.moveInches(3,0.4,5);
         //arm comes down
+        //robot.minLanderPos();
+
+
+
+
+        robot.hangLanderPos();
+        robot.moveRobot(0,-3,0);
+        robot.moveInches(2,.5,5);
         robot.minLanderPos();
 
-
-
-        //move to depot and crater
-        robot.moveInches(13,.25,15);
+        //strafe again to be in the middle.
         robot.moveRobot(0,3,0);
-        robot.rotate(90,.25);
-        robot.moveInches(24,.25,15);
-        robot.rotate(45,.25);
-        robot.moveInches(48,.25,15);
-        robot.forwardToggle();
-        robot.moveInches(-85,.35,15);
+
+        // get to minerals
+        robot.moveInches(15,.25,10);
+
+        robot.rotate(86,.25); // left not Right
+
+        robot.moveInches(40,.25,10);
+
+        robot.rotate(-119,.25); // Right not left
+
+        robot.moveInches(59,.25,10);
+
+        //marker code should go here
+
+
+        robot.moveInches(-85,.35,10);
 
         //////////////////////////////////////////
 
@@ -111,6 +126,7 @@ public class blankOpmode_autocrater extends LinearOpMode {
     }
 
 }
+
 
 
 

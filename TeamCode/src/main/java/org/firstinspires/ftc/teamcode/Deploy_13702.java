@@ -42,7 +42,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 @Autonomous(name="13702 depot", group="Testing")
 
-public class blankOpmode_autodepo extends LinearOpMode {
+public class Deploy_13702 extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareJoeBot2018      robot   = new HardwareJoeBot2018();
@@ -66,6 +66,7 @@ public class blankOpmode_autodepo extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
 
+
         robot.minLanderPos();
 
         robot.minLanderPos();
@@ -73,44 +74,14 @@ public class blankOpmode_autodepo extends LinearOpMode {
         waitForStart();
 
 
-
-
-
-
-
-
-
-
-        //prep motors
-
-
-        //come down
-        //robot.hangLanderPos();
-        //get off hook
-        //robot.moveRobot(0,-3,0);
-        //robot.moveInches(3,0.4,5);
-        //arm comes down
-        //robot.minLanderPos();
-
-
-
-        // Red Depot Code
         robot.hangLanderPos();
-        //strafe here.
-        robot.moveRobot(0,-4,0);
-        robot.minLanderPos();
-        robot.moveRobot(0,-4,0);
-        //strafe again to be in the middle.
         robot.moveRobot(0,3,0);
-        robot.moveInches(15,.25,10);
-        robot.rotate(86,.25); // left not Right
-        robot.moveInches(40,.25,10);
-        robot.rotate(-119,.25); // Right not left
-        robot.moveInches(59,.25,10);
-        robot.rotate(70,.25);
-        robot.moveInches(-85,.35,10);
+        robot.moveInches(2,.5,5);
+        robot.minLanderPos();
 
-        //////////////////////////////////////////
+
+        robot.moveInches(70,1,15);
+
 
 
 

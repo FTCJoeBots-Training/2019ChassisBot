@@ -42,7 +42,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 @Autonomous(name="13702 depot", group="Testing")
 
-public class blankOpmode_autodepo extends LinearOpMode {
+public class blankOpmode_autodepotest extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareJoeBot2018      robot   = new HardwareJoeBot2018();
@@ -94,21 +94,8 @@ public class blankOpmode_autodepo extends LinearOpMode {
 
 
 
-        // Red Depot Code
-        robot.hangLanderPos();
-        //strafe here.
-        robot.moveRobot(0,-3,0);
-        robot.minLanderPos();
-        robot.moveRobot(0,-3,0);
-        //strafe again to be in the middle.
-        robot.moveRobot(0,3,0);
-        robot.moveInches(15,.25,10);
-        robot.rotate(86,.25); // left not Right
-        robot.moveInches(40,.25,10);
-        robot.rotate(-119,.25); // Right not left
-        robot.moveInches(59,.25,10);
-        robot.rotate(70,.25);
-        robot.moveInches(-85,.35,10);
+    robot.hangLanderPos();
+
 
         //////////////////////////////////////////
 

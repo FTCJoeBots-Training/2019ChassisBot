@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -38,7 +39,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 /**
  * Sample code to test mapping of one motor to the gamepad.
  */
-@TeleOp(name = "READ Encoder Values", group = "Testing")
+@Autonomous(name = "READ Encoder Values", group = "Testing")
 //@Disabled
 public class gregMotorTest extends LinearOpMode {
 

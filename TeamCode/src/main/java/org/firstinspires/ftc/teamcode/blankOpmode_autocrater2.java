@@ -42,7 +42,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 @Autonomous(name="13702 crater", group="Testing")
 
-public class blankOpmode_autocrater extends LinearOpMode {
+public class blankOpmode_autocrater2 extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareJoeBot2018      robot   = new HardwareJoeBot2018();
@@ -68,26 +68,12 @@ public class blankOpmode_autocrater extends LinearOpMode {
         waitForStart();
 
 
-        //PASTE YOUR OPMODE CODE HERE
-        //lander attach/ detach
-        //robot.raiseLift();
-        //robot.moveRobot(0,-5,0);
-        //robot.lowerLift();
-        // ready to start
-
-        //come down
-        robot.minLanderPos();
-        //get off hook
-        robot.moveRobot(0,-3,0);
-        robot.moveInches(3, 0.75, 15);
         robot.hangLanderPos();
+        robot.moveRobot(0,3,0);
+        robot.moveInches(2,.5,5);
+        robot.minLanderPos();
 
-
-        robot.moveInches(15,.25,10);
-        robot.rotate(-86,.25); // left not Right
-        robot.moveInches(40,.25,10);
-        robot.rotate(119,.25); // Right not left
-        robot.moveInches(59,1,10);
+        robot.moveInches(70,1,5);
 
 
 
