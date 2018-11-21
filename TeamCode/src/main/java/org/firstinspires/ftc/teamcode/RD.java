@@ -64,15 +64,12 @@ public class RD extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
 
 
+        robot.minLanderPos();
+
+        robot.minLanderPos();
+
 
         waitForStart();
-
-
-
-
-
-
-
 
 
 
@@ -87,7 +84,10 @@ public class RD extends LinearOpMode {
         //arm comes down
         //robot.minLanderPos();
 
-
+        robot.hangLanderPos();
+        robot.moveRobot(0,3,0);
+        robot.moveInches(2,.5,5);
+        robot.minLanderPos();
 
         //move to depot and crater
          robot.moveInches(15,.25,15);

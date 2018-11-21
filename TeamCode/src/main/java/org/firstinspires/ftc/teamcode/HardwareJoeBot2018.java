@@ -231,8 +231,6 @@ public class HardwareJoeBot2018
         power3 = forward - clockwise + right;
 
 
-        liftPower = liftBucketMotor.getCurrentPosition();
-        mainPower = mainBucketMotor.getCurrentPosition();
 
 
 
@@ -263,8 +261,7 @@ public class HardwareJoeBot2018
         myOpMode.telemetry.addLine("initialized motor power to its respective power");
         myOpMode.telemetry.update();
 
-        liftBucketMotor.setPower(liftPower);
-        mainBucketMotor.setPower(mainPower);
+
 
     }
 
