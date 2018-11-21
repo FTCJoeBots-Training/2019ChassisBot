@@ -68,6 +68,7 @@ public class blankOpmode_autoNEW extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
 
         robot.minLanderPos();
+        
 
         robot.minLanderPos();
 
