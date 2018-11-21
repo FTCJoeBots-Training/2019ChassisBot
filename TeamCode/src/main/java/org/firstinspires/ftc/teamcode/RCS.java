@@ -65,6 +65,13 @@ public class RCS extends LinearOpMode {
         //robot.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Wait for the game to start (driver presses PLAY)
+
+
+        robot.minLanderPos();
+
+
+        robot.minLanderPos();
+
         waitForStart();
 
 
@@ -78,7 +85,10 @@ public class RCS extends LinearOpMode {
         //come down
 
 
-
+        robot.hangLanderPos();
+        robot.moveRobot(0,3,0);
+        robot.moveInches(2,.5,5);
+        robot.minLanderPos();
 
         robot.moveInches(70, 1, 15);
         /*

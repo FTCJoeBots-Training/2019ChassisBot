@@ -118,6 +118,11 @@ public class RC extends LinearOpMode {
         robot.minLanderPos();
         */
 
+        robot.hangLanderPos();
+        robot.moveRobot(0,3,0);
+        robot.moveInches(2,.5,5);
+        robot.minLanderPos();
+
         robot.moveInches(15,.25,10);
         robot.rotate(-86,.25); // left not Right
         robot.moveInches(40,.25,10);
