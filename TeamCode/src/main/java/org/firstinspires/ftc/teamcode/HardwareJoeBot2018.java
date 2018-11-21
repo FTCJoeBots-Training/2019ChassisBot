@@ -45,18 +45,15 @@ public class HardwareJoeBot2018
     public DcMotor  motor3; // Right Rear
     public DcMotor  intakeMotor;
     public DcMotor  mainBucketMotor;
-    //public DcMotor  liftBucketMotor;
-    // public DcMotor  rotateMotor
+    public DcMotor  liftBucketMotor;
+   // public DcMotor  rotateMotor
     public DcMotor  liftMotor;
-    // public Servo    scoringServo
-    // public Servo    leftPosServo
-    // public Servo    rightPosServo
+   // public Servo    scoringServo
+   // public Servo    leftPosServo
+   // public Servo    rightPosServo
     public Servo    bearServo;
-    public Servo liftbucket;
-    public Servo rightpos;
-    public Servo leftpos;
-    //  DcMotor shoulderMotor;
-    //   DcMotor elbowMotor;
+  //  DcMotor shoulderMotor;
+ //   DcMotor elbowMotor;
 
 
 
@@ -232,8 +229,8 @@ public class HardwareJoeBot2018
         power1 = forward - clockwise - right;
         power2 = forward + clockwise - right;
         power3 = forward - clockwise + right;
-        liftPower = liftMotor.getCurrentPosition();
-        mainPower = mainBucketMotor.getCurrentPosition();
+
+
 
 
 
@@ -264,8 +261,7 @@ public class HardwareJoeBot2018
         myOpMode.telemetry.addLine("initialized motor power to its respective power");
         myOpMode.telemetry.update();
 
-        liftMotor.setPower(liftPower);
-        mainBucketMotor.setPower(mainPower);
+
 
     }
 
@@ -376,13 +372,13 @@ public class HardwareJoeBot2018
 
     //both are intake
     public void forwardToggle () {
-        if(intakeMotor.getPower() != 0) {
-            //motor must be running
-            intakeMotor.setPower(0);
-        }
-        else {
-            intakeMotor.setPower(0.75);
-        }
+    if(intakeMotor.getPower() != 0) {
+        //motor must be running
+        intakeMotor.setPower(0);
+    }
+    else {
+       intakeMotor.setPower(1);
+    }
 
     }
 
@@ -392,31 +388,31 @@ public class HardwareJoeBot2018
             intakeMotor.setPower(0);
         }
         else {
-            intakeMotor.setPower(-0.75);
+            intakeMotor.setPower(-1);
         }
 
     }
 
 
     public void minLanderPos () {
-        if (liftMotor.getCurrentPosition() <= 60) {
+        if (liftMotor.getCurrentPosition() <= 52) {
             liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            liftMotor.setTargetPosition(60);
+            liftMotor.setTargetPosition(52);
         }
-        if (liftMotor.getCurrentPosition() >= 60) {
+        if (liftMotor.getCurrentPosition() >= 52) {
             liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            liftMotor.setTargetPosition(60);
-        }
+            liftMotor.setTargetPosition(52);
+            }
     }
 
     public void hangLanderPos () {
-        if (liftMotor.getCurrentPosition() <= 1430) {
+        if (liftMotor.getCurrentPosition() <= 1429) {
             liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            liftMotor.setTargetPosition(1430);
+            liftMotor.setTargetPosition(1429);
         }
-        if (liftMotor.getCurrentPosition() >= 1430) {
+        if (liftMotor.getCurrentPosition() >= 1429) {
             liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            liftMotor.setTargetPosition(1430);
+            liftMotor.setTargetPosition(1429);
         }
     }
 
@@ -426,7 +422,7 @@ public class HardwareJoeBot2018
         bearServo.setPosition(0);
         //then add another position which is back up
         // stow positiion
-        bearServo.setPosition(0.7) ;
+        bearServo.setPosition(0.7);
 
     }
 
@@ -436,7 +432,7 @@ public class HardwareJoeBot2018
         elbow up
         intake mostly up
         */
-        // backwardToggle();
+       // backwardToggle();
 
     }
 
