@@ -46,17 +46,14 @@ public class HardwareJoeBot2018
     public DcMotor  intakeMotor;
     public DcMotor  mainBucketMotor;
     public DcMotor  liftBucketMotor;
-    // public DcMotor  rotateMotor
+   // public DcMotor  rotateMotor
     public DcMotor  liftMotor;
-    // public Servo    scoringServo
-    // public Servo    leftPosServo
-    // public Servo    rightPosServo
+   // public Servo    scoringServo
+   // public Servo    leftPosServo
+   // public Servo    rightPosServo
     public Servo    bearServo;
-    public Servo liftbucket;
-    public Servo rightpos;
-    public Servo leftpos;
-    //  DcMotor shoulderMotor;
-    //   DcMotor elbowMotor;
+  //  DcMotor shoulderMotor;
+ //   DcMotor elbowMotor;
 
 
 
@@ -135,7 +132,7 @@ public class HardwareJoeBot2018
         myOpMode.telemetry.update();
 
 
-        liftBucketMotor.setPower(0);
+        liftMotor.setPower(0);
         mainBucketMotor.setPower(0);
         intakeMotor.setPower(0);
 
@@ -232,8 +229,8 @@ public class HardwareJoeBot2018
         power1 = forward - clockwise - right;
         power2 = forward + clockwise - right;
         power3 = forward - clockwise + right;
-        liftPower = liftBucketMotor.getCurrentPosition();
-        mainPower = mainBucketMotor.getCurrentPosition();
+
+
 
 
 
@@ -264,8 +261,7 @@ public class HardwareJoeBot2018
         myOpMode.telemetry.addLine("initialized motor power to its respective power");
         myOpMode.telemetry.update();
 
-        liftBucketMotor.setPower(liftPower);
-        mainBucketMotor.setPower(mainPower);
+
 
     }
 
@@ -381,7 +377,7 @@ public class HardwareJoeBot2018
         intakeMotor.setPower(0);
     }
     else {
-       intakeMotor.setPower(0.75);
+       intakeMotor.setPower(1);
     }
 
     }
@@ -392,7 +388,7 @@ public class HardwareJoeBot2018
             intakeMotor.setPower(0);
         }
         else {
-            intakeMotor.setPower(-0.75);
+            intakeMotor.setPower(-1);
         }
 
     }
@@ -406,7 +402,7 @@ public class HardwareJoeBot2018
         if (liftMotor.getCurrentPosition() >= 52) {
             liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             liftMotor.setTargetPosition(52);
-        }
+            }
     }
 
     public void hangLanderPos () {
@@ -426,7 +422,7 @@ public class HardwareJoeBot2018
         bearServo.setPosition(0);
         //then add another position which is back up
         // stow positiion
-        bearServo.setPosition(0.7) ;
+        bearServo.setPosition(0.7);
 
     }
 
@@ -436,7 +432,7 @@ public class HardwareJoeBot2018
         elbow up
         intake mostly up
         */
-        // backwardToggle();
+       // backwardToggle();
 
     }
 
