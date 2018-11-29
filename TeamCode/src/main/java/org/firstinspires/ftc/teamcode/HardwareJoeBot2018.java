@@ -58,6 +58,7 @@ public class HardwareJoeBot2018
    // public Servo    scoringServo
    // public Servo    leftPosServo
    // public Servo    rightPosServo
+   public Servo    bearServo;
   //  DcMotor shoulderMotor;
  //   DcMotor elbowMotor;
 
