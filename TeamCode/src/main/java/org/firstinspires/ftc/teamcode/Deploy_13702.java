@@ -40,7 +40,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  *
  */
 
-@Autonomous(name="13702 depot", group="Testing")
+@Autonomous(name="Lower Deploy 13702", group="Testing")
 
 public class Deploy_13702 extends LinearOpMode {
 
@@ -67,20 +67,14 @@ public class Deploy_13702 extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
 
 
-        robot.minLanderPos();
-
-        robot.minLanderPos();
 
         waitForStart();
 
 
         robot.hangLanderPos();
-        robot.moveRobot(0,3,0);
-        robot.moveInches(2,.5,5);
-        robot.minLanderPos();
 
 
-        robot.moveInches(70,1,15);
+        //robot.moveInches(70,1,15);
 
 
 

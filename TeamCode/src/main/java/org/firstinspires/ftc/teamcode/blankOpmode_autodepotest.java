@@ -40,7 +40,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  *
  */
 
-@Autonomous(name="13702 depot", group="Testing")
+@Autonomous(name="13702 depot test", group="Testing")
 
 public class blankOpmode_autodepotest extends LinearOpMode {
 

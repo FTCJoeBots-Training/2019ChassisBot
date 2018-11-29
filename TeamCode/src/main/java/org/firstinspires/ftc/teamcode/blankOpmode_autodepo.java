@@ -95,29 +95,34 @@ public class blankOpmode_autodepo extends LinearOpMode {
 
 
 
-        robot.hangLanderPos();
-        robot.moveRobot(0,-3,0);
-        robot.moveInches(2,.5,5);
-        robot.minLanderPos();
+        //robot.hangLanderPos();
+        //robot.moveRobot(0,-3,0);
+        //robot.moveInches(2,.5,5);
+        //robot.minLanderPos();
 
         //strafe again to be in the middle.
         robot.moveRobot(0,3,0);
 
         // get to minerals
-        robot.moveInches(15,.25,10);
+        robot.moveInches(60,.5,15);
 
-        robot.rotate(86,.25); // left not Right
+        
 
-        robot.moveInches(40,.25,10);
+        //robot.rotate(90,.25);
 
-        robot.rotate(-119,.25); // Right not left
+        robot.moveInches(-45,.55,10);
 
-        robot.moveInches(59,.25,10);
+        robot.rotate(-135,.25);
 
-        //marker code should go here
+        robot.moveInches(50,1,15);
 
+        robot.mainbucketmotor.setPower(-0.75);
 
-        robot.moveInches(-85,.35,10);
+        robot.forwardToggle();
+
+        robot.rotate(-90, .50);
+
+        robot.moveInches(-85,1,15);
 
         //////////////////////////////////////////
 

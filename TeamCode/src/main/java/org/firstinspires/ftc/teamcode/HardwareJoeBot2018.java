@@ -44,8 +44,8 @@ public class HardwareJoeBot2018
     public DcMotor  motor2; // Left Rear
     public DcMotor  motor3; // Right Rear
     public DcMotor  intakeMotor;
-    public DcMotor  mainBucketMotor;
-    public DcMotor  liftBucketMotor;
+    public DcMotor  mainbucketmotor;
+    public DcMotor  liftBucketservo;
    // public DcMotor  rotateMotor
     public DcMotor  liftMotor;
    // public Servo    scoringServo
@@ -99,13 +99,13 @@ public class HardwareJoeBot2018
         motor1 = hwMap.dcMotor.get("motor1");
         motor2 = hwMap.dcMotor.get("motor2");
         motor3 = hwMap.dcMotor.get("motor3");
-        mainBucketMotor = hwMap.dcMotor.get("mainbucketmotor");
+        mainbucketmotor = hwMap.dcMotor.get("mainbucketmotor");
         intakeMotor = hwMap.dcMotor.get("intakemotor");
         liftMotor = hwMap.dcMotor.get("liftmotor");
 
 
-        //liftBucketMotor = hwMap.dcMotor.get("liftBucketMotor");
-        //mainBucketMotor = hwMap.dcMotor.get("mainBucketMotor");
+        //liftBucketservo = hwMap.dcMotor.get("liftBucketservo");
+        //mainbucketmotor = hwMap.dcMotor.get("mainbucketmotor");
         //intakeMotor = hwMap.dcMotor.get("intakeMotor");
 
         // Set Default Motor Directions
@@ -114,7 +114,7 @@ public class HardwareJoeBot2018
         motor2.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         motor3.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
         liftMotor.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
-        mainBucketMotor.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
+        mainbucketmotor.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         intakeMotor.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
 
 
@@ -126,14 +126,14 @@ public class HardwareJoeBot2018
         myOpMode.telemetry.addLine("initialized motor power to zero");
         myOpMode.telemetry.update();
         liftMotor.setPower(0);
-        mainBucketMotor.setPower(0);
+        mainbucketmotor.setPower(0);
         intakeMotor.setPower(0);
         myOpMode.telemetry.addLine("initialized other motor power to zero");
         myOpMode.telemetry.update();
 
 
         liftMotor.setPower(0);
-        mainBucketMotor.setPower(0);
+        mainbucketmotor.setPower(0);
         intakeMotor.setPower(0);
 
         // Set all drive motors to run without encoders.
@@ -143,7 +143,7 @@ public class HardwareJoeBot2018
         motor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motor3.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        mainBucketMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        mainbucketmotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
@@ -395,24 +395,24 @@ public class HardwareJoeBot2018
 
 
     public void minLanderPos () {
-        if (liftMotor.getCurrentPosition() <= 52) {
+        if (liftMotor.getCurrentPosition() <= -451) {
             liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            liftMotor.setTargetPosition(52);
+            liftMotor.setTargetPosition(-451);
         }
-        if (liftMotor.getCurrentPosition() >= 52) {
+        if (liftMotor.getCurrentPosition() >= -451) {
             liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            liftMotor.setTargetPosition(52);
+            liftMotor.setTargetPosition(-451);
             }
     }
 
     public void hangLanderPos () {
-        if (liftMotor.getCurrentPosition() <= 1429) {
+        if (liftMotor.getCurrentPosition() <= -280) {
             liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            liftMotor.setTargetPosition(1429);
+            liftMotor.setTargetPosition(-280);
         }
-        if (liftMotor.getCurrentPosition() >= 1429) {
+        if (liftMotor.getCurrentPosition() >= -280) {
             liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            liftMotor.setTargetPosition(1429);
+            liftMotor.setTargetPosition(-280);
         }
     }
 
