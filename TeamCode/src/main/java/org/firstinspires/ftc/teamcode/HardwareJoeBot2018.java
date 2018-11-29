@@ -553,6 +553,14 @@ public class HardwareJoeBot2018
 
     }
 
+    public void raiseLift() {
+        // Null Method for now.
+    }
+
+    public void lowerLift() {
+        // Null Method for now.
+    }
+
 }
 
 
