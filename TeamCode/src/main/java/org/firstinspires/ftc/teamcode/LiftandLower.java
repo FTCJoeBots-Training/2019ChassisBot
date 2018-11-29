@@ -68,13 +68,16 @@ public class LiftandLower extends LinearOpMode {
 
         robot.minLanderPos();
 
+
+        robot.minLanderPos();
+
         waitForStart();
 
 
         robot.hangLanderPos();
         robot.moveRobot(0,3,0);
-        robot.moveInches(5,.5,10);
-        robot.moveRobot(0,-3,0);
+        robot.moveInches(2,.5,5);
+        robot.minLanderPos();
 
 
         //PASTE YOUR OPMODE CODE HERE
