@@ -45,7 +45,7 @@ public class HardwareJoeBot2018
     public DcMotor  motor3; // Right Rear
     public DcMotor  intakeMotor;
     public DcMotor  mainBucketMotor;
-    public DcMotor  liftBucketMotor;
+    public Servo liftbucketservo;
    // public DcMotor  rotateMotor
     public DcMotor  liftMotor;
    // public Servo    scoringServo
@@ -102,7 +102,7 @@ public class HardwareJoeBot2018
         mainBucketMotor = hwMap.dcMotor.get("mainbucketmotor");
         intakeMotor = hwMap.dcMotor.get("intakemotor");
         liftMotor = hwMap.dcMotor.get("liftmotor");
-
+        liftbucketservo = hwMap.servo.get("liftbucketservo");
 
         //liftBucketMotor = hwMap.dcMotor.get("liftBucketMotor");
         //mainBucketMotor = hwMap.dcMotor.get("mainBucketMotor");

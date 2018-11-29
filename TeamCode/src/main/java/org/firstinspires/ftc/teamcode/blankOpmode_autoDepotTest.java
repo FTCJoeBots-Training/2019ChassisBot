@@ -85,10 +85,10 @@ public class blankOpmode_autoDepotTest extends LinearOpMode {
 
 
         //come down
-        robot.hangLanderPos();
+        //robot.hangLanderPos();
         //get off hook
 
-        robot.moveRobot(0,-3,0);
+       // robot.moveRobot(0,-6,0);
         robot.moveInches(13,1,5);
         //arm comes down
         //robot.minLanderPos();
@@ -97,16 +97,20 @@ public class blankOpmode_autoDepotTest extends LinearOpMode {
 
         //move to depot and crater
        // robot.moveInches(13,.25,15);
-        robot.moveRobot(0,3,0);
+       // robot.moveRobot(0,6,0);
 
         //robot.rotate(45,.25);
-        robot.moveInches(32,1,15);
-        /*
-        robot.mainBucketMotor.setPower(-0.75);
+        robot.moveInches(43,1,15);
+
         robot.forwardToggle();
+        sleep(2000);
+        robot.mainBucketMotor.setPower(-0.75);
+        robot.rotate(-135,.5);
+        robot.moveRobot(0,3,0);
+        sleep(2000);
         robot.mainBucketMotor.setPower(0.75);
-        //robot.rotate(-135,.25);
-        robot.moveInches(-35,1,15);
+        robot.moveInches(75,1,15);
+        /*
         robot.moveRobot(0,3,0);
         robot.moveInches(35,1,15);
         robot.moveInches(-35,1,15);
