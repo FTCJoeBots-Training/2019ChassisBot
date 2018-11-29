@@ -294,8 +294,8 @@ public class HardwareJoeBot2018
         myOpMode.telemetry.addLine("initialized motor power to its respective power");
         myOpMode.telemetry.update();
 
-        liftBucketMotor.setPower(liftPower);
-        mainBucketMotor.setPower(mainPower);
+        //liftBucketMotor.setPower(liftPower);
+        //mainBucketMotor.setPower(mainPower);
 
     }
 
