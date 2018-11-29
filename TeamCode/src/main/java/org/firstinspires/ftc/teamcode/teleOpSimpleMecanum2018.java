@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -29,7 +30,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  *G-Sheet of time VS Heading for autonomous -> https://docs.google.com/a/stjoebears.com/spreadsheets/d/1pqv0iN94fFd5KvX1YIWP7z39HgpURXsscn0zPujs1q4/edit?usp=sharing
 */
 @TeleOp(name="Simple Mecanum Drive 2", group="TeleOp")
-
+@Disabled
 public class teleOpSimpleMecanum2018 extends LinearOpMode {
 
     HardwareJoeBot2018 robot = new HardwareJoeBot2018();

@@ -195,7 +195,7 @@ public class EthansCode extends LinearOpMode {
             mainbucketpower = gamepad2.left_stick_y * 0.75;
             robot.mainBucketMotor.setPower(mainbucketpower);
 
-            liftpower = gamepad2.right_stick_y * 0.50;
+            liftpower = gamepad2.right_stick_y * 0.25;
             robot.liftMotor.setPower(liftpower);
 
             telemetry.addLine("operator i suppose");

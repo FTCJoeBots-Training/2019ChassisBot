@@ -264,8 +264,6 @@ public class HardwareJoeBot2018
         power3 = forward - clockwise + right;
 
 
-        liftPower = liftBucketMotor.getCurrentPosition();
-        mainPower = mainBucketMotor.getCurrentPosition();
 
 
 
