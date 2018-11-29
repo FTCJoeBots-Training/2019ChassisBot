@@ -45,13 +45,13 @@ public class HardwareJoeBot2018
     public DcMotor  motor3; // Right Rear
     public DcMotor  intakeMotor;
     public DcMotor  mainBucketMotor;
+    public Servo liftbucketservo;
     public DcMotor  liftBucketMotor;
    // public DcMotor  rotateMotor
     public DcMotor  liftMotor;
    // public Servo    scoringServo
    // public Servo    leftPosServo
    // public Servo    rightPosServo
-    public Servo    bearServo;
   //  DcMotor shoulderMotor;
  //   DcMotor elbowMotor;
 
@@ -102,6 +102,7 @@ public class HardwareJoeBot2018
         mainBucketMotor = hwMap.dcMotor.get("mainbucketmotor");
         intakeMotor = hwMap.dcMotor.get("intakemotor");
         liftMotor = hwMap.dcMotor.get("liftmotor");
+        liftbucketservo = hwMap.servo.get("liftbucketservo");
 
 
         //liftBucketMotor = hwMap.dcMotor.get("liftBucketMotor");
@@ -342,15 +343,15 @@ public class HardwareJoeBot2018
                 //Compose Telemetry message
                 myOpMode.telemetry.addLine("> Waiting for robot to reach target");
                 myOpMode.telemetry.addLine("Curr. Pos. |")
-                        .addData("1:",motor0.getCurrentPosition())
-                        .addData("2:",motor1.getCurrentPosition())
-                        .addData("3:",motor2.getCurrentPosition())
-                        .addData("4:",motor3.getCurrentPosition());
+                        .addData("0:",motor0.getCurrentPosition())
+                        .addData("1:",motor1.getCurrentPosition())
+                        .addData("2:",motor2.getCurrentPosition())
+                        .addData("3:",motor3.getCurrentPosition());
                 myOpMode.telemetry.addLine("Target | ")
-                        .addData("1:",newmotor0Target)
-                        .addData("2:",newmotor1Target)
-                        .addData("3:",newmotor2Target)
-                        .addData("4:",newmotor3Target);
+                        .addData("0:",newmotor0Target)
+                        .addData("1:",newmotor1Target)
+                        .addData("2:",newmotor2Target)
+                        .addData("3:",newmotor3Target);
                 myOpMode.telemetry.addData("Power: ", power);
                 myOpMode.telemetry.update();
 
@@ -416,15 +417,7 @@ public class HardwareJoeBot2018
         }
     }
 
-    public void releaseBear () {
-        //replace with open #
-        // knock of position
-        bearServo.setPosition(0);
-        //then add another position which is back up
-        // stow positiion
-        bearServo.setPosition(0.7);
 
-    }
 
     public void liftAndScore () {
         /*
