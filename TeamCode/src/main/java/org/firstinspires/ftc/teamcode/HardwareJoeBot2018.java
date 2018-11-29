@@ -51,7 +51,7 @@ public class HardwareJoeBot2018
     public DcMotor  motor3; // Right Rear
     public DcMotor  intakeMotor;
     public DcMotor  mainBucketMotor;
-    public Servo liftbucketservo;
+    public Servo    liftbucketservo;
     public DcMotor  liftBucketMotor;
    // public DcMotor  rotateMotor
     public DcMotor  liftMotor;
@@ -126,7 +126,6 @@ public class HardwareJoeBot2018
         intakeMotor = hwMap.dcMotor.get("intakemotor");
         liftMotor = hwMap.dcMotor.get("liftmotor");
         liftbucketservo = hwMap.servo.get("liftbucketservo");
-
 
         //liftBucketMotor = hwMap.dcMotor.get("liftBucketMotor");
         //mainBucketMotor = hwMap.dcMotor.get("mainBucketMotor");
@@ -295,8 +294,7 @@ public class HardwareJoeBot2018
         myOpMode.telemetry.addLine("initialized motor power to its respective power");
         myOpMode.telemetry.update();
 
-        //liftBucketMotor.setPower(liftPower);
-        //mainBucketMotor.setPower(mainPower);
+
 
     }
 
@@ -451,7 +449,15 @@ public class HardwareJoeBot2018
         }
     }
 
+    public void releaseBear () {
+        //replace with open #
+        // knock of position
+        bearServo.setPosition(0);
+        //then add another position which is back up
+        // stow positiion
+        bearServo.setPosition(0.7);
 
+    }
 
     public void liftAndScore () {
         /*
