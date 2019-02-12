@@ -45,12 +45,6 @@ public class HardwareJoeBot
     public DcMotor  motor1 = null; // Right Front
     public DcMotor  motor2 = null; // Left Rear
     public DcMotor  motor3 = null; // Right Rear
-    public DcMotor intakeMotor = null;
-    public DcMotor mainBucketMotor = null;
-    public DcMotor liftMotor = null;
-    public Servo rightpos;
-    public Servo leftpos;
-    public Servo liftbucket;
 
 
     // Declare Sensors
@@ -84,18 +78,14 @@ public class HardwareJoeBot
         motor1 = hwMap.dcMotor.get("motor1");
         motor2 = hwMap.dcMotor.get("motor2");
         motor3 = hwMap.dcMotor.get("motor3");
-        mainBucketMotor = hwMap.dcMotor.get("mainbucketmotor");
-        intakeMotor = hwMap.dcMotor.get("intakemotor");
-        liftMotor = hwMap.dcMotor.get("liftmotor");
+
 
         // Set Default Motor Directions
         motor0.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         motor1.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
         motor2.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         motor3.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
-        mainBucketMotor.setDirection(DcMotor.Direction.FORWARD);
-        liftMotor.setDirection(DcMotor.Direction.FORWARD);
-        intakeMotor.setDirection(DcMotor.Direction.FORWARD);
+
 
 
 
@@ -104,9 +94,6 @@ public class HardwareJoeBot
         motor1.setPower(0);
         motor2.setPower(0);
         motor3.setPower(0);
-        mainBucketMotor.setPower(0);
-        liftMotor.setPower(0);
-        intakeMotor.setPower(0);
 
 
 
@@ -116,9 +103,6 @@ public class HardwareJoeBot
         motor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motor3.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        mainBucketMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
 

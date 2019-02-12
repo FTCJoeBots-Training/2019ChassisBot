@@ -30,19 +30,18 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class teleOpSimpleMecanum extends LinearOpMode {
 
-    DcMotor liftMotor;
     double forward;
     double clockwise;
     double right;
     double k;
+    double power0;
     double power1;
     double power2;
     double power3;
-    double power4;
     double liftpower;
     double max;
 
-    HardwareJoeBot robot = new HardwareJoeBot();
+    HardwareJoeBot2018 robot = new HardwareJoeBot2018();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -74,37 +73,35 @@ public class teleOpSimpleMecanum extends LinearOpMode {
 
 
             // Calculate motor power
-            power1 = forward + clockwise + right;
-            power2 = forward - clockwise - right;
-            power3 = forward + clockwise - right;
-            power4 = forward - clockwise + right;
+            power0 = forward + clockwise + right;
+            power1 = forward - clockwise - right;
+            power2 = forward + clockwise - right;
+            power3 = forward - clockwise + right;
 
             // Normalize Wheel speeds so that no speed exceeds 1.0
-            max = Math.abs(power1);
+            max = Math.abs(power0);
+            if (Math.abs(power1) > max) {
+                max = Math.abs(power1);
+            }
             if (Math.abs(power2) > max) {
                 max = Math.abs(power2);
             }
             if (Math.abs(power3) > max) {
                 max = Math.abs(power3);
             }
-            if (Math.abs(power4) > max) {
-                max = Math.abs(power4);
-            }
 
             if (max > 1) {
+                power0 /= max;
                 power1 /= max;
                 power2 /= max;
                 power3 /= max;
-                power4 /= max;
             }
 
-            robot.motor0.setPower(power1);
-            robot.motor1.setPower(power2);
-            robot.motor2.setPower(power3);
-            robot.motor3.setPower(power4);
+            robot.motor0.setPower(power0);
+            robot.motor1.setPower(power1);
+            robot.motor2.setPower(power2);
+            robot.motor3.setPower(power3);
 
-            liftpower = gamepad1.left_stick_y;
-            liftMotor.setPower(liftpower);
 
             //------------------------------------------
             //-------------------------------------------
