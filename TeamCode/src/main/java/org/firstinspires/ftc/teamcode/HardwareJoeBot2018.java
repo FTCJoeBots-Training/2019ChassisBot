@@ -185,7 +185,6 @@ public class HardwareJoeBot2018
      * The function looks at the elapsed cycle time, and sleeps for the remaining time interval.
      *
      * @param periodMs  Length of wait cycle in mSec.
-     * @throws InterruptedException
      */
     public void waitForTick(long periodMs) throws InterruptedException {
 
@@ -467,6 +466,16 @@ public class HardwareJoeBot2018
         // getAngle returns + when rotating clockwise and - when rotating counter clockwise
         // set power (speed) negative when turning left
         if (degrees < 0 ) power = -power;
+
+        if (degrees < 15 && degrees > 0) {
+            power *= 0.75;
+        }else if (degrees < 7 && degrees > 0){
+            power *= 0.5;
+        }else if (degrees == 0){
+            power *= 0;
+        }
+
+
 
         // start robot turning
         moveRobot(0,0,power);
