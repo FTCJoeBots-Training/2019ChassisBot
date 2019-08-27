@@ -516,55 +516,57 @@ public class HardwareJoeBot2018
 
 
     public void rotate2(int degrees, double power){
-
+//rotate based on wheel rotations not imu
         myOpMode.telemetry.log().add("Starting rotate method");
 
         // Restart IMU movement tracking
-        resetAngle();
+       // resetAngle();
 
         // getAngle returns + when rotating clockwise and - when rotating counter clockwise
         // set power (speed) negative when turning left
-        if (degrees < 0 ) power = -power;
+        //if (degrees < 0 ) power = -power;
 
-        // start robot turning
-        moveRobot(0,0,power);
+        //get starting encoder values
+        int startEncoder0 = motor0.getCurrentPosition();
+        int startEncoder1 = motor1.getCurrentPosition();
+        int startEncoder2 = motor2.getCurrentPosition();
+        int startEncoder3 = motor3.getCurrentPosition();
 
-        // stop turning when getAngle() returns a value greater or less than intended degrees
-        if (degrees > 0) {
-            // Expect this to be a right turn
-            // On a right turn, since we start on zero, we have to get off zero first
+        int targetEncoder0 = 0;
+        int targetEncoder1 = 0;
+        int targetEncoder2 = 0;
+        int targetEncoder3 = 0;
+        int ticksPerDegree = 17;
 
-            while (myOpMode.opModeIsActive() && getAngle() == 0) {
-                myOpMode.telemetry.addLine(">getAngle() returned 0");
-                myOpMode.telemetry.addLine(">>")
-                        .addData("Cur: ", getAngle())
-                        .addData("Tar: ", degrees);
-                myOpMode.telemetry.update();
-            }
-
-            while (myOpMode.opModeIsActive() && getAngle() < degrees) {
-                myOpMode.telemetry.addLine(">getAngle() returned >0");
-                myOpMode.telemetry.addLine(">>")
-                        .addData("Cur: ", getAngle())
-                        .addData("Tar: ", degrees);
-                myOpMode.telemetry.update();
-            }
+        if (degrees < 0) {
+            //turning left
+            targetEncoder0 = startEncoder0 - (degrees*ticksPerDegree);
+            targetEncoder1 = startEncoder1 + (degrees*ticksPerDegree);
+            targetEncoder2 = startEncoder2 - (degrees*ticksPerDegree);
+            targetEncoder3 = startEncoder3 + (degrees*ticksPerDegree);
         } else {
-            // left turn
-
-            while (myOpMode.opModeIsActive() && getAngle() > degrees) {
-                myOpMode.telemetry.addLine(">getAngle() returned <0");
-                myOpMode.telemetry.addLine(">>")
-                        .addData("Cur: ", getAngle())
-                        .addData("Tar: ", degrees);
-                myOpMode.telemetry.update();
-            }
-
+            //turning right
+            targetEncoder0 = startEncoder0 + (degrees*ticksPerDegree);
+            targetEncoder1 = startEncoder1 - (degrees*ticksPerDegree);
+            targetEncoder2 = startEncoder2 + (degrees*ticksPerDegree);
+            targetEncoder3 = startEncoder3 - (degrees*ticksPerDegree);
         }
 
 
-        //Stop the motors
-        stop();
+        //TODO: copy code from moveinches
+
+        
+
+
+
+
+        // start robot turning
+        //moveRobot(0,0,power);
+
+
+
+       //Stop the motors
+        //stop();
 
         // reset IMU tracking
         resetAngle();
@@ -573,67 +575,7 @@ public class HardwareJoeBot2018
 
     }
 
-    public void rotateEncoder(int degrees, double power){
 
-        myOpMode.telemetry.log().add("Starting rotate method");
-
-        // Restart IMU movement tracking
-        resetAngle();
-
-        // getAngle returns + when rotating clockwise and - when rotating counter clockwise
-        // set power (speed) negative when turning left
-        if (degrees < 0 ) power = -power;
-
-        if (degrees < 30 && degrees > 0 ){
-
-        }
-
-        // start robot turning
-        moveRobot(0,0,power);
-
-        // stop turning when getAngle() returns a value greater or less than intended degrees
-        if (degrees > 0) {
-            // Expect this to be a right turn
-            // On a right turn, since we start on zero, we have to get off zero first
-
-            while (myOpMode.opModeIsActive() && getAngle() == 0) {
-                myOpMode.telemetry.addLine(">getAngle() returned 0");
-                myOpMode.telemetry.addLine(">>")
-                        .addData("Cur: ", getAngle())
-                        .addData("Tar: ", degrees);
-                myOpMode.telemetry.update();
-            }
-
-            while (myOpMode.opModeIsActive() && getAngle() < degrees) {
-                myOpMode.telemetry.addLine(">getAngle() returned >0");
-                myOpMode.telemetry.addLine(">>")
-                        .addData("Cur: ", getAngle())
-                        .addData("Tar: ", degrees);
-                myOpMode.telemetry.update();
-            }
-        } else {
-            // left turn
-
-            while (myOpMode.opModeIsActive() && getAngle() > degrees) {
-                myOpMode.telemetry.addLine(">getAngle() returned <0");
-                myOpMode.telemetry.addLine(">>")
-                        .addData("Cur: ", getAngle())
-                        .addData("Tar: ", degrees);
-                myOpMode.telemetry.update();
-            }
-
-        }
-
-
-        //Stop the motors
-        stop();
-
-        // reset IMU tracking
-        resetAngle();
-
-
-
-    }
     /////////////////////////////////     Added this method:
     ///    tflocate  -  look at the leftmost two minerals because we can't see all three
     ///              -   if this sees, two silver minerals, gold is on the right, return 2 (right)

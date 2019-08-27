@@ -110,6 +110,10 @@ public class teleOpSimpleMecanum extends LinearOpMode {
 
             // Update Telemetry
             telemetry.addData(">", "Press Stop to end test.");
+            telemetry.addData("motor0: ",robot.motor0.getCurrentPosition());
+            telemetry.addData("motor1: ",robot.motor1.getCurrentPosition());
+            telemetry.addData("motor2: ",robot.motor2.getCurrentPosition());
+            telemetry.addData("motor3: ",robot.motor3.getCurrentPosition());
             telemetry.update();
             idle();
 
