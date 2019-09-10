@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -49,7 +50,8 @@ public class HardwareJoeBot2018
     public DcMotor  motor1 = null; // Right Front
     public DcMotor  motor2 = null; // Left Rear
     public DcMotor  motor3 = null; // Right Rear
-
+    public CRServo clawServo = null;
+    public DcMotor  clawLiftMotor = null;
 
 
     // Declare Sensors
@@ -111,6 +113,8 @@ public class HardwareJoeBot2018
         motor1 = hwMap.dcMotor.get("motor1");
         motor2 = hwMap.dcMotor.get("motor2");
         motor3 = hwMap.dcMotor.get("motor3");
+        clawLiftMotor = hwMap.dcMotor.get("clawLiftMotor");
+        clawServo = hwMap.crservo.get("clawServo");
 
         //liftBucketMotor = hwMap.dcMotor.get("liftBucketMotor");
         //mainBucketMotor = hwMap.dcMotor.get("mainBucketMotor");
@@ -121,6 +125,8 @@ public class HardwareJoeBot2018
         motor1.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
         motor2.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         motor3.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
+        clawLiftMotor.setDirection(DcMotor.Direction.FORWARD);
+        clawServo.setDirection(CRServo.Direction.FORWARD);
 
 
         // Set all motors to zero power
@@ -128,6 +134,9 @@ public class HardwareJoeBot2018
         motor1.setPower(0);
         motor2.setPower(0);
         motor3.setPower(0);
+        clawServo.setPower(0);
+        clawLiftMotor.setPower(0);
+
         myOpMode.telemetry.addLine("initialized motor power to zero");
         myOpMode.telemetry.update();
 
@@ -143,6 +152,7 @@ public class HardwareJoeBot2018
         motor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motor3.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        clawLiftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
 
@@ -185,7 +195,7 @@ public class HardwareJoeBot2018
      * The function looks at the elapsed cycle time, and sleeps for the remaining time interval.
      *
      * @param periodMs  Length of wait cycle in mSec.
-     * @throws InterruptedException
+
      */
     public void waitForTick(long periodMs) throws InterruptedException {
 
@@ -209,6 +219,7 @@ public class HardwareJoeBot2018
         motor1.setMode(mode);
         motor2.setMode(mode);
         motor3.setMode(mode);
+        clawLiftMotor.setMode(mode);
     }
 
     /**
@@ -288,6 +299,8 @@ public class HardwareJoeBot2018
         motor1.setPower(0);
         motor2.setPower(0);
         motor3.setPower(0);
+        clawLiftMotor.setPower(0);
+        clawServo.setPower(0);
         myOpMode.telemetry.addLine("initialized motor power to zero");
         myOpMode.telemetry.update();
 
@@ -512,6 +525,11 @@ public class HardwareJoeBot2018
         resetAngle();
 
 
+
+    }
+
+    public void raiseClaw(double power){
+        clawLiftMotor.setPower(power);
 
     }
 
