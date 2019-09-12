@@ -40,6 +40,10 @@ public class teleOpSimpleMecanum extends LinearOpMode {
     double power3;
     double liftpower;
     double max;
+    boolean bCurrStateB;
+    boolean bPrevStateB;
+    boolean bCurrStateA;
+    boolean bPrevStateA;
 
     HardwareJoeBot2018 robot = new HardwareJoeBot2018();
 
@@ -102,6 +106,30 @@ public class teleOpSimpleMecanum extends LinearOpMode {
             robot.motor2.setPower(power2);
             robot.motor3.setPower(power3);
 
+
+            //open/close claw on "B"
+            bCurrStateB = gamepad2.b;
+            if((bCurrStateB == true) && (bCurrStateB != bPrevStateB)){
+                if (robot.bClawOpen){
+                    robot.closeClaw();
+                }else{
+                    robot.openclaw();
+                }
+            }
+
+            bPrevStateB = bCurrStateB;
+
+            //raise/lower claw on "A"
+            bCurrStateA = gamepad2.a;
+            if((bCurrStateA == true) && (bCurrStateA != bPrevStateA)){
+                if (robot.bClawDown){
+                    robot.raiseClaw();
+                }else{
+                    robot.lowerClaw();
+                }
+            }
+
+            bPrevStateA = bCurrStateA;
 
             //------------------------------------------
             //-------------------------------------------
