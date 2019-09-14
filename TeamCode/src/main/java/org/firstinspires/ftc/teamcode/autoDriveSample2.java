@@ -61,7 +61,7 @@ public class autoDriveSample2 extends LinearOpMode {
 
         robot.moveInches(12, 0.5, 5);
         robot.rotate(90,.25);
-        
+
 
         telemetry.addLine("We're done. Press stop.");
         telemetry.update();
