@@ -103,6 +103,9 @@ public class teleOpSimpleMecanum extends LinearOpMode {
             robot.motor3.setPower(power3);
 
 
+
+
+
             //------------------------------------------
             //-------------------------------------------
 
@@ -110,6 +113,15 @@ public class teleOpSimpleMecanum extends LinearOpMode {
 
             // Update Telemetry
             telemetry.addData(">", "Press Stop to end test.");
+
+            if (gamepad1.a) {
+                telemetry.addLine("Button A is pressed");
+            } else if (gamepad1.b) {
+                telemetry.addLine("Button B is pressed");
+            } else {
+                telemetry.addLine("Neither button is pressed");
+            }
+
             telemetry.update();
             idle();
 
