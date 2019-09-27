@@ -78,23 +78,31 @@ public class mariahAuto1 extends LinearOpMode {
 
         robot.init(hardwareMap,this);
 
+       // int newDistance = robot.motor0.getCurrentPosition();
+       // robot.motor0.setTargetPosition(newDistance + 5);
+
+       // robot.motor0.getCurrentPosition();
+
         waitForStart();
+
+
+
 
         telemetry.addLine("move1 has started");
 
         //move1
 
-        robot.moveInches(5,.3,6);
+        robot.moveInches(25,1,60);
 
-        telemetry.addLine("move2 has started");
+       // telemetry.addLine("move2 has started");
         //move 2
-        robot.rotate(-90,.1);
+        //robot.rotate(-90,.5);
 
-        telemetry.addLine("move3 has started");
+        //telemetry.addLine("move3 has started");
         //move 3
-        robot.moveInches(5,.3,6);
+        //robot.moveInches(5,1,6);
 
-        telemetry.addLine("All moves have finshed");
+       // telemetry.addLine("All moves have finshed");
 
 
 

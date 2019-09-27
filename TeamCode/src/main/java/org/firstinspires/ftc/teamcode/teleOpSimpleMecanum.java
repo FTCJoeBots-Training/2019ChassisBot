@@ -125,7 +125,7 @@ public class teleOpSimpleMecanum extends LinearOpMode {
             telemetry.update();
             idle();
 
-
+            telemetry.addLine();
 
 
 
