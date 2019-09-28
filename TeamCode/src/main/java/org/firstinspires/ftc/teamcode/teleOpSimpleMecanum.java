@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  *import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -10,7 +12,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  *
  *
  */
-
 /**
  *Notes For this TeleOp Code. This code is for Comp and all proggramers should review over this
  *code and understand this code for the possibility that a question may be asked related to TeleOp and
@@ -26,7 +27,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * List of issues at Comp(1)-> https://docs.google.com/a/stjoebears.com/spreadsheets/d/1r_liipKBU7GHfONdxq9E6d4f7zikcCuXwDL2bsQfwm0/edit?usp=sharing
  *G-Sheet of time VS Heading for autonomous -> https://docs.google.com/a/stjoebears.com/spreadsheets/d/1pqv0iN94fFd5KvX1YIWP7z39HgpURXsscn0zPujs1q4/edit?usp=sharing
 */
-@TeleOp(name="Simple Mecanum Drive", group="TeleOp")
+@TeleOp(name="Pihu3 Simple Mecanum Drive", group="TeleOp")
 
 public class teleOpSimpleMecanum extends LinearOpMode {
 
@@ -41,24 +42,24 @@ public class teleOpSimpleMecanum extends LinearOpMode {
     double liftpower;
     double max;
 
+    Servo servo;
+
+
+
+
+
+
     HardwareJoeBot2018 robot = new HardwareJoeBot2018();
 
     @Override
     public void runOpMode() throws InterruptedException {
-
-
-
-
+        servo = hardwareMap.get(Servo.class, "left_hand");
         robot.init(hardwareMap, this);
-
 
         waitForStart();
 
-
-
         //start of loop
         while (opModeIsActive()) {
-
 
             //Drive Via "Analog Sticks" (Not Toggle)
             //Set initial motion parameters to Gamepad1 Inputs
@@ -71,7 +72,6 @@ public class teleOpSimpleMecanum extends LinearOpMode {
             k = .6;
             clockwise = clockwise * k; //Make sure the "= Clockwise" is "= -clockwise"
 
-
             // Calculate motor power
             power0 = forward + clockwise + right;
             power1 = forward - clockwise - right;
@@ -80,6 +80,7 @@ public class teleOpSimpleMecanum extends LinearOpMode {
 
             // Normalize Wheel speeds so that no speed exceeds 1.0
             max = Math.abs(power0);
+
             if (Math.abs(power1) > max) {
                 max = Math.abs(power1);
             }
@@ -102,34 +103,42 @@ public class teleOpSimpleMecanum extends LinearOpMode {
             robot.motor2.setPower(power2);
             robot.motor3.setPower(power3);
 
-
-
-
-
             //------------------------------------------
             //-------------------------------------------
-
-
 
             // Update Telemetry
             telemetry.addData(">", "Press Stop to end test.");
 
             if (gamepad1.a) {
                 telemetry.addLine("Button A is pressed");
+                servo.setPosition(0);
             } else if (gamepad1.b) {
                 telemetry.addLine("Button B is pressed");
+                servo.setPosition(0.25);
+            } else if (gamepad1.x) {
+                telemetry.addLine("Button X is pressed");
+                servo.setPosition(0.5);
+            } else if (gamepad1.y) {
+                telemetry.addLine("Button Y is pressed");
+                servo.setPosition(0.75);
             } else {
-                telemetry.addLine("Neither button is pressed");
+                telemetry.addLine("Neither Button is pressed");
             }
+            if (gamepad1.left_stick_x > 0){
+                telemetry.addLine("LeftStick is greater than 0.1!");
+                servo.setPosition(1);
+            }else{
+                telemetry.addLine("LeftStick is not greater than 0.1!");
+            }
+
+            double joystick_position = gamepad1.right_trigger;
+           // servo.setPosition(joystick_position);
+
+
+
+            telemetry.addData("id", gamepad1.id);}
 
             telemetry.update();
             idle();
-
-
-
-
-
-
         }//end while
     }
-}

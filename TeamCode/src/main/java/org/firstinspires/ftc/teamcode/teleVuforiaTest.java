@@ -82,7 +82,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
  */
 
 
-@TeleOp(name="SKYSTONE Vuforia Test", group ="Concept")
+@TeleOp(name="Pihu SKYSTONE Vuforia Test", group ="Concept")
 //@Disabled
 public class teleVuforiaTest extends LinearOpMode {
 
