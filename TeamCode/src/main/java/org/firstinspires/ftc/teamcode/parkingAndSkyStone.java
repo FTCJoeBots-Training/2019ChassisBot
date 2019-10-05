@@ -60,34 +60,18 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="MariahAutoTurningTest", group="JoeBot")
+@Autonomous(name="MariahAutoTest", group="JoeBot")
 //@Disabled
-public class mariahAutoTurningTest extends LinearOpMode {
+public class parkingAndSkyStone extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareJoeBot2019 robot = new HardwareJoeBot2019();
     private ElapsedTime runtime = new ElapsedTime();
 
 
-
-
     @Override
     public void runOpMode() {
 
-        robot.init(hardwareMap,this);
-
-       // int newDistance = robot.motor0.getCurrentPosition();
-       // robot.motor0.setTargetPosition(newDistance + 5);
-
-       // robot.motor0.getCurrentPosition();
-
-        waitForStart();
-
-
-
-        robot.rotateDegrees(90,.5);
-        robot.moveInches(25,1,9);
-        robot.rotateDegrees(180,.5);
 
 
 

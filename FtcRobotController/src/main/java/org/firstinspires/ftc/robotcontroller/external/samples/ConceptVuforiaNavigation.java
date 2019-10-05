@@ -161,62 +161,7 @@ public class ConceptVuforiaNavigation extends LinearOpMode {
         float mmBotWidth       = 18 * mmPerInch;            // ... or whatever is right for your robot
         float mmFTCFieldWidth  = (12*12 - 2) * mmPerInch;   // the FTC field is ~11'10" center-to-center of the glass panels
 
-        /**
-         * In order for localization to work, we need to tell the system where each target we
-         * wish to use for navigation resides on the field, and we need to specify where on the robot
-         * the phone resides. These specifications are in the form of <em>transformation matrices.</em>
-         * Transformation matrices are a central, important concept in the math here involved in localization.
-         * See <a href="https://en.wikipedia.org/wiki/Transformation_matrix">Transformation Matrix</a>
-         * for detailed information. Commonly, you'll encounter transformation matrices as instances
-         * of the {@link OpenGLMatrix} class.
-         *
-         * For the most part, you don't need to understand the details of the math of how transformation
-         * matrices work inside (as fascinating as that is, truly). Just remember these key points:
-         * <ol>
-         *
-         *     <li>You can put two transformations together to produce a third that combines the effect of
-         *     both of them. If, for example, you have a rotation transform R and a translation transform T,
-         *     then the combined transformation matrix RT which does the rotation first and then the translation
-         *     is given by {@code RT = T.multiplied(R)}. That is, the transforms are multiplied in the
-         *     <em>reverse</em> of the chronological order in which they applied.</li>
-         *
-         *     <li>A common way to create useful transforms is to use methods in the {@link OpenGLMatrix}
-         *     class and the Orientation class. See, for example, {@link OpenGLMatrix#translation(float,
-         *     float, float)}, {@link OpenGLMatrix#rotation(AngleUnit, float, float, float, float)}, and
-         *     {@link Orientation#getRotationMatrix(AxesReference, AxesOrder, AngleUnit, float, float, float)}.
-         *     Related methods in {@link OpenGLMatrix}, such as {@link OpenGLMatrix#rotated(AngleUnit,
-         *     float, float, float, float)}, are syntactic shorthands for creating a new transform and
-         *     then immediately multiplying the receiver by it, which can be convenient at times.</li>
-         *
-         *     <li>If you want to break open the black box of a transformation matrix to understand
-         *     what it's doing inside, use {@link MatrixF#getTranslation()} to fetch how much the
-         *     transform will move you in x, y, and z, and use {@link Orientation#getOrientation(MatrixF,
-         *     AxesReference, AxesOrder, AngleUnit)} to determine the rotational motion that the transform
-         *     will impart. See {@link #format(OpenGLMatrix)} below for an example.</li>
-         *
-         * </ol>
-         *
-         * This example places the "stones" image on the perimeter wall to the Left
-         *  of the Red Driver station wall.  Similar to the Red Beacon Location on the Res-Q
-         *
-         * This example places the "chips" image on the perimeter wall to the Right
-         *  of the Blue Driver station.  Similar to the Blue Beacon Location on the Res-Q
-         *
-         * See the doc folder of this project for a description of the field Axis conventions.
-         *
-         * Initially the target is conceptually lying at the origin of the field's coordinate system
-         * (the center of the field), facing up.
-         *
-         * In this configuration, the target's coordinate system aligns with that of the field.
-         *
-         * In a real situation we'd also account for the vertical (Z) offset of the target,
-         * but for simplicity, we ignore that here; for a real robot, you'll want to fix that.
-         *
-         * To place the Stones Target on the Red Audience wall:
-         * - First we rotate it 90 around the field's X axis to flip it upright
-         * - Then we rotate it  90 around the field's Z access to face it away from the audience.
-         * - Finally, we translate it back along the X axis towards the red audience wall.
-         */
+
         OpenGLMatrix redTargetLocationOnField = OpenGLMatrix
                 /* Then we translate the target off to the RED WALL. Our translation here
                 is a negative translation in X.*/
@@ -334,3 +279,51 @@ public class ConceptVuforiaNavigation extends LinearOpMode {
         return transformationMatrix.formatAsTransform();
     }
 }
+/* Copyright (c) 2017 FIRST. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted (subject to the limitations in the disclaimer below) provided that
+ * the following conditions are met:
+ *
+ * Redistributions of source code must retain the above copyright notice, this list
+ * of conditions and the following disclaimer.
+ *
+ * Redistributions in binary form must reproduce the above copyright notice, this
+ * list of conditions and the following disclaimer in the documentation and/or
+ * other materials provided with the distribution.
+ *
+ * Neither the name of FIRST nor the names of its contributors may be used to endorse or
+ * promote products derived from this software without specific prior written permission.
+ *
+ * NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
+ * LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+
+/**
+ * This is sample code used to explain how to write an autonomous code
+ *
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
