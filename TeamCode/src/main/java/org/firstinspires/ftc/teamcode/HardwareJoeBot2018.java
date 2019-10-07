@@ -50,8 +50,6 @@ public class HardwareJoeBot2018
     public DcMotor  motor2 = null; // Left Rear
     public DcMotor  motor3 = null; // Right Rear
 
-
-
     // Declare Sensors
     public BNO055IMU imu;                  // The IMU sensor object
 
@@ -84,15 +82,12 @@ public class HardwareJoeBot2018
     private static final String LABEL_SILVER_MINERAL = "Silver Mineral";
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
     // Declare Static members for calculations
-    static final double COUNTS_PER_MOTOR_REV    = 1120;
+    static final double COUNTS_PER_MOTOR_REV    = 780;
     static final double DRIVE_GEAR_REDUCTION    = 1;
     static final double WHEEL_DIAMETER_INCHES   = 4.0;
     static final double COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.14159);
-
 
     /* Constructor */
     public HardwareJoeBot2018(){
@@ -122,7 +117,6 @@ public class HardwareJoeBot2018
         motor2.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         motor3.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
 
-
         // Set all motors to zero power
         motor0.setPower(0);
         motor1.setPower(0);
@@ -134,17 +128,12 @@ public class HardwareJoeBot2018
         myOpMode.telemetry.addLine("initialized other motor power to zero");
         myOpMode.telemetry.update();
 
-
-
-
         // Set all drive motors to run without encoders.
         // May want to switch to  RUN_USING_ENCODERS during autonomous
         motor0.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motor3.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-
 
         // IMU Initializaiton
         // Set up the parameters with which we will use our IMU. Note that integration
@@ -174,8 +163,6 @@ public class HardwareJoeBot2018
         }
         ////////////////////////////////////////////////////////////////////////////////////////
 
-
-
     }
 
     /***
@@ -198,8 +185,6 @@ public class HardwareJoeBot2018
         // Reset the cycle clock for the next pass.
         period.reset();
     }
-
-
     /***
      * void setMode(DcMotor.RunMode mode ) Set all drive motors to same mode.
      * @param mode    Desired Motor mode.
@@ -239,11 +224,6 @@ public class HardwareJoeBot2018
         power2 = forward + clockwise - right;
         power3 = forward - clockwise + right;
 
-
-
-
-
-
         // Normalize Wheel speeds so that no speed exceeds 1.0
         max = Math.abs(power0);
         if (Math.abs(power1) > max) {
@@ -269,8 +249,6 @@ public class HardwareJoeBot2018
         motor3.setPower(power3);
         myOpMode.telemetry.addLine("initialized motor power to its respective power");
         myOpMode.telemetry.update();
-
-
 
     }
 
@@ -347,7 +325,6 @@ public class HardwareJoeBot2018
             while (myOpMode.opModeIsActive() && (runtime.seconds() < timeoutSec) &&
                     (motor0.isBusy() && motor1.isBusy() && motor2.isBusy() && motor3.isBusy())) {
 
-
                 //Compose Telemetry message
                 myOpMode.telemetry.addLine("> Waiting for robot to reach target");
                 myOpMode.telemetry.addLine("Curr. Pos. |")
@@ -379,8 +356,6 @@ public class HardwareJoeBot2018
 
     }
 
-
-
     public void liftAndScore () {
         /*
         shoulder up
@@ -390,8 +365,6 @@ public class HardwareJoeBot2018
        // backwardToggle();
 
     }
-
-
 
     //methods a lpenty.
     //no longer intake
@@ -436,7 +409,6 @@ public class HardwareJoeBot2018
         // Since the Rev IMU measures in Euler angles (-180 <-> +180), we need to detect this
         if (deltaAngle < -180) deltaAngle += 360;
         else if (deltaAngle > 180) deltaAngle -= 360;
-
         globalAngle += deltaAngle;
 
         lastImuAngles = currAngles;
@@ -511,8 +483,6 @@ public class HardwareJoeBot2018
         // reset IMU tracking
         resetAngle();
 
-
-
     }
 
     /////////////////////////////////     Added this method:
@@ -526,6 +496,7 @@ public class HardwareJoeBot2018
     //                     will confuse left and center positions
 
     public int tflocate()
+
     {
 
 
@@ -552,9 +523,6 @@ public class HardwareJoeBot2018
                             silverMineral1X = (int) recognition.getTop();
                             myOpMode.telemetry.addData("Left Edge:",recognition.getTop());
                         }
-
-
-
 
                     }
 
@@ -625,11 +593,4 @@ public class HardwareJoeBot2018
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-
 }
-
-
-
-
-
-

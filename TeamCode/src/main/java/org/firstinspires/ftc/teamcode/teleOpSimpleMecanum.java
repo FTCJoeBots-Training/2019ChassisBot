@@ -42,24 +42,20 @@ public class teleOpSimpleMecanum extends LinearOpMode {
     double liftpower;
     double max;
 
-    Servo servo;
+    DcMotor motor;
 
-
-
-
-
-
-    HardwareJoeBot2018 robot = new HardwareJoeBot2018();
+    //HardwareJoeBot2018 robot = new HardwareJoeBot2018();
 
     @Override
     public void runOpMode() throws InterruptedException {
-        servo = hardwareMap.get(Servo.class, "left_hand");
-        robot.init(hardwareMap, this);
+        motor = hardwareMap.get(DcMotor.class, "motor0");
+        //robot.init(hardwareMap, this);
 
         waitForStart();
 
         //start of loop
         while (opModeIsActive()) {
+            /*
 
             //Drive Via "Analog Sticks" (Not Toggle)
             //Set initial motion parameters to Gamepad1 Inputs
@@ -102,39 +98,38 @@ public class teleOpSimpleMecanum extends LinearOpMode {
             robot.motor1.setPower(power1);
             robot.motor2.setPower(power2);
             robot.motor3.setPower(power3);
+            */
 
             //------------------------------------------
-            //-------------------------------------------
+            //------------------------------------------
 
             // Update Telemetry
             telemetry.addData(">", "Press Stop to end test.");
 
             if (gamepad1.a) {
                 telemetry.addLine("Button A is pressed");
-                servo.setPosition(0);
+                motor.setPower(0);
             } else if (gamepad1.b) {
                 telemetry.addLine("Button B is pressed");
-                servo.setPosition(0.25);
+                motor.setPower(0.25);
             } else if (gamepad1.x) {
                 telemetry.addLine("Button X is pressed");
-                servo.setPosition(0.5);
+                motor.setPower(0.5);
             } else if (gamepad1.y) {
                 telemetry.addLine("Button Y is pressed");
-                servo.setPosition(0.75);
+                motor.setPower(0.75);
             } else {
                 telemetry.addLine("Neither Button is pressed");
             }
             if (gamepad1.left_stick_x > 0){
                 telemetry.addLine("LeftStick is greater than 0.1!");
-                servo.setPosition(1);
-            }else{
+                motor.setPower(1);
+            }else  {
                 telemetry.addLine("LeftStick is not greater than 0.1!");
             }
 
             double joystick_position = gamepad1.right_trigger;
            // servo.setPosition(joystick_position);
-
-
 
             telemetry.addData("id", gamepad1.id);}
 
