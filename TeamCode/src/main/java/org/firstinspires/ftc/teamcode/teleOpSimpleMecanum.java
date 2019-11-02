@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 /**
  *import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -41,7 +40,7 @@ public class teleOpSimpleMecanum extends LinearOpMode {
     double liftpower;
     double max;
 
-    HardwareJoeBot2018 robot = new HardwareJoeBot2018();
+    HardwareJoeBot2019 robot = new HardwareJoeBot2019();
 
     @Override
     public void runOpMode() throws InterruptedException {

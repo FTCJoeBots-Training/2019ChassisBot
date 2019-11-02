@@ -40,7 +40,7 @@ import java.util.List;
  *
  */
 
-public class HardwareJoeBot2018
+public class HardwareJoeBot2019
 {
     /* Public OpMode members. */
 
@@ -95,7 +95,7 @@ public class HardwareJoeBot2018
 
 
     /* Constructor */
-    public HardwareJoeBot2018(){
+    public HardwareJoeBot2019(){
 
     }
 
@@ -622,6 +622,9 @@ public class HardwareJoeBot2018
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
 
         // Loading trackables is not necessary for the Tensor Flow Object Detection engine.
+    }
+
+    public void strafesec(double v, double v1, boolean b) {
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////
 

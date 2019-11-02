@@ -26,46 +26,36 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package org.firstinspires.ftc.teamcode;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
- * This is sample code used to explain how to write an autonomous code
  *
+ * Parks farthest from Blue Alliance wall
  */
 
-@Autonomous(name="Sample 2", group="Pushbot")
+@Autonomous(name="Park Away from Blue Wall", group="Pushbot")
 //@Disabled
-public class autoDriveSample extends LinearOpMode {
-
+public class autoParkAwayBlueWall extends LinearOpMode {
     /* Declare OpMode members. */
     HardwareJoeBot2019 robot   = new HardwareJoeBot2019();   // Use a Pushbot's hardware
     private ElapsedTime     runtime = new ElapsedTime();
 
-
     @Override
+
     public void runOpMode() {
 
         telemetry.addLine("Press > to Start");
         telemetry.update();
-
-        robot.init(hardwareMap,this);
-
+        robot.init(hardwareMap, this);
         waitForStart();
 
-        //Move forward 12 inches
-
-        robot.moveInches(12, 0.5, 5);
-
+        //just parks under bridge
+        robot.moveRobot(0, 0, .2);
+        robot.moveInches(27, 0.5, 5);
         telemetry.addLine("We're done. Press stop.");
-        telemetry.update();
-
-
 
     }
-
 }

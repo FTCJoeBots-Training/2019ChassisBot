@@ -34,13 +34,13 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
- * This is sample code used to explain how to write an autonomous code
+ * This code gets foundation to BLUE build site and parks under bridge near the wall
  *
  */
 
-@Autonomous(name="Sample 2", group="Pushbot")
+@Autonomous(name="Auto Move Foundation Blue", group="Pushbot")
 //@Disabled
-public class autoDriveSample extends LinearOpMode {
+public class autoBlueMoveFoundation_2 extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareJoeBot2019 robot   = new HardwareJoeBot2019();   // Use a Pushbot's hardware
@@ -57,13 +57,59 @@ public class autoDriveSample extends LinearOpMode {
 
         waitForStart();
 
-        //Move forward 12 inches
 
-        robot.moveInches(12, 0.5, 5);
+
+
+
+        // Strafe forward to blue foundation
+
+         robot.strafeSec(2.5, -0.5);
+
+
+
+        // grab foundation goes down
+        foundationServo.setPosition(FOUNDATION_DOWN);
+
+
+        // Strafe back to building site
+
+        robot.strafeseconds(2.3, 0.5)
+
+
+        // Grab foundation goes up
+
+        foundationServo.setPosition(FOUNDATION_UP);
+
+
+
+
+
+        /*rotate foundation to blue site
+        telemetry.addLine("Starts rotating");
+        robot.rotate(-80,.5);
+        telemetry.update();throbot .move inches
+
+        sleep(1000);
+        telemetry.addLine("Ends rotating");
+        telemetry.update();
+
+        //strafe to right and park under bridge
+        telemetry.addLine("Starts strafing");
+        robot.moveRobot(0,13,0);
+        telemetry.update();
+
+
+        sleep(1000);
+        telemetry.addLine("Ends strafing");
+        telemetry.update();
+
 
         telemetry.addLine("We're done. Press stop.");
         telemetry.update();
 
+
+
+         */
 
 
     }

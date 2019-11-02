@@ -38,9 +38,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  *
  */
 
-@Autonomous(name="Sample 2", group="Pushbot")
+@Autonomous(name="Move First Skystone", group="Pushbot")
 //@Disabled
-public class autoDriveSample extends LinearOpMode {
+public class moveFirstSkystone extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareJoeBot2019 robot   = new HardwareJoeBot2019();   // Use a Pushbot's hardware
@@ -59,8 +59,17 @@ public class autoDriveSample extends LinearOpMode {
 
         //Move forward 12 inches
 
-        robot.moveInches(12, 0.5, 5);
+        //This code shows how we get to to the build site
 
+        //blue build site
+        //35 in
+        //red depot side
+
+        robot.moveInches(30, 0.5, 0);
+        robot.moveRobot(0,-9, 0);
+        robot.moveRobot(0,24, 0);
+        // This is where the clamp code goes
+        robot.moveInches(-35, 0.5, 0);
         telemetry.addLine("We're done. Press stop.");
         telemetry.update();
 
