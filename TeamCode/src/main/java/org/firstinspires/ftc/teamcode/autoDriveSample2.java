@@ -38,12 +38,12 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  *
  */
 
-@Autonomous(name="Sample 1", group="Pushbot")
+@Autonomous(name="Griffin move inches", group="Pushbot")
 //@Disabled
 public class autoDriveSample2 extends LinearOpMode {
 
     /* Declare OpMode members. */
-    HardwareJoeBot2018      robot   = new HardwareJoeBot2018();   // Use a Pushbot's hardware
+    HardwareJoeBot2019      robot   = new HardwareJoeBot2019();   // Use a Pushbot's hardware
     private ElapsedTime     runtime = new ElapsedTime();
 
 
@@ -59,11 +59,11 @@ public class autoDriveSample2 extends LinearOpMode {
 
         //Move forward 12 inches
 
-        robot.moveInches(12, 0.5, 5);
-        robot.rotate(90,.25);
+        robot.moveInches(30, 1, 5);
+        robot.rotate(90,.5);
 
 
-        telemetry.addLine("We're done. Press stop.");
+        telemetry.addLine("We're done.press stop .");
         telemetry.update();
 
 

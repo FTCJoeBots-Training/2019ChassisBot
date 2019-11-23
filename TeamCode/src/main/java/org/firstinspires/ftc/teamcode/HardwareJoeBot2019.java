@@ -40,7 +40,7 @@ import java.util.List;
  *
  */
 
-public class HardwareJoeBot2018
+public class HardwareJoeBot2019
 {
     /* Public OpMode members. */
 
@@ -95,7 +95,7 @@ public class HardwareJoeBot2018
 
 
     /* Constructor */
-    public HardwareJoeBot2018(){
+    public HardwareJoeBot2019(){
 
     }
 
@@ -117,10 +117,11 @@ public class HardwareJoeBot2018
         //intakeMotor = hwMap.dcMotor.get("intakeMotor");
 
         // Set Default Motor Directions
-        motor0.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
-        motor1.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
-        motor2.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
-        motor3.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
+        motor0.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
+        motor1.setDirection(DcMotor.Direction.REVERSE); // Set to FORWARD if using AndyMark motors
+        motor2.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
+        motor3.setDirection(DcMotor.Direction.REVERSE); // Set to FORWARD if using AndyMark motors
+
 
 
         // Set all motors to zero power
@@ -229,7 +230,6 @@ public class HardwareJoeBot2018
         double power1;
         double power2;
         double power3;
-        double liftPower;
         double mainPower;
 
         double max;

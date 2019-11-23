@@ -30,7 +30,7 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
 TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-package org.firstinspires.ftc.robotcontroller.external.samples;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -41,7 +41,7 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 /**
- * {@link SensorREV2mDistance} illustrates how to use the REV Robotics
+ * {@link Griffindisticesensor} illustrates how to use the REV Robotics
  * Time-of-Flight Range Sensor.
  *
  * The op mode assumes that the range sensor is configured with a name of "sensor_range".
@@ -52,11 +52,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  * @see <a href="http://revrobotics.com">REV Robotics Web Page</a>
  */
 @TeleOp(name = "Sensor: REV2mDistance", group = "Sensor")
-@Disabled
-public class SensorREV2mDistance extends LinearOpMode {
+//1@Disabled
+public class Griffindisticesensor extends LinearOpMode {
 
     private DistanceSensor sensorRange;
-
     @Override
     public void runOpMode() {
         // you can use this as a regular DistanceSensor.
@@ -64,15 +63,15 @@ public class SensorREV2mDistance extends LinearOpMode {
 
         // you can also cast this to a Rev2mDistanceSensor if you want to use added
         // methods associated with the Rev2mDistanceSensor class.
-        Rev2mDistanceSensor sensorTimeOfFlight = (Rev2mDistanceSensor)sensorRange;
+        Rev2mDistanceSensor sensorTimeOfFlight = (Rev2mDistanceSensor) sensorRange;
 
         telemetry.addData(">>", "Press start to continue");
         telemetry.update();
 
         waitForStart();
-        while(opModeIsActive()) {
+        while (opModeIsActive()) {
             // generic DistanceSensor methods.
-            telemetry.addData("deviceName",sensorRange.getDeviceName() );
+            telemetry.addData("deviceName", sensorRange.getDeviceName());
             telemetry.addData("range", String.format("%.01f mm", sensorRange.getDistance(DistanceUnit.MM)));
             telemetry.addData("range", String.format("%.01f cm", sensorRange.getDistance(DistanceUnit.CM)));
             telemetry.addData("range", String.format("%.01f m", sensorRange.getDistance(DistanceUnit.METER)));
@@ -82,8 +81,18 @@ public class SensorREV2mDistance extends LinearOpMode {
             telemetry.addData("ID", String.format("%x", sensorTimeOfFlight.getModelID()));
             telemetry.addData("did time out", Boolean.toString(sensorTimeOfFlight.didTimeoutOccur()));
 
+            if (sensorRange.getDistance(DistanceUnit.INCH)>10) {
+                 telemetry.addLine ("object is to far a way");
+
+            }else if (sensorRange.getDistance(DistanceUnit.INCH)>5){
+                telemetry.addLine("it is in the middle");
+            }
+            else{
+                telemetry.addLine("it is close enough");
+            }
+
             telemetry.update();
         }
-    }
 
+    }
 }
