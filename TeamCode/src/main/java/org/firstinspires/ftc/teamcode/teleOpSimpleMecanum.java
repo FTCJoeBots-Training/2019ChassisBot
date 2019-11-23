@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  *import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -27,11 +26,10 @@ import com.qualcomm.robotcore.hardware.Servo;
  * List of issues at Comp(1)-> https://docs.google.com/a/stjoebears.com/spreadsheets/d/1r_liipKBU7GHfONdxq9E6d4f7zikcCuXwDL2bsQfwm0/edit?usp=sharing
  *G-Sheet of time VS Heading for autonomous -> https://docs.google.com/a/stjoebears.com/spreadsheets/d/1pqv0iN94fFd5KvX1YIWP7z39HgpURXsscn0zPujs1q4/edit?usp=sharing
 */
-@TeleOp(name="Griffin's Simple Mecanum Drive", group="TeleOp")
+@TeleOp(name="Simple Mecanum Drive", group="TeleOp")
 
+public class teleOpSimpleMecanum extends LinearOpMode {
 
-public class  teleOpSimpleMecanum extends LinearOpMode {
-    HardwareJoeBot2019 robot = new HardwareJoeBot2019();
     double forward;
     double clockwise;
     double right;
@@ -40,20 +38,22 @@ public class  teleOpSimpleMecanum extends LinearOpMode {
     double power1;
     double power2;
     double power3;
+    double liftpower;
     double max;
 
-    //HardwareJoeBot2019 robot = new HardwareJoeBot2019();
-   DcMotor  motor;
+    HardwareJoeBot2018 robot = new HardwareJoeBot2018();
 
-    //@Override
-    public void runOpMode() throws  InterruptedException {
-        motor = hardwareMap.get(DcMotor.class, "motor0");
+    @Override
+    public void runOpMode() throws InterruptedException {
 
 
-        //robot.init(hardwareMap, this);
+
+
+        robot.init(hardwareMap, this);
 
 
         waitForStart();
+
 
 
         //start of loop
@@ -73,10 +73,10 @@ public class  teleOpSimpleMecanum extends LinearOpMode {
 
 
             // Calculate motor power
-            power0 = forward + clockwise + right;
-            power1 = forward - clockwise - right;
-            power2 = forward + clockwise - right;
-            power3 = forward - clockwise + right;
+            power0 = forward + clockwise - right;
+            power1 = forward - clockwise + right;
+            power2 = forward + clockwise + right;
+            power3 = forward - clockwise - right;
 
             // Normalize Wheel speeds so that no speed exceeds 1.0
             max = Math.abs(power0);
@@ -103,40 +103,33 @@ public class  teleOpSimpleMecanum extends LinearOpMode {
             robot.motor3.setPower(power3);
 
 
+
+
+
             //------------------------------------------
             //-------------------------------------------
+
 
 
             // Update Telemetry
             telemetry.addData(">", "Press Stop to end test.");
 
             if (gamepad1.a) {
-                //servo.setPosition(0.2);
-                telemetry.addLine("Button A is pressed ");
+                telemetry.addLine("Button A is pressed");
             } else if (gamepad1.b) {
-                telemetry.addLine("Button B is pressed ");
-            } else if (gamepad1.x) {
-                telemetry.addLine("button x is pressed ");
-            } else if (gamepad1.y)
-                telemetry.addLine("Button y is pressed");
-
-                //servo.setPosition(1);
+                telemetry.addLine("Button B is pressed");
+            } else {
                 telemetry.addLine("Neither button is pressed");
             }
 
-            double position = gamepad1.right_trigger;
-            motor.setPower(position) ;
-
-
-
-            if (gamepad1.left_stick_x > 0) {
-                telemetry.addLine("left_stick x has been moved ");
-
-                if (gamepad1.right_stick_y > -0) {
-                    telemetry.addLine("right_stick_ y has been moved");
-
-                }
-            }
             telemetry.update();
-            idle(); }
+            idle();
+
+            telemetry.addLine();
+
+
+
+
+        }//end while
     }
+}
