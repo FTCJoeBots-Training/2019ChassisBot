@@ -73,10 +73,10 @@ public class teleOpSimpleMecanum extends LinearOpMode {
 
 
             // Calculate motor power
-            power0 = forward + clockwise + right;
-            power1 = forward - clockwise - right;
-            power2 = forward + clockwise - right;
-            power3 = forward - clockwise + right;
+            power0 = forward + clockwise - right;
+            power1 = forward - clockwise + right;
+            power2 = forward + clockwise + right;
+            power3 = forward - clockwise - right;
 
             // Normalize Wheel speeds so that no speed exceeds 1.0
             max = Math.abs(power0);
