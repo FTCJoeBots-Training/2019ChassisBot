@@ -74,14 +74,14 @@ public class HardwareJoeBot2018
     private static final String VUFORIA_KEY = "AWlN79T/////AAABmWr9OM0/rkyCv9xvArgzsFQAk+1QECSzNLLooRyXl4SJEguYmtuWqkOyEfk1XbyxiVq95BuSeuD5kgCMFUxvoDZBSrGA05GCbpvavBkmw8wpZDi5ffhERuoFtbbdJR8N6n3ddLfL19Ei+xljlb0it+9ukBP+Q4qCaZwpbTqupaZJGzlCsLPBIjKVUhTa8vEmbs1X8dEzHcIRZ9DIcBEkybCybflhpztnmCnaJ8s5qUd6qJxmgFv7Ei/zCchZm2eLZtjJ7OaQykPBOjb54DLgA34s/Lybr0JrKXL/vPrh0pTIDXd3v1aERMydeZpKNz1oGBBJaVZgU9yID7yRnaO+VHsGNOMgjMHjCbYLMpQKrdGx";
 
     //vufoia locolizer
-    public VuforiaLocalizer vuforia;
+    //public VuforiaLocalizer vuforia;
 
     //tenser flow detector
-    public TFObjectDetector tfod;
+    //public TFObjectDetector tfod;
 
-    private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
-    private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
-    private static final String LABEL_SILVER_MINERAL = "Silver Mineral";
+    //private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
+    //private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
+    //private static final String LABEL_SILVER_MINERAL = "Silver Mineral";
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -166,12 +166,12 @@ public class HardwareJoeBot2018
 
         //////////////////////////////////  INITIALIZE VUFORIA AND TENSOR FLOW OBJECT DETECTOR
         //initialize vuforia here because vuforia takes a while to init
-        initVuforia();
-        if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
-            initTfod();
-        } else {
-            myOpMode.telemetry.addData("Sorry!", "This device is not compatible with TFOD");
-        }
+        //initVuforia();
+        //if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
+        //    initTfod();
+        //} else {
+        //    myOpMode.telemetry.addData("Sorry!", "This device is not compatible with TFOD");
+        // }
         ////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -524,12 +524,12 @@ public class HardwareJoeBot2018
     ///
     ///    CAUTION!!!! -   Make sure the phone is oriented properly (camera toward middle) or this
     //                     will confuse left and center positions
-
+/*
     public int tflocate()
     {
 
 
-        /** Activate Tensor Flow Object Detection. */
+        // Activate Tensor Flow Object Detection.
         if (tfod != null) {
             tfod.activate();
         }
@@ -610,9 +610,7 @@ public class HardwareJoeBot2018
 
     ///////////////////////////////////Initialize Vuforia//////////////////////////////////////////////
     public void initVuforia() {
-        /*
-         * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
-         */
+
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
@@ -625,7 +623,7 @@ public class HardwareJoeBot2018
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+*/
 }
 
 
