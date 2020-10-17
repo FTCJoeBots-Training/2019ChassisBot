@@ -38,7 +38,6 @@ public class teleOpSimpleMecanum extends LinearOpMode {
     double power1;
     double power2;
     double power3;
-    double liftpower;
     double max;
 
     HardwareJoeBot2018 robot = new HardwareJoeBot2018();
@@ -74,7 +73,7 @@ public class teleOpSimpleMecanum extends LinearOpMode {
 
             // Calculate motor power
             power0 = forward + clockwise - right;
-            power1 = forward - clockwise + right; 
+            power1 = forward - clockwise + right;
             power2 = forward + clockwise + right;
             power3 = forward - clockwise - right;
 

@@ -42,7 +42,7 @@ import static java.lang.StrictMath.abs;
  *
  */
 
-public class HardwareJoeBot2019 {
+public class Drive2020 {
     /* Public OpMode members. */
 
     // Declare Motors
@@ -66,21 +66,7 @@ public class HardwareJoeBot2019 {
     private ElapsedTime runtime = new ElapsedTime();
     private Orientation lastImuAngles = new Orientation();
     private double globalAngle;
-
-    ////////////////////////////////////////////////// ADDED THIS FOR TENSOR FLOW  ////////////////////////////////
-    //vuforia key
-    private static final String VUFORIA_KEY = "AWlN79T/////AAABmWr9OM0/1rkyCv9xvArgzsFQAk+1QECSzNLLooRyXl4SJEguYmtuWqkOyEfk1XbyxiVq95BuSeuD5kgCMFUxvoDZBSrGA05GCbpvavBkmw8wpZDi5ffhERuoFtbbdJR8N6n3ddLfL19Ei+xljlb0it+9ukBP+Q4qCaZwpbTqupaZJGzlCsLPBIjKVUhTa8vEmbs1X8dEzHcIRZ9DIcBEkybCybflhpztnmCnaJ8s5qUd6qJxmgFv7Ei/zCchZm2eLZtjJ7OaQykPBOjb54DLgA34s/Lybr0JrKXL/vPrh0pTIDXd3v1aERMydeZpKNz1oGBBJaVZgU9yID7yRnaO+VHsGNOMgjMHjCbYLMpQKrdGx";
-
-    //vufoia locolizer
-    public VuforiaLocalizer vuforia;
-
-    //tenser flow detector
-    public TFObjectDetector tfod;
-
-    private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
-    private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
-    private static final String LABEL_SILVER_MINERAL = "Silver Mineral";
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private ElapsedTime myTime = new ElapsedTime();
 
 
     static final double COUNTS_PER_MOTOR_REV = 383.6;
@@ -90,7 +76,7 @@ public class HardwareJoeBot2019 {
 
 
     /* Constructor */
-    public HardwareJoeBot2019() {
+    public Drive2020() {
 
     }
 
@@ -142,22 +128,6 @@ public class HardwareJoeBot2019 {
         parameters.loggingEnabled = true;
         parameters.loggingTag = "IMU";
         parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
-
-        // Retrieve and initialize the IMU. We expect the IMU to be attached to an I2C port
-        // on a Core Device Interface Module, configured to be a sensor of type "AdaFruit IMU",
-        // and named "imu".
-        imu = hwMap.get(BNO055IMU.class, "imu");
-        imu.initialize(parameters);
-
-        //////////////////////////////////  INITIALIZE VUFORIA AND TENSOR FLOW OBJECT DETECTOR
-        //initialize vuforia here because vuforia takes a while to init
-        //initVuforia();
-        //if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
-        //    initTfod();
-        //} else {
-        //    myOpMode.telemetry.addData("Sorry!", "This device is not compatible with TFOD");
-        //}
-        ////////////////////////////////////////////////////////////////////////////////////////
 
 
     }
@@ -251,11 +221,6 @@ public class HardwareJoeBot2019 {
 
     }
 
-    /**
-     * stop()
-     * <p>
-     * method to set all motor powers to zero
-     */
 
     public void stop() {
 
@@ -331,27 +296,6 @@ public class HardwareJoeBot2019 {
     }
 
 
-    public void liftAndScore() {
-        /*
-        shoulder up
-        elbow up
-        intake mostly up
-        */
-        // backwardToggle();
-
-    }
-
-
-    //methods a lpenty.
-    //no longer intake
-
-    /**
-     * resetImuAngle()
-     * <p>
-     * Method to grab the current reading from the IMU and set the cumulative angle tracking
-     * to 0
-     */
-
     private void resetAngle() {
 
         // Grab reading from IMU and store it in lastImuAngles
@@ -390,14 +334,7 @@ public class HardwareJoeBot2019 {
 
     }
 
-    /**
-     * rotate(int degrees, double power)
-     * <p>
-     * Does not support turning more than 180 degrees.
-     *
-     * @param degrees
-     * @param power
-     */
+    /*
 
     public void rotate(int degrees, double power) {
 
@@ -454,9 +391,10 @@ public class HardwareJoeBot2019 {
         resetAngle();
 
 
-    }
+    }*/
 
-    public void rotateDegrees(double degreesToTurn, double power) {
+
+    public void rotate(double degreesToTurn, double power) {
 
         double currentHeading = getAngle();
 
@@ -554,121 +492,56 @@ public class HardwareJoeBot2019 {
 
 
 
-    /////////////////////////////////     Added this method:
-    ///    tflocate  -  look at the leftmost two minerals because we can't see all three
-    ///              -   if this sees, two silver minerals, gold is on the right, return 2 (right)
-    ///              -   if this sees a gold on the right, return 1 (center)
-    ///              -   if this sees a gold on the left, return 0 (left)
-    ////             -   If this is in an undetermined state, it function returns -1
-    ///
-    ///    CAUTION!!!! -   Make sure the phone is oriented properly (camera toward middle) or this
-    //                     will confuse left and center positions
 
-    public int tflocate()
-    {
+    public void strafeSeconds(double seconds, double power){
 
+      //reset method timer everytime it is used
+      myTime.reset();
+      myTime.startTime();
 
-        /** Activate Tensor Flow Object Detection. */
-        if (tfod != null) {
-            tfod.activate();
-        }
-        if (tfod != null) {
-            // getUpdatedRecognitions() will return null if no new information is available since
-            // the last time that call was made.
-            List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
-            if (updatedRecognitions != null) {
-                myOpMode.telemetry.addData("# Object Detected", updatedRecognitions.size());
-                if (updatedRecognitions.size() == 2) {
-                    int goldMineralX = -1;
-                    int silverMineral1X = -1;
-                    int silverMineral2X = -1;
-                    for (Recognition recognition : updatedRecognitions) {
-                        if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
-                            goldMineralX = (int) recognition.getTop();
-                            myOpMode.telemetry.addData("Left Edge:",recognition.getTop());
-                        }
-                        if (recognition.getLabel().equals(LABEL_SILVER_MINERAL)) {
-                            silverMineral1X = (int) recognition.getTop();
-                            myOpMode.telemetry.addData("Left Edge:",recognition.getTop());
-                        }
+      //variables for speed and time intervals
+      double power0 = power;
 
+      double power1 = power * 0.5;
 
+      double power2 = power * 0.2;
 
+      double seconds0 = seconds * 0.5;
 
-                    }
+      double seconds1 = seconds * 0.8;
 
-                    if (goldMineralX == -1 )
-                    {
-                        myOpMode.telemetry.addLine("Right");
-                        return 2;
-                    }
-                    else if (goldMineralX > silverMineral1X)
-                    {
-                        myOpMode.telemetry.addLine("Center");
-                        myOpMode.telemetry.addData("gold mineral X", goldMineralX);
-                        myOpMode.telemetry.addData("silver mineral x", silverMineral1X);
-                        return 1;
-                    }
+      double seconds2 = seconds;
 
-                    else if (goldMineralX < silverMineral1X)
-                    {
-                        myOpMode.telemetry.addLine("Left");
-                        myOpMode.telemetry.addData("gold mineral X", goldMineralX);
-                        myOpMode.telemetry.addData("silver mineral x", silverMineral1X);
-                        return 0;
-                    }
+      //move fast in the first half of the method
+      while(myTime.seconds() <= seconds0) {
 
-                    else
-                    {
-                        myOpMode.telemetry.addLine("Left");
-                        return 0;
-                    }
+          moveRobot(0, power0, 0);
 
-                } else {
-                    myOpMode.telemetry.addData("Objects detected:", updatedRecognitions.size());
+      }
 
-                }
-                myOpMode.telemetry.update();
-            }
-        }
+      //slow down a little in the second half
+      while(myTime.seconds() <= seconds1 && myTime.seconds() > seconds0) {
 
-        return -1;
-    }
-    /////////////////////////////////////////////////////////////////
+          moveRobot(0, power1, 0);
 
+      }
 
-    ///////////////////////////////////////////  Initialize tensor flow object detector/////////////////////
-    public void initTfod() {
-        int tfodMonitorViewId = hwMap.appContext.getResources().getIdentifier(
-                "tfodMonitorViewId", "id", hwMap.appContext.getPackageName());
-        TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
-        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
-        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
-    }
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+      //slow down a lot at the end
+      while(myTime.seconds() <=seconds2 && myTime.seconds() > seconds1) {
 
-    ///////////////////////////////////Initialize Vuforia//////////////////////////////////////////////
-    public void initVuforia() {
-        /*
-         * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
-         */
-        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+          moveRobot(0, power2, 0);
 
-        parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+      }
 
-        //  Instantiate the Vuforia engine
-        vuforia = ClassFactory.getInstance().createVuforia(parameters);
+      //stop when method is complete
+      if(myTime.seconds() > seconds2){
 
-        // Loading trackables is not necessary for the Tensor Flow Object Detection engine.
-    }
+          stop();
 
-    public void strafeSeconds(long milliSec, double power){
-        moveRobot(0,power,0);
-        myOpMode.sleep(milliSec);
-        stop();
-    }
+      }
+   }
 }
+
 
 
 
