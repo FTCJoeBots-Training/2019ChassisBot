@@ -44,10 +44,14 @@ public class Arm2020 {
     private ElapsedTime runtime = new ElapsedTime();
 
     //static final doubles
-    static final double ARM_OUT_POSITION = 0;
-    static final double ARM_IN_POSITION = 0;
+    static final int ARM_OUT_POSITION = 0;
+    static final int ARM_IN_POSITION = 0;
+
     static final double CLAMP_CLOSED_POSITION = 0;
     static final double CLAMP_OPEN_POSITION = 0;
+
+    static final int LIFT_BOTTOM_POSITION = 0;
+    static final int LIFT_TOP_POSITION = 0;
 
 
     /* Constructor */
@@ -62,22 +66,28 @@ public class Arm2020 {
 
         myOpMode = opMode;
 
-        // Define and Initialize Motors
+        // Define and Initialize Motors and Servos
         armMotor = hwMap.dcMotor.get("armMotor");
         liftMotor = hwMap.dcMotor.get("liftMotor");
+
+        clampServo = hwMap.servo.get("clampServo");
 
         // Set Default Motor Directions
         armMotor.setDirection(DcMotor.Direction.FORWARD);
         liftMotor.setDirection(DcMotor.Direction.FORWARD);
 
-        // Set all motors to zero power
+        // Set all motors to zero power and servos to default position
         armMotor.setPower(0);
         liftMotor.setPower(0);
 
-        // Set motor modes
-        setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        clampServo.setPosition(CLAMP_CLOSED_POSITION);
 
-        setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        // Set motor modes
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
         myOpMode.telemetry.addLine("initialized motor power to zero");
@@ -100,42 +110,43 @@ public class Arm2020 {
     }
 
     //extend arm to max length
-    public void extendArm(){
-
-    }
-
-    //extend arm based on encoder values, used for autonomous
-    public void encoderExtendArm(double encoderValue, double power){
-
-    }
-
-    //retract arm to default position
-    public void retractArm(){
+    public void moveArm(double power) {
+        armMotor.setPower(power);
 
     }
 
     //retract arm based on encoder values, used for autonomous
-    public void encoderRetractArm(double encoderValue, double power){
+    public void encoderMoveArm(int encoderValue, double power) {
+
+        armMotor.setPower(power);
+        armMotor.setTargetPosition(encoderValue);
+        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
 
     //close clamp to set encoder position to grab wobble goal
-    public void closeClamp(){
+    public void closeClamp() {
+        clampServo.setPosition(CLAMP_CLOSED_POSITION);
 
     }
 
     //open clamp to default position
-    public void openClamp(){
+    public void openClamp() {
+        clampServo.setPosition(CLAMP_OPEN_POSITION);
 
     }
 
     //if a button is held, the arm lifts
-    public void liftArm(){
+    public void moveLift(double power) {
+        liftMotor.setPower(power);
 
     }
 
-    //if a button is held, the arm lowers
-    public void lowerArm(){
+    public void encoderMoveLift(int encoderValue, double power){
+
+        liftMotor.setPower(power);
+        liftMotor.setTargetPosition(encoderValue);
+        liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
 }
